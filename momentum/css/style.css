@@ -96,7 +96,11 @@ body {
 .change-quote:active {
   border: 0;
   outline: 0;
-  transform: scale(1.1) rotate(180deg);
+  transform: scale(1.1);
+}
+
+.change-quote:active {
+  transform: rotate(180deg);
 }
 
 .play {
