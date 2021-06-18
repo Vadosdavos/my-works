@@ -57,8 +57,10 @@ function getRandomNum() {
 function setBg() {
     const timeOfDay = getTimeOfDay();
     const bgNum = String(randomNum).padStart(2, '0');
-    body.style.backgroundImage = `url('assets/img/${timeOfDay}/${bgNum}.jpg')`
-    console.log(randomNum);
+    const img = new Image();
+    img.src = `assets/img/${timeOfDay}/${bgNum}.jpg`;
+    img.addEventListener('load', () => body.style.backgroundImage = `url(${img.src})`);
+    console.log(img)
 }
 
 function getSlideNext() {
