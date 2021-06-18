@@ -5,6 +5,11 @@ const nameContainer = document.querySelector('.name');
 const body = document.querySelector('body');
 const slideNext = document.querySelector('.slide-next');
 const slidePrev = document.querySelector('.slide-prev');
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+
 let randomNum;
 
 nameContainer.placeholder = '[Enter name]';
@@ -60,7 +65,6 @@ function setBg() {
     const img = new Image();
     img.src = `assets/img/${timeOfDay}/${bgNum}.jpg`;
     img.addEventListener('load', () => body.style.backgroundImage = `url(${img.src})`);
-    console.log(img)
 }
 
 function getSlideNext() {
@@ -73,6 +77,19 @@ function getSlidePrev() {
     if (randomNum === 1) randomNum = 20;
     setBg();
 }
+
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+}
+
+city.addEventListener('change', getWeather);
 
 getRandomNum();
 showTime();
