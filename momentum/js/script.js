@@ -9,6 +9,9 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+const weatherError = document.querySelector('.weather-error');
 const changeQuoteButton = document.querySelector('.change-quote');
 
 changeQuoteButton.addEventListener('click', () => {
@@ -49,13 +52,20 @@ greetingContainer.textContent = `Good ${getTimeOfDay()}`;
 
 function setLocalStorage() {
     localStorage.setItem('userName', nameContainer.value);
+    localStorage.setItem('city', city.value);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
     if (localStorage.getItem('userName')) nameContainer.value = localStorage.getItem('userName');
+    if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
+    getWeather();
 }
-window.addEventListener('load', getLocalStorage);
+
+window.addEventListener('load', () => {
+    getLocalStorage();
+    if (city.value === '') city.value = 'Minsk'
+}); 
 
 function getRandomNum() {
     randomNum = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
@@ -80,19 +90,48 @@ function getSlidePrev() {
     setBg();
 }
 
+function weatherClearText() {
+    temperature.textContent = '';
+    weatherDescription.textContent = '';
+    wind.textContent = '';
+    humidity.textContent = '';
+}
+
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.weather[0].id, data.weather[0].description, data.main.temp);
-    weatherIcon.className = 'weather-icon owf';
-    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperature.textContent = `${data.main.temp}°C`;
-    weatherDescription.textContent = data.weather[0].description;
+    console.log(data);
+    if (data.cod === '404') {        
+        weatherClearText();
+        weatherError.textContent = `Error! City not found for ${city.value}!`;
+    }
+    else if (data.cod === '400') {
+        weatherClearText();
+        weatherError.textContent = `Error! Nothing to geocode for ${city.value}!`;
+     }
+    else {
+        weatherError.textContent = '';
+        weatherIcon.className = 'weather-icon owf';
+        weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+        temperature.textContent = `${Math.round(data.main.temp)}°C`;
+        weatherDescription.textContent = data.weather[0].description;
+        wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`
+        humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
+    }    
 }
 
+function setCity(event) {
+    if (event.code === 'Enter') {
+      getWeather();
+      city.blur();
+    }
+}
+  
+window.addEventListener('load', getWeather);
+city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
-
+  
 getRandomNum();
 showTime();
 setBg();
