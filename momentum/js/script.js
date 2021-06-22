@@ -9,11 +9,13 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
+const quote = document.querySelector('.change-quote');
+
+quote.addEventListener('click', () => {
+    quote.classList.toggle('rotate');
+});
 
 let randomNum;
-
-nameContainer.placeholder = '[Enter name]';
-
 
 function showDate () {
     const day = new Date();

@@ -100,8 +100,8 @@ body {
   transform: scale(1.1);
 }
 
-.change-quote:active {
-  transform: rotate(180deg);
+.change-quote.rotate {
+  transform: rotate(-180deg);
 }
 
 .play {
