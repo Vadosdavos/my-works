@@ -9,10 +9,10 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
-const quote = document.querySelector('.change-quote');
+const changeQuoteButton = document.querySelector('.change-quote');
 
-quote.addEventListener('click', () => {
-    quote.classList.toggle('rotate');
+changeQuoteButton.addEventListener('click', () => {
+    changeQuoteButton.classList.toggle('rotate');
 });
 
 let randomNum;
