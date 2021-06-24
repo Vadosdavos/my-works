@@ -1,3 +1,5 @@
+import playList from './playList.js';
+
 const timeContainer = document.querySelector('.time');
 const dateContainer = document.querySelector('.date');
 const greetingContainer = document.querySelector('.greeting');
@@ -13,6 +15,53 @@ const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
 const weatherError = document.querySelector('.weather-error');
 const changeQuoteButton = document.querySelector('.change-quote');
+const playButton = document.querySelector('.play');
+const playPrevButton = document.querySelector('.play-prev');
+const playNextButton = document.querySelector('.play-next');
+const playListField = document.querySelector('.play-list');
+const audio = new Audio();
+let isPlay = false;
+let playNum = 0;
+
+function playAudio() {
+    audio.src = playList[Math.abs(playNum % 4)].src;
+    audio.currentTime = 0;    
+    audio.play();
+    isPlay = true;
+}
+
+function playNext() {
+    playNum += 1;
+    playAudio();
+    playButton.classList.add('pause');
+}
+
+function playPrev() {
+    playNum -= 1;
+    playAudio();
+    playButton.classList.add('pause');
+}
+
+playButton.addEventListener('click', () => {
+    playButton.classList.toggle('pause');    
+    if (isPlay) {        
+        audio.pause()
+        isPlay = false;       
+    } else {
+        playAudio();
+    }    
+});
+playPrevButton.addEventListener('click', playPrev);
+playNextButton.addEventListener('click', playNext);
+
+function createSong() {
+    for (let i = 0; i < playList.length; i++) {
+        const song = document.createElement('li');
+        song.className = 'play-item';
+        song.textContent = playList[i].title;
+        playListField.appendChild(song);  
+    };
+}
 
 changeQuoteButton.addEventListener('click', () => {
     changeQuoteButton.classList.toggle('rotate');
@@ -101,7 +150,6 @@ async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
     if (data.cod === '404') {        
         weatherClearText();
         weatherError.textContent = `Error! City not found for ${city.value}!`;
@@ -131,7 +179,8 @@ function setCity(event) {
 window.addEventListener('load', getWeather);
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
-  
+
+createSong();
 getRandomNum();
 showTime();
 setBg();
