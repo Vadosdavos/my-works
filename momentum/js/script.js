@@ -22,45 +22,68 @@ const playListField = document.querySelector('.play-list');
 const audio = new Audio();
 let isPlay = false;
 let playNum = 0;
+createSong();
+const tracks = document.querySelectorAll('.play-item');
+
+playListField.addEventListener('click', (evt) => {
+    tracks[playNum].classList.remove('item-active');
+    playButton.classList.add('pause');
+    evt.target.classList.toggle('item-active')
+    playNum = +evt.target.id;
+    playAudio();
+});
 
 function playAudio() {
-    audio.src = playList[Math.abs(playNum % 4)].src;
-    audio.currentTime = 0;    
+    audio.src = playList[playNum].src;
+    tracks[playNum].classList.add('item-active');
+    audio.currentTime = 0;
     audio.play();
     isPlay = true;
 }
 
 function playNext() {
+    tracks[playNum].classList.remove('item-active');
     playNum += 1;
+    if (playNum === 4) playNum = 0;
     playAudio();
     playButton.classList.add('pause');
 }
 
 function playPrev() {
+    tracks[playNum].classList.remove('item-active');
     playNum -= 1;
+    if (playNum === -1) playNum = 3;
     playAudio();
     playButton.classList.add('pause');
 }
 
 playButton.addEventListener('click', () => {
-    playButton.classList.toggle('pause');    
-    if (isPlay) {        
+    playButton.classList.toggle('pause');
+    if (isPlay) {
         audio.pause()
-        isPlay = false;       
+        isPlay = false;
     } else {
         playAudio();
-    }    
+    }
 });
 playPrevButton.addEventListener('click', playPrev);
 playNextButton.addEventListener('click', playNext);
 
+audio.onended = () => {
+    tracks[playNum].classList.remove('item-active');
+    playNum += 1;
+    if (playNum === 4) playNum = 0;
+    playAudio();
+}
+
 function createSong() {
-    for (let i = 0; i < playList.length; i++) {
+    playList.forEach((el) => {
         const song = document.createElement('li');
         song.className = 'play-item';
-        song.textContent = playList[i].title;
-        playListField.appendChild(song);  
-    };
+        song.textContent = el.title;
+        song.id = el.id;
+        playListField.appendChild(song);
+    })
 }
 
 changeQuoteButton.addEventListener('click', () => {
@@ -69,13 +92,13 @@ changeQuoteButton.addEventListener('click', () => {
 
 let randomNum;
 
-function showDate () {
+function showDate() {
     const day = new Date();
-    const options = {weekday: 'long', month: 'long', day: 'numeric'};
+    const options = { weekday: 'long', month: 'long', day: 'numeric' };
     dateContainer.textContent = day.toLocaleDateString('en-US', options);
 }
 
-function showTime () {
+function showTime() {
     const date = new Date();
     timeContainer.textContent = date.toLocaleTimeString();
     showDate();
@@ -86,7 +109,7 @@ function showTime () {
 function getHours() {
     const date = new Date();
     const hours = date.getHours();
-    return hours;    
+    return hours;
 }
 
 function getTimeOfDay() {
@@ -95,8 +118,8 @@ function getTimeOfDay() {
     else if (getHours() >= 18 && getHours() < 24) return 'evening';
     else if (getHours() >= 0 && getHours() < 6) return 'night';
 }
-function showGreeting() {    
-greetingContainer.textContent = `Good ${getTimeOfDay()}`;
+function showGreeting() {
+    greetingContainer.textContent = `Good ${getTimeOfDay()}`;
 }
 
 function setLocalStorage() {
@@ -114,11 +137,11 @@ function getLocalStorage() {
 window.addEventListener('load', () => {
     getLocalStorage();
     if (city.value === '') city.value = 'Minsk'
-}); 
+});
 
 function getRandomNum() {
     randomNum = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
-    return randomNum; 
+    return randomNum;
 }
 function setBg() {
     const timeOfDay = getTimeOfDay();
@@ -150,14 +173,14 @@ async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
-    if (data.cod === '404') {        
+    if (data.cod === '404') {
         weatherClearText();
         weatherError.textContent = `Error! City not found for ${city.value}!`;
     }
     else if (data.cod === '400') {
         weatherClearText();
         weatherError.textContent = `Error! Nothing to geocode for ${city.value}!`;
-     }
+    }
     else {
         weatherError.textContent = '';
         weatherIcon.className = 'weather-icon owf';
@@ -166,21 +189,21 @@ async function getWeather() {
         weatherDescription.textContent = data.weather[0].description;
         wind.textContent = `Wind speed: ${Math.round(data.wind.speed)} m/s`
         humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
-    }    
+    }
 }
 
 function setCity(event) {
     if (event.code === 'Enter') {
-      getWeather();
-      city.blur();
+        getWeather();
+        city.blur();
     }
 }
-  
+
 window.addEventListener('load', getWeather);
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
 
-createSong();
+
 getRandomNum();
 showTime();
 setBg();
