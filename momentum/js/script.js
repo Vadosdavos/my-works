@@ -24,6 +24,8 @@ let isPlay = false;
 let playNum = 0;
 createSong();
 const tracks = document.querySelectorAll('.play-item');
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
 
 playListField.addEventListener('click', (evt) => {
     tracks[playNum].classList.remove('item-active');
@@ -139,8 +141,8 @@ window.addEventListener('load', () => {
     if (city.value === '') city.value = 'Minsk'
 });
 
-function getRandomNum() {
-    randomNum = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+function getRandomNum(min, max) {
+    randomNum = Math.floor(Math.random() * (max - min + min)) + min;
     return randomNum;
 }
 function setBg() {
@@ -204,7 +206,7 @@ city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
 
 
-getRandomNum();
+getRandomNum(1, 20);
 showTime();
 setBg();
 slideNext.addEventListener('click', getSlideNext);
