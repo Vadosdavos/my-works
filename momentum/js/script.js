@@ -142,7 +142,7 @@ window.addEventListener('load', () => {
 });
 
 function getRandomNum(min, max) {
-    randomNum = Math.floor(Math.random() * (max - min + min)) + min;
+    randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     return randomNum;
 }
 function setBg() {
@@ -205,7 +205,17 @@ window.addEventListener('load', getWeather);
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
 
+async function getQuote() {  
+    const res = await fetch('js/quotes.json');
+    const quotes = await res.json();
+    let randomNumQuote = Math.floor(Math.random() * (quotes.length + 1));
+    quote.textContent = quotes[randomNumQuote].text;
+    author.textContent = quotes[randomNumQuote].author;
+}
 
+changeQuoteButton.addEventListener('click', getQuote);
+
+getQuote();
 getRandomNum(1, 20);
 showTime();
 setBg();
