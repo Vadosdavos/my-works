@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="icon" href="assets/svg/favicon.svg" />
@@ -26,6 +25,7 @@
             <li class="nav-item"><a class="nav-item-link" href="#visiting">Visiting</a></li>
             <li class="nav-item"><a class="nav-item-link" href="#explore">Explore</a></li>
             <li class="nav-item"><a class="nav-item-link" href="#online-tour">Video</a></li>
+            <li class="nav-item"><a class="nav-item-link" href="#gallery">Gallery</a></li>
             <li class="nav-item"><a class="nav-item-link" href="#tickets">Tickets</a></li>
             <li class="nav-item"><a class="nav-item-link" href="#contacts">Contacts</a></li>
           </ul>
@@ -35,12 +35,14 @@
     <main>
       <section class="welcome-info" id="welcome">
         <div class="container">
-          <h2 class="section-title">
-            welcome <br />
-            to the louvre
-          </h2>
-          <p class="section-text">From the castle to the museum</p>
-          <a class="btn" href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736">Discover the Louvre</a>
+          <div class="slider">
+            <h2 class="section-title">
+              welcome <br />
+              to the louvre
+            </h2>
+            <p class="section-text">From the castle to the museum</p>
+            <a class="btn" href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736">Discover the Louvre</a>
+          </div>
         </div>
       </section>
       <section class="virtual-tour" id="visiting">
@@ -143,7 +145,7 @@
             <ul class="ticket-type-list">
               <li class="ticket-amount-list-item"><h4 class="ticket-type-list-item-title">Ticket Type</h4></li>
               <li class="ticket-type-list-item">
-                <input type="radio" id="ticket-radio-1" class="ticket-radio" name="ticket-type" />
+                <input type="radio" id="ticket-radio-1" class="ticket-radio" name="ticket-type" checked/>
                 <label for="ticket-radio-1" class="radio-label">Permanent exhibition</label>
               </li>
               <li class="ticket-type-list-item">
@@ -216,23 +218,5 @@
         </nav>
       </div>
     </footer>
-    <script src="index.js"></script>
-    <script>
-      const range = document.querySelectorAll('input[type = range]');
-      const play = document.querySelector('.play');
-      const sound = document.querySelector('.sound');
-      play.addEventListener('click', function () {
-        play.classList.toggle('stop');
-      });
-      sound.addEventListener('click', function () {
-        sound.classList.toggle('sound-stop');
-      });
-      range.forEach((e) => {
-        e.addEventListener('input', function () {
-          const value = this.value;
-          this.style.background = `linear-gradient(to right, #24809e 0%, #24809e ${value}%, #C4C4C4 ${value}%, #C4C4C4 100%)`;
-        });
-      });
-    </script>
   </body>
 </html>
