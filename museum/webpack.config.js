@@ -35,11 +35,38 @@ module.exports = {
   devServer: {
     open: true,
     hot: true,
-    //static: './src',
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour1.html',
+      filename: './tour1.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour2.html',
+      filename: './tour2.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour3.html',
+      filename: './tour3.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour4.html',
+      filename: './tour4.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour5.html',
+      filename: './tour5.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour6.html',
+      filename: './tour6.html' 
+    }),
+    new HtmlWebpackPlugin({ 
+      template: './src/tours/tour7.html',
+      filename: './tour7.html' 
     }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
@@ -51,8 +78,4 @@ module.exports = {
       cleanStaleWebpackAssets: false,
     }),
   ],
-  //   performance: {
-  //     maxEntrypointSize: 1024000,
-  //     maxAssetSize: 1024000
-  // }
 };
