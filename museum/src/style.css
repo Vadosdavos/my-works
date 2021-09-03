@@ -85,14 +85,20 @@ body {
 .nav-item-link:active {
   color: var(--font-active);
 }
+.welcome-info .container {
+  position: relative;
+  height: 810px;
+}
 .slider {
-  background-image: url("assets/img/slider1.jpg");
+  background-image: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%, rgba(0, 0, 0, 0) 30.74%),
+    url("assets/img/welcome-slider/1.jpg");
   background-repeat: no-repeat;
   background-position: top right;
-  width: 100%;
-  height: 660px;
-  padding-top: 150px;
-  position: relative;
+  right: 0;
+  top: 0;
+  width: 1000px;
+  height: 750px;
+  position: absolute;
 }
 .bullets-container {
   width: 600px;
@@ -172,6 +178,9 @@ body {
 }
 .welcome-info .section-title {
   width: 650px;
+  position: relative;
+  z-index: 1;
+  padding-top: 150px;
 }
 .section-text {
   font-size: 28px;
@@ -215,6 +224,9 @@ body {
   margin-bottom: 75px;
   padding-bottom: 25px;
   border-bottom: 3px solid var(--dark-red);
+}
+.contacts .section-title {
+  margin-top: 90px;
 }
 .card-list {
   display: flex;
@@ -262,8 +274,7 @@ body {
   font-size: 18px;
   line-height: 21px;
 }
-.comparison,
-.tickets {
+.comparison {
   background-color: black;
   padding-top: 75px;
   padding-bottom: 75px;
@@ -352,7 +363,7 @@ body {
   grid-column-start: 1;
   grid-column-end: 3;
   margin-top: 75px;
-  margin-bottom: 40px;
+  margin-bottom: 75px;
 }
 .video-container-image {
   width: 1440px;
@@ -496,7 +507,7 @@ input[type="range"]::-webkit-slider-thumb {
   transition: filter 0.4s;
 }
 .video-bullet-nav:hover {
-  filter: invert(15%) sepia(55%) saturate(3825%) hue-rotate(350deg) brightness(70%) contrast(104%);
+  filter: invert(8%) sepia(59%) saturate(5710%) brightness(40%) contrast(100%);
 }
 .vb-prev {
   background-image: url("./assets/svg/vb-prev.svg");
@@ -510,13 +521,51 @@ input[type="range"]::-webkit-slider-thumb {
 .vb-active {
   background-color: #333333;
 }
+.gallery {
+  background-color: var(--bg-dark);
+  padding-top: 75px;
+}
+.gallery .section-title {
+  margin-bottom: 75px;
+}
+.pictures-container {
+  overflow-y: hidden;
+  height: 2035px;
+  width: 100%;
+  position: relative;
+}
+.pictures-container::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 17.7%;
+  position: absolute;
+  bottom: 0;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+}
+.pictures-inner-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  column-gap: 36px;
+  row-gap: 24px;
+  height: 2970px;
+}
+.gallery-img:first-child,
+.gallery-img:nth-child(11) {
+  margin-top: 50px;
+}
+.tickets {
+  padding-top: 75px;
+  padding-bottom: 60px;
+}
 .tickets .section-title {
+  color: var(--font-gold);
   margin-bottom: 75px;
   padding-bottom: 25px;
   border-bottom: 3px solid #710707;
 }
 .tickets-field {
-  color: #ffffff;
   display: grid;
   grid-template-columns: 720px 300px 300px;
   column-gap: 60px;
@@ -526,7 +575,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 17px;
   height: 17px;
   -webkit-appearance: none;
-  border: 2px solid #ffffff;
+  border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 50%;
   cursor: pointer;
@@ -541,7 +590,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: #000000;
   position: absolute;
   top: 8px;
   left: -35px;
@@ -580,7 +629,7 @@ input[type="range"]::-webkit-slider-thumb {
   align-items: center;
   width: 150px;
   height: 50px;
-  border: 3px solid #ffffff;
+  border: 3px solid #000000;
   box-sizing: border-box;
   margin-left: 150px;
 }
@@ -601,9 +650,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .ticket-number {
   all: unset;
-  width: 12px;
+  width: 25px;
   text-align: center;
-  margin-right: 36px;
+  margin-right: 23px;
   overflow: hidden;
   font-size: 22px;
   line-height: 26px;
@@ -623,18 +672,18 @@ input[type="number"]::-webkit-inner-spin-button {
   cursor: pointer;
   border: none;
   background: none;
-  color: #fff;
+  color: #000000;
 }
 .minus {
-  margin-right: 37px;
+  margin-right: 30px;
 }
 .buy-btn {
   display: inline-block;
   width: 175px;
   height: 50px;
   border-radius: 2px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   font-size: 22px;
   line-height: 26px;
   letter-spacing: 2px;
@@ -645,6 +694,13 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .buy-btn:hover {
   background-color: var(--font-gold);
+}
+.parallax {
+  width: 100%;
+  height: 400px;
+  background-image: url("./assets/img/parallax.jpg");
+  background-size: cover;
+  background-attachment: fixed;
 }
 .contacts .grid-wrapper {
   grid-template-columns: 0.5fr 1fr;
