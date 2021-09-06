@@ -90,7 +90,7 @@ body {
   height: 810px;
 }
 .slider {
-  background-image: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%, rgba(0, 0, 0, 0) 30.74%),
+  background-image: linear-gradient(90deg, #030303 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%, rgba(0, 0, 0, 0) 30.74%),
     url("assets/img/welcome-slider/1.jpg");
   background-repeat: no-repeat;
   background-position: top right;
@@ -507,7 +507,7 @@ input[type="range"]::-webkit-slider-thumb {
   transition: filter 0.4s;
 }
 .video-bullet-nav:hover {
-  filter: invert(8%) sepia(59%) saturate(5710%) brightness(40%) contrast(100%);
+  filter: invert(8%) sepia(59%) saturate(5710%) brightness(35%) contrast(100%);
 }
 .vb-prev {
   background-image: url("./assets/svg/vb-prev.svg");
