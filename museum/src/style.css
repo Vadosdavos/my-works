@@ -889,7 +889,9 @@ input[type='number']::-webkit-inner-spin-button {
   box-sizing: border-box;
   position: relative;
 }
-.form-section .section-title {
+.form-title {
+  font-family: 'Forum', cursive;
+  font-weight: normal;
   font-size: 50px;
   line-height: 55px;
   color: var(--font-gold);
@@ -976,32 +978,44 @@ input[type='tel'] {
 }
 .form-select {
   background-image: url('./assets/svg/type-select.svg'), url('./assets/svg/form-arrow.svg');
-  background-position: 15px, right 14px top 14px;
+  background-position: left 15px top 15px, right 14px top 14px;
   background-repeat: no-repeat;
   color: var(--bg-dark);
-  padding: 13px 15px 12px 45px;
+  padding: 13px 0 12px 45px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: none;
-}
-.select-label {
+  height: inherit;
+  overflow: hidden;
   position: absolute;
-  width: 170px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  opacity: 1;
-  top: 510px;
-  left: 45px;
-  color: var(--bg-dark);
-  background-color: #fff;
-  z-index: 2;
+  top: 470px;
+  left: 0;
+  z-index: 101;
 }
-select:focus > option:checked {
+.form-select-active {
+  background-image: url('./assets/svg/type-select.svg'), url('./assets/svg/form-arrow-up.svg');
+}
+option {
+  padding: 15px 0;
+  z-index: 100;
+}
+option:first-child {
+  padding: 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid;
+}
+option:hover {
   background-color: #e7e7e7;
 }
+option:checked {
+  filter: invert(80%) sepia(98%) saturate(0%) hue-rotate(202deg) brightness(180%) contrast(81%);
+}
+.option-margin {
+  margin-left: 45px;
+}
 .ticket-amount-container {
+  margin-top: 65px;
   padding: 10px 15px 15px;
   width: 100%;
   border: 1px solid #030303;
