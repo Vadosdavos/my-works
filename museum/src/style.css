@@ -837,18 +837,33 @@ input[type='number']::-webkit-inner-spin-button {
   position: fixed;
   top: calc(50% - 440px);
   right: -1690px;
-  transition: right 1s, outline 2s;
+  transition: right 1s;
   pointer-events: none;
-  outline: 250px solid rgba(0, 0, 0, 0);
 }
 .form-visible {
-  transition: right 1s, outline 1s;
+  transition: right 1s;
   right: calc(50% - 720px);
   top: calc(50% - 440px);
   position: fixed;
   pointer-events: auto;
-  outline: 250px solid rgba(0, 0, 0, 0.5);
   z-index: 100;
+}
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 50;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s;
+}
+.overlay-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: 1s;
 }
 .book-form-container {
   max-width: 970px;
