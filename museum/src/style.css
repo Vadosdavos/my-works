@@ -550,6 +550,9 @@ input[type='range']::-webkit-slider-thumb {
   row-gap: 24px;
   height: 2970px;
 }
+.gallery-img {
+  width: 456px;
+}
 .gallery-img:first-child,
 .gallery-img:nth-child(11) {
   margin-top: 50px;
