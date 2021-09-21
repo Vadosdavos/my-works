@@ -1059,7 +1059,6 @@ option:checked {
   height: 25px;
   cursor: pointer;
   background-color: var(--bg-dark);
-  padding: 0 14px;
 }
 .form-minus {
   background-image: url('./assets/svg/form-minus.svg');
@@ -1181,12 +1180,12 @@ option:checked {
   left: 140px;
   z-index: -1;
 }
-input[type='submit'] {
+.ripple-target {
   display: block;
   text-align: center;
   width: 220px;
   height: 45px;
-  background-color: var(--dark-red);
+  background: var(--dark-red);
   color: #fff;
   font-weight: 400;
   font-size: 22px;
@@ -1197,12 +1196,15 @@ input[type='submit'] {
   position: relative;
   overflow: hidden;
 }
-.ripple {
+.ripple-target .ripple {
   position: absolute;
   border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 600ms ease-out;
-  background-color: rgba(255, 255, 255);
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple 400ms ease-out;
+  background-color: rgba(255, 255, 255, 0.849);
+  width: 100px;
+  height: 100px;
+  opacity: 0.6;
 }
 .form-close {
   display: block;
@@ -1218,7 +1220,7 @@ input[type='submit'] {
 }
 @keyframes ripple {
   to {
-    transform: scale(2);
+    transform: translate(-50%, -50%) scale(3);
     opacity: 0;
   }
 }

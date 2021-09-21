@@ -1,19 +1,14 @@
 const rippleTarget = document.querySelector('.ripple-target');
 
-function createRipple(event) {
-  const button = event.currentTarget;
-  const circle = document.createElement('span');
-  const diameter = Math.max(button.clientWidth, button.clientHeight);
-  const radius = diameter / 2;
-  circle.style.width = circle.style.height = `${diameter}px`;
-  circle.style.left = `${event.clientX - (button.offsetLeft + radius)}px`;
-  circle.style.top = `${event.clientY - (button.offsetTop + radius)}px`;
-  circle.classList.add('ripple');
-  const ripple = button.getElementsByClassName('ripple')[0];
-  if (ripple) {
+rippleTarget.addEventListener('click', (event) => {
+  let x = event.offsetX;
+  let y = event.offsetY;
+  let ripple = document.createElement('span');
+  ripple.classList.add('ripple');
+  ripple.style.top = y + 'px';
+  ripple.style.left = x + 'px';
+  event.target.appendChild(ripple);
+  setTimeout(() => {
     ripple.remove();
-  }
-  button.appendChild(circle);
-}
-
-rippleTarget.addEventListener('click', createRipple);
+  }, 500);
+});
