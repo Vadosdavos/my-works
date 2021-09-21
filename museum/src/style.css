@@ -39,17 +39,17 @@ body {
   background-color: var(--bg-dark);
 }
 .page-header {
-  padding: 50px 0;
+  padding: 59px 0 58px 0;
 }
 .page-header .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 665px 775px;
   align-items: center;
 }
 .logo-link {
   font-family: 'Forum', cursive;
   font-size: 28px;
-  line-height: 50px;
+  line-height: 31px;
   letter-spacing: 5px;
   text-transform: uppercase;
   text-decoration: none;
@@ -60,7 +60,7 @@ body {
   color: var(--font-gold);
 }
 .logo-image {
-  margin-right: 9px;
+  margin-right: 12px;
   transition: fill 0.4s;
 }
 .logo-link:hover .logo-image {
@@ -68,17 +68,20 @@ body {
 }
 .header-nav {
   display: flex;
+  justify-content: flex-start;
 }
 .nav-item:not(:last-child) {
-  margin-right: 54px;
+  margin-right: 55px;
 }
 .nav-item-link {
   text-decoration: none;
   color: #fff;
   font-size: 22px;
-  line-height: 50px;
+  line-height: 26px;
   letter-spacing: 2px;
   transition: color 0.4s;
+  font-weight: 100;
+  font-style: normal;
 }
 .nav-item-link:hover,
 .sub-footer-link:hover {
@@ -106,7 +109,7 @@ body {
   height: 120px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: var(--bg-dark);
   position: absolute;
   bottom: 0;
@@ -117,22 +120,22 @@ body {
   font-weight: 300;
   font-size: 22px;
   line-height: 40px;
-  margin-right: 45px;
+  margin-right: 55px;
+  margin-left: 74px;
 }
 .bullets {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 60px;
 }
 .bullet {
-  color: #fff;
-  width: 20px;
-  height: 40px;
-  font-weight: 300;
-  font-size: 22px;
-  line-height: 40px;
+  background-color: #fff;
+  display: block;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  transition: color 0.4s;
+  transition: background-color 0.4s;
 }
 .bullet-item {
   margin-right: 25px;
@@ -144,10 +147,10 @@ body {
   margin-right: 0;
 }
 .b-active {
-  color: #d2b183;
+  background-color: #d2b183;
 }
 .bullet:hover {
-  color: #9d8665;
+  background-color: #9d8665;
 }
 .arrow-left,
 .arrow-right {
