@@ -11,7 +11,7 @@
   <body>
     <header class="page-header">
       <div class="container">
-        <h1 class="visualy-hidden">Louvre museum</h1>
+        <h1 class="visually-hidden">Louvre museum</h1>
         <a class="logo-link" href="index.html"
           ><svg class="logo-image" width="49" height="26" viewBox="0 0 49 26" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -43,7 +43,7 @@
           <a class="btn" href="tour7.html" target="_blank">Discover the Louvre</a>
           <div class="slider"></div>
           <div class="bullets-container">
-            <p class="bullets-number"><span class="current-bullet">01</span> | 05</p>
+            <p class="bullets-number"><span class="current-bullet">01</span>|<span class="bul-num">05</span></p>
             <ul class="bullets">
               <li class="bullet-item"><span class="bullet b-active"></span></li>
               <li class="bullet-item"><span class="bullet"></span></li>
@@ -133,19 +133,19 @@
           <div class="video-container">
             <div class="video-container-image">
               <button class="video-btn play-big"></button>
-              <img src="assets/img/video-prew.jpg" alt="Online tour video" width="1440" height="629" />
+              <img src="assets/img/video-prew.jpg" alt="Online tour video" width="1440" height="650" />
             </div>
             <div class="video-control">
               <button class="video-btn play"></button>
-              <input type="range" class="video-length" max="100" min="0" value="47" step="1" />
+              <input type="range" class="video-length" max="100" min="0" value="54" step="1" />
               <button class="video-btn sound"></button>
-              <input type="range" class="video-volume" max="100" min="0" value="47" step="1" />
+              <input type="range" class="video-volume" max="100" min="0" value="43" step="1" />
               <button class="video-btn fullscreen"></button>
             </div>
             <div class="video-playlist">
-              <iframe width="452" height="245" src="https://www.youtube.com/embed/aWmJ5DgyWPI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <iframe width="452" height="245" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <iframe width="452" height="245" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="452" height="254" src="https://www.youtube.com/embed/aWmJ5DgyWPI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="video-bullets">
               <ul class="bullets">
@@ -192,9 +192,9 @@
             <ul class="ticket-amount-list">
               <li class="ticket-amount-list-item"><h4 class="ticket-amount-list-item-title">Amount</h4></li>
               <li class="ticket-amount-list-item">Basic 18+</li>
-              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">-</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
+              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
               <li class="ticket-amount-list-item">Senior 65+</li>
-              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">-</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
+              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
               <li class="ticket-amount-list-item">Total €220</li>
               <li class="ticket-amount-list-item"><button class="buy-btn">Buy Now</button></li>
             </ul>
