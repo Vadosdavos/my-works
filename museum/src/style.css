@@ -55,6 +55,7 @@ body {
   text-decoration: none;
   color: #ffffff;
   transition: color 0.4s;
+  width: 210px;
 }
 .logo-link:hover {
   color: var(--font-gold);
@@ -925,8 +926,8 @@ input[type='number']::-webkit-inner-spin-button {
   line-height: 55px;
   color: var(--font-gold);
   text-transform: uppercase;
-  margin-top: 0;
-  margin-bottom: 15px;
+  margin-top: -4px;
+  margin-bottom: 14px;
   letter-spacing: normal;
 }
 .form-text {
@@ -934,7 +935,7 @@ input[type='number']::-webkit-inner-spin-button {
   line-height: 21px;
   font-weight: 400;
   color: #710707;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 .form-text-border {
   width: 100%;
@@ -952,7 +953,7 @@ input[type='number']::-webkit-inner-spin-button {
   font-size: 18px;
   line-height: 21px;
   color: var(--bg-dark);
-  padding: 15px 15px 15px 45px;
+  padding: 15px 15px 15px 43px;
   position: relative;
   cursor: pointer;
 }
@@ -1010,7 +1011,7 @@ input[type='tel'] {
   background-position: left 15px top 15px, right 14px top 14px;
   background-repeat: no-repeat;
   color: var(--bg-dark);
-  padding: 13px 0 12px 45px;
+  padding: 11px 0 12px 45px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -1018,7 +1019,7 @@ input[type='tel'] {
   height: inherit;
   overflow: hidden;
   position: absolute;
-  top: 470px;
+  top: 463px;
   left: 0;
   z-index: 101;
 }
@@ -1118,7 +1119,7 @@ option:checked {
   background-color: #740c11;
 }
 .ticket-amount-border {
-  margin-bottom: 18px;
+  margin-bottom: 15px;
 }
 .ticket-cost-border {
   margin-bottom: 10px;
@@ -1148,10 +1149,10 @@ option:checked {
   font-size: 18px;
   line-height: 21px;
   color: var(--bg-dark);
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 .set-item svg {
-  margin-right: 15px;
+  margin-right: 11px;
 }
 .ticket-cost-item,
 .ticket-cost-box {
@@ -1188,7 +1189,7 @@ option:checked {
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 .card-img-front,
 .card-img-back {
