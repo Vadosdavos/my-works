@@ -216,7 +216,7 @@
                 <div class="form-text-border"></div>
                 <input class="form-input" type="date" required />
                 <input class="form-input" type="time" required />
-                <input class="form-input" type="text" placeholder="Name" required />
+                <input class="form-input text" type="text" placeholder="Name" required />
                 <input class="form-input" type="email" placeholder="E-mail" required />
                 <input class="form-input" type="tel" placeholder="Phone" required />
                 <select class="form-input form-select" onfocus="this.size=4;" onblur="this.size=0;" onchange="this.size=1; this.blur();">
@@ -287,8 +287,32 @@
                   <p class="overview-title">Total:</p>
                   <p class="overview-title">60 €</p>
                 </div>
-                <div class="card-img-front"></div>
-                <div class="card-img-back"></div>
+                <div class="card-img-front">
+                  <p class="visacard-text">Card number</p>
+                  <input class="visacard-input-text card-number" type="text" />
+                  <p class="visacard-text">Expiration date</p>
+                  <div class="expir-month-container">
+                    <input class="expir-number" type="number" value="03" min="0" max="12" />
+                    <div class="input-top"></div>
+                    <div class="input-bottom"></div>
+                  </div>
+                  <div class="expir-year-container">
+                    <input class="expir-number" type="number" value="2024" min="0" max="2050" />
+                    <div class="input-top"></div>
+                    <div class="input-bottom"></div>
+                  </div>
+                  <p class="visacard-text">Cardholder name</p>
+                  <input class="visacard-input-text cardholder-name" type="text" />
+                </div>
+                <div class="card-img-back">
+                  <p class="visacard-text">CVC/CVV</p>
+                  <input class="visacard-input-text cvc" type="text" />
+                  <p class="visacard-text">
+                    The last <br />
+                    3 or 4 digits on back <br />
+                    of the card
+                  </p>
+                </div>
                 <button class="ripple-target">Book</button>
               </div>
             </form>
