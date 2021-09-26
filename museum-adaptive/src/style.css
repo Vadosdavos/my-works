@@ -43,7 +43,7 @@ body {
 }
 .page-header .container {
   display: grid;
-  grid-template-columns: 665px 775px;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 .logo-link {
@@ -96,15 +96,15 @@ body {
 }
 .welcome-info .container {
   position: relative;
-  height: 810px;
 }
 .slider {
   background-image: linear-gradient(90deg, #030303 0%, rgba(0, 0, 0, 0.5) 16.19%, rgba(0, 0, 0, 0) 30.73%, rgba(0, 0, 0, 0) 30.74%), url('assets/img/welcome-slider/1.jpg');
   background-repeat: no-repeat;
   background-position: top right;
+  background-size: contain;
   right: 0;
   top: 0;
-  width: 1000px;
+  width: 69.5%;
   height: 750px;
   position: absolute;
 }
@@ -208,6 +208,8 @@ body {
   color: #ffffff;
   margin-top: 26px;
   font-weight: 300;
+  position: relative;
+  z-index: 1;
 }
 .btn {
   font-family: inherit;
@@ -224,11 +226,13 @@ body {
   cursor: pointer;
   border: none;
   margin-top: 77px;
-  margin-bottom: 246px;
+  margin-bottom: 272px;
   transition: background-color 0.4s;
   text-decoration: none;
   text-align: center;
   padding-top: 24px;
+  position: relative;
+  z-index: 1;
 }
 .btn:hover {
   background-color: var(--font-gold);
@@ -1351,9 +1355,148 @@ option:checked {
 iframe {
   border: none;
 }
+.burger {
+  display: none;
+}
 @keyframes ripple {
   to {
     transform: translate(-50%, -50%) scale(3);
     opacity: 0;
+  }
+}
+@media (max-width: 1024px) {
+  .container {
+    max-width: 984px;
+  }
+  .page-header {
+    padding: 49px 0 48px 0;
+  }
+  .header-nav {
+    position: absolute;
+    display: none;
+    visibility: hidden;
+    width: 297px;
+    height: 585px;
+    top: 130px;
+    left: -297px;
+    opacity: 0;
+    padding-top: 35px;
+    padding-left: 55px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    z-index: 5;
+    background-color: var(--bg-dark);
+    transition: 0.5s;
+  }
+  .header-nav-open {
+    visibility: visible;
+    opacity: 1;
+    left: 0;
+    transition: 0.5s;
+  }
+  .nav-item {
+    margin-bottom: 25px;
+    position: relative;
+  }
+  .nav-item-link {
+    line-height: 23px;
+    font-weight: 300;
+  }
+  .nav-item-link::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 12px;
+    background-image: url('./assets/svg/adaptive-menu-arrow.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 5px;
+    left: 112px;
+    transition: 0.5s;
+  }
+  .nav-item-link:hover::after {
+    filter: invert(57%) sepia(6%) saturate(1826%) hue-rotate(356deg) brightness(93%) contrast(88%);
+    transition: 0.5s;
+  }
+  .burger {
+    display: block;
+    background: #ffffff;
+    width: 32px;
+    height: 2px;
+    cursor: pointer;
+    position: relative;
+    right: 0;
+    transition: 0.5s;
+  }
+  .burger::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 32px;
+    height: 2px;
+    background: #ffffff;
+    top: -6px;
+    transition: 0.5s;
+  }
+  .burger::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 32px;
+    height: 2px;
+    background: #ffffff;
+    top: 6px;
+    transition: 0.5s;
+  }
+  .burger-open {
+    background-color: var(--bg-dark);
+    transition: 0.5s;
+  }
+  .burger-open::before {
+    transform: rotate(360deg) translateY(6px) rotate(45deg);
+    transition: 0.5s;
+  }
+  .burger-open::after {
+    transform: rotate(360deg) translateY(-6px) rotate(-45deg);
+    transition: 0.5s;
+  }
+  .page-header .container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .slider {
+    width: 700px;
+    height: 525px;
+  }
+  .welcome-info .container {
+    height: auto;
+  }
+  .section-title {
+    font-size: 50px;
+  }
+  .welcome-info .section-title {
+    padding-top: 50px;
+  }
+  .section-text {
+    font-size: 24px;
+    line-height: 28px;
+    margin-top: 25px;
+  }
+  .btn {
+    width: 300px;
+    margin-top: 50px;
+    margin-bottom: 177px;
+  }
+  .bullets-container {
+    width: 700px;
+  }
+  .bullets-number {
+    margin-left: 224px;
+    margin-right: 45px;
+  }
+  .bullets {
+    margin-right: 45px;
   }
 }
