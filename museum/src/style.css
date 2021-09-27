@@ -988,23 +988,47 @@ input[type='time']::-webkit-calendar-picker-indicator {
 }
 input[type='date']::-webkit-datetime-edit,
 input[type='time']::-webkit-datetime-edit {
-  opacity: 0;
-}
-input[type='date']::before,
-input[type='time']::before {
-  content: 'Date';
-  position: absolute;
-  font-weight: 400;
   opacity: 1;
+}
+.date-psewdo {
+  position: absolute;
+  width: 110px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 1px;
+  color: var(--bg-dark);
+  background-color: #fff;
+  opacity: 1;
+  left: 43px;
+  top: 215px;
+  pointer-events: none;
+  z-index: 5;
+}
+.time-psewdo {
+  position: absolute;
+  width: 110px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 1px;
+  color: var(--bg-dark);
+  background-color: #fff;
+  opacity: 1;
+  left: 252px;
+  top: 215px;
+  pointer-events: none;
+  z-index: 5;
+}
+.date-psewdo-nonvisible,
+.time-psewdo-nonvisible {
+  opacity: 0;
 }
 input[type='time'] {
   width: 190px;
   float: right;
   background: url('./assets/svg/time.svg') no-repeat;
   background-position: 15px;
-}
-input[type='time']::before {
-  content: 'Time';
 }
 .form-input.text {
   background: url('./assets/svg/name.svg') no-repeat;
