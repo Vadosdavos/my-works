@@ -3,6 +3,7 @@
   --dark-red: #710707;
   --font-gold: #9d8665;
   --font-active: #7e6c51;
+  --section-padding: 75px;
 }
 html {
   scroll-behavior: smooth;
@@ -238,25 +239,29 @@ body {
   background-color: var(--font-gold);
 }
 .virtual-tour {
-  padding-bottom: 75px;
+  padding: var(--section-padding) 0;
 }
 .virtual-tour .section-title,
 .contacts .section-title {
   color: var(--font-gold);
-  margin-top: 75px;
-  margin-bottom: 75px;
-  padding-bottom: 25px;
+  margin-bottom: var(--section-padding);
+  padding-bottom: 20px;
   border-bottom: 3px solid var(--dark-red);
 }
-.contacts .section-title {
-  margin-top: 75px;
+.contacts,
+.online-tour {
+  padding-top: var(--section-padding);
 }
 .card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  row-gap: 75px;
+  row-gap: var(--section-padding);
+}
+.card-item-img {
+  width: 440px;
+  height: 285px;
 }
 .card-item {
   font-weight: 300;
@@ -298,14 +303,17 @@ body {
   line-height: 21px;
 }
 .comparison {
-  background-color: black;
-  padding-top: 75px;
-  padding-bottom: 75px;
+  background-color: var(--bg-dark);
+  padding-top: var(--section-padding);
+  padding-bottom: var(--section-padding);
 }
 .comparison .container {
-  display: grid;
-  grid-template-columns: 660px 720px;
-  column-gap: 60px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.comparison-text-field {
+  width: 660px;
 }
 .comparison .section-title {
   margin-bottom: 75px;
@@ -385,18 +393,20 @@ body {
   grid-template-columns: 610px 720px;
   column-gap: 110px;
   align-items: center;
-  margin-top: 75px;
 }
 .video-container {
   grid-column-start: 1;
   grid-column-end: 3;
   margin-top: 75px;
-  margin-bottom: 75px;
+  margin-bottom: var(--section-padding);
 }
 .video-container-image {
-  width: 1440px;
-  height: 650px;
+  width: 100%;
   position: relative;
+}
+.video-container-image img {
+  width: 100%;
+  display: block;
 }
 .video-control {
   width: 100%;
@@ -430,6 +440,7 @@ body {
   height: 8px;
   outline: none;
   -webkit-appearance: none;
+  margin-right: 50px;
 }
 input[type='range']::-webkit-slider-thumb {
   width: 15px;
@@ -440,11 +451,9 @@ input[type='range']::-webkit-slider-thumb {
 }
 .video-length {
   width: 929px;
-  margin-right: 50px;
 }
 .video-volume {
   width: 155px;
-  margin-right: 50px;
   background: linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) 43%, #c4c4c4 43%, #c4c4c4 100%);
 }
 .play-big {
@@ -453,6 +462,7 @@ input[type='range']::-webkit-slider-thumb {
   background-image: url('assets/svg/play-big.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   position: absolute;
   background-color: transparent;
   left: 610px;
@@ -465,6 +475,7 @@ input[type='range']::-webkit-slider-thumb {
   background-image: url('assets/svg/play.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 .stop {
   width: 23px;
@@ -472,6 +483,7 @@ input[type='range']::-webkit-slider-thumb {
   background-image: url('assets/svg/stop.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 .sound {
   width: 38px;
@@ -479,6 +491,7 @@ input[type='range']::-webkit-slider-thumb {
   background-image: url('assets/svg/sound.svg');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
 }
 .sound-stop {
   background-image: url('assets/svg/sound-stop.svg');
@@ -490,6 +503,7 @@ input[type='range']::-webkit-slider-thumb {
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 0;
+  background-size: contain;
 }
 .video-bullets .bullets {
   margin-right: 0;
@@ -547,10 +561,10 @@ input[type='range']::-webkit-slider-thumb {
 }
 .gallery {
   background-color: var(--bg-dark);
-  padding-top: 75px;
+  padding-top: var(--section-padding);
 }
 .gallery .section-title {
-  margin-bottom: 75px;
+  margin-bottom: var(--section-padding);
 }
 .pictures-container {
   overflow-y: hidden;
@@ -582,7 +596,7 @@ input[type='range']::-webkit-slider-thumb {
   order: 2;
 }
 .gallery-img {
-  width: 456px;
+  width: calc(33.3% - 23.5px);
 }
 .gallery-img:first-child,
 .gallery-img:nth-child(11) {
@@ -595,13 +609,14 @@ input[type='range']::-webkit-slider-thumb {
   order: 3;
 }
 .tickets {
-  padding: 75px 0;
+  padding-top: var(--section-padding);
+  padding-bottom: 0;
   position: relative;
   overflow: hidden;
 }
 .tickets .section-title {
   color: var(--font-gold);
-  margin-bottom: 75px;
+  margin-bottom: var(--section-padding);
   padding-bottom: 25px;
   border-bottom: 3px solid #710707;
 }
@@ -609,6 +624,12 @@ input[type='range']::-webkit-slider-thumb {
   display: grid;
   grid-template-columns: 720px 300px 300px;
   column-gap: 60px;
+  padding-bottom: var(--section-padding);
+}
+.tickets-field-img {
+  display: block;
+  width: 100%;
+  
 }
 .ticket-radio {
   margin-right: 18px;
@@ -780,6 +801,10 @@ input[type='number']::-webkit-inner-spin-button {
 .map-field {
   width: 960px;
   height: 620px;
+}
+.map-field-image {
+  display: block;
+  width: 100%;
 }
 .page-footer {
   padding: 84px 0 23px 0;
@@ -1378,6 +1403,8 @@ option:checked {
 }
 iframe {
   border: none;
+  width: 452px;
+  height: 254px;
 }
 .burger {
   display: none;
@@ -1389,6 +1416,9 @@ iframe {
   }
 }
 @media (max-width: 1024px) {
+  :root {
+    --section-padding: 60px;
+  }
   .container {
     max-width: 984px;
   }
@@ -1499,9 +1529,11 @@ iframe {
   }
   .section-title {
     font-size: 50px;
+    line-height: 75px;
   }
   .welcome-info .section-title {
     padding-top: 50px;
+    line-height: 90px;
   }
   .section-text {
     font-size: 24px;
@@ -1522,5 +1554,142 @@ iframe {
   }
   .bullets {
     margin-right: 45px;
+  }
+  .card-list {
+    justify-content: space-around;
+  }
+  .card-item-img {
+    width: 330px;
+    height: 215px;
+  }
+  .card-item-title {
+    font-size: 28px;
+    line-height: 31px;
+  }
+  .card-item-text-big {
+    font-size: 20px;
+    line-height: 23px;
+  }
+  .card-item-text {
+    font-size: 16px;
+    line-height: 19px;
+  }
+  .letter-space-three {
+    letter-spacing: 3px;
+  }
+  .card-item-title {
+    margin-top: 25px;
+  }
+  .card-item-title::after {
+    width: 150px;
+  }
+  .card-item:hover .card-item-title::after {
+    width: 330px;
+  }
+  .comparison .section-title {
+    padding-bottom: 20px;
+    margin-bottom: 60px;
+  }
+  .text-nonvisible {
+    display: none;
+  }
+  .comparison-text-field {
+    width: 984px;
+    margin-bottom: 47px;
+  }
+  .comparison-section-text {
+    margin-bottom: 0;
+    width: 984px;
+    font-size: 20px;
+  }
+  .comparison-field {
+    margin-left: 132px;
+  }
+  .online-tour .grid-wrapper {
+    grid-template-columns: 410px 464px;
+  }
+  .video-container {
+    margin-top: 40px;
+  }
+  .play-big {
+    width: 152px;
+    height: 152px;
+    left: 416px;
+    top: 146px;
+  }
+  .video-control {
+    height: 60px;
+  }
+  .video-btn:not(.fullscreen) {
+    margin-right: 30px;
+  }
+  .video-length,
+  .video-volume {
+    margin-right: 30px;
+    height: 5px;
+  }
+  .video-length {
+    width: 564px;
+  }
+  .video-volume {
+    width: 143px;
+  }
+  input[type='range']::-webkit-slider-thumb {
+    width: 13px;
+    height: 13px;
+  }
+  .sound {
+    width: 26px;
+    height: 20px;
+  }
+  .fullscreen {
+    width: 26px;
+    height: 26px;
+  }
+  iframe {
+    width: 300px;
+    height: 170px;
+  }
+  .pictures-container {
+    height: 1265px;
+  }
+  .pictures-inner-container {
+    height: 2100px;
+  }
+  .gallery-img {
+    width: 304px;
+  }
+  .tickets .section-title {
+    padding-bottom: 20px;
+  }
+  .tickets-field {
+    display: grid;
+    grid-template-columns: 700px 175px;
+    column-gap: 80px;
+    padding-bottom: var(--section-padding);
+  }
+  .tickets-field-img {
+    height: 440px;
+  }
+  .ticket-amount-list {
+    text-align: left;
+  }
+  .ticket-amount-list-item:nth-child(3),
+  .ticket-amount-list-item:nth-child(5) {
+    width: 175px;
+    margin-left: 0;
+  }
+  .ticket-amount-list-item:nth-child(2),
+  .ticket-amount-list-item:nth-child(4) {
+    margin-bottom: 15px;
+    margin-left: 0;
+  }
+  .map-field {
+    width: 694px;
+    height: 454px;
+  }
+  .page-footer .container {
+    display: grid;
+    grid-template-columns: 239px 313px 340px;
   }
 }
