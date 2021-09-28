@@ -29,7 +29,7 @@
             <li class="nav-item"><a class="nav-item-link" href="#contacts">Contacts</a></li>
           </ul>
         </nav>
-        <div class="burger"></div>
+        <div class="burger-container"><div class="burger"></div></div>
       </div>
     </header>
     <main>
@@ -173,7 +173,7 @@
         <div class="container">
           <h2 class="section-title">buy tickets</h2>
           <div class="tickets-field">
-            <img class="tickets-field-img" src="assets/img/tickets-img.jpg" alt="Tickets background" />
+            <div class="tickets-field-img"></div>
             <ul class="ticket-type-list text-nonvisible">
               <li class="ticket-amount-list-item"><h4 class="ticket-type-list-item-title">Ticket Type</h4></li>
               <li class="ticket-type-list-item">
@@ -195,7 +195,7 @@
               <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
               <li class="ticket-amount-list-item">Senior 65+</li>
               <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
-              <li class="ticket-amount-list-item">Total €220</li>
+              <li class="ticket-amount-list-item">Total <span class="euro">€</span> 220</li>
               <li class="ticket-amount-list-item"><button class="buy-btn">Buy Now</button></li>
             </ul>
           </div>
