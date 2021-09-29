@@ -27,17 +27,15 @@ formDate.addEventListener('click', () => {
   formDatePsewdo.classList.add('date-psewdo-nonvisible');
 });
 formDate.addEventListener('blur', () => {
-  formDatePsewdo.classList.remove('date-psewdo-nonvisible');
-  if (formDate.value) {
-    formDatePsewdo.innerHTML = `${formDate.value}`;
-  } else formDatePsewdo.innerHTML = `Date`;
+  if (!formDate.value) {
+    formDatePsewdo.classList.remove('date-psewdo-nonvisible');
+  }
 });
 formTime.addEventListener('click', () => {
   formTimePsewdo.classList.add('time-psewdo-nonvisible');
 });
 formTime.addEventListener('blur', () => {
-  formTimePsewdo.classList.remove('time-psewdo-nonvisible');
-  if (formTime.value) {
-    formTimePsewdo.innerHTML = `${formTime.value}`;
-  } else formTimePsewdo.innerHTML = `Time`;
+  if (!formTime.value) {
+    formTimePsewdo.classList.remove('time-psewdo-nonvisible');
+  }
 });
