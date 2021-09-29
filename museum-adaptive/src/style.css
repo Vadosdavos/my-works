@@ -922,6 +922,7 @@ input[type='number']::-webkit-inner-spin-button {
   left: -1690px;
   transition: left 1s;
   pointer-events: none;
+  overflow-y: auto;
 }
 .form-visible {
   transition: left 1s;
@@ -1316,6 +1317,7 @@ option:checked {
   height: 35px;
   background: #ffffff;
   border: 0.5px solid #a4a4a3;
+  padding: 0 10px;
 }
 .card-number {
   width: 215px;
@@ -1655,6 +1657,7 @@ iframe {
     font-size: 28px;
     line-height: 31px;
     margin-top: 25px;
+    letter-spacing: 3px;
   }
   .card-item-text-big {
     font-size: 20px;
@@ -1663,9 +1666,6 @@ iframe {
   .card-item-text {
     font-size: 16px;
     line-height: 19px;
-  }
-  .letter-space-three {
-    letter-spacing: 3px;
   }
   .card-item-title::after {
     width: 150px;
@@ -1813,8 +1813,8 @@ iframe {
     margin-bottom: 25px;
   }
   .form-wrapper {
-    width: 1030px;
-    left: -1050px;
+    width: 1024px;
+    left: -1024px;
   }
   .form-visible {
     left: calc(50% - 512px);
@@ -1826,6 +1826,12 @@ iframe {
   }
 }
 @media (max-width: 1000px) {
+  .comparison-text-field {
+    width: 100%;
+  }
+  .comparison-section-text {
+    width: 100%;
+  }
   iframe:last-child {
     display: none;
   }
@@ -2143,6 +2149,7 @@ iframe {
   .form-visible {
     left: calc(50% - 295px);
     top: 0;
+    height: 100vh;
   }
   .book-form {
     flex-wrap: wrap;
@@ -2175,5 +2182,24 @@ iframe {
   }
   .form-select {
     top: 443px;
+  }
+  .ticket-amount-container {
+    margin-bottom: 51px;
+  }
+  .form-section:last-child {
+    padding: 25px 15px;
+  }
+  .ticket-cost-box {
+    margin-bottom: 15px;
+  }
+  .card-img-back {
+    top: 358px;
+    left: auto;
+    right: 15px;
+  }
+  .ripple-target {
+    margin-left: auto;
+    font-size: 20px;
+    line-height: 23px;
   }
 }
