@@ -105,7 +105,7 @@ body {
   background-size: contain;
   right: 0;
   top: 0;
-  width: 69.5%;
+  width: 1000px;
   height: 750px;
   position: absolute;
 }
@@ -117,7 +117,7 @@ body {
   justify-content: flex-start;
   background-color: var(--bg-dark);
   position: absolute;
-  bottom: 0;
+  bottom: -60px;
   right: 0;
 }
 .bullets-number {
@@ -1425,6 +1425,13 @@ iframe {
   }
 }
 @media (max-width: 1439px) {
+  iframe {
+    width: calc(33.3% - 38px);
+    height: calc(100vw * 0.33 - 171.3px);
+  }
+  .slider {
+    width: calc(100vw - 324px);
+  }
   .tickets-field {
     display: grid;
     grid-template-columns: 700px 175px;
@@ -1442,6 +1449,14 @@ iframe {
   .ticket-amount-list-item:nth-child(4),
   .ticket-amount-list-item:nth-child(5) {
     margin-left: 0;
+  }
+}
+@media (max-width: 1250px) {
+  .btn {
+    margin-bottom: calc(100vw - 832px);
+  }
+  .slider {
+    height: calc(100vw - 499px);
   }
 }
 @media (max-width: 1024px) {
