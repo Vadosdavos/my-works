@@ -1416,7 +1416,7 @@ option:checked {
   right: 30px;
   cursor: pointer;
 }
-iframe {
+.small-video {
   border: none;
   width: 452px;
   height: 254px;
@@ -1438,7 +1438,7 @@ iframe {
   }
 }
 @media (max-width: 1439px) {
-  iframe {
+  .small-video {
     width: calc(33.3% - 38px);
     height: calc(100vw * 0.33 - 171.3px);
   }
@@ -1733,7 +1733,7 @@ iframe {
     width: 26px;
     height: 26px;
   }
-  iframe {
+  .small-video {
     width: 300px;
     height: 170px;
   }
@@ -1827,13 +1827,16 @@ iframe {
   }
 }
 @media (max-width: 1000px) {
+  .comparison-field {
+    margin-left: 0;
+  }
   .comparison-text-field {
     width: 100%;
   }
   .comparison-section-text {
     width: 100%;
   }
-  iframe:last-child {
+  .small-video:last-child {
     display: none;
   }
   .gallery-img {
@@ -1949,12 +1952,13 @@ iframe {
     margin-left: 0;
   }
   .header-nav-container {
-    width: 713px;
+    width: 100%;
     height: 826px;
     top: 110px;
     left: -768px;
     padding-top: 35px;
     padding-left: 55px;
+    box-sizing: border-box;
   }
   .header-nav-open {
     visibility: visible;
@@ -2098,7 +2102,7 @@ iframe {
   .video-playlist {
     margin-bottom: 20px;
   }
-  iframe {
+  .small-video {
     width: 354px;
     height: 199px;
   }
@@ -2203,6 +2207,40 @@ iframe {
   }
 }
 @media (max-width: 760px) {
+  .separator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    top: 51.5%;
+    left: 60.5%;
+  }
+  .separator::before {
+    bottom: 17px;
+    height: 182px;
+  }
+  .separator::after {
+    top: 17px;
+    height: 169px;
+  }
+  .separator::after,
+  .separator::before {
+    left: 7px;
+    width: 2px;
+  }
+  .comparison-field {
+    width: calc(100vw - 40px);
+    height: calc(100vw - 52px);
+  }
+  .nav-images-container {
+    width: 310px;
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  .header-nav-container .socials-container {
+    width: 260px;
+    margin-left: 25px;
+  }
   .slider {
     height: calc(100vw - 135px);
   }
@@ -2215,6 +2253,11 @@ iframe {
   .pictures-inner-container {
     height: 2500px;
     column-gap: 12px;
+  }
+  .nav-image {
+    width: 95px;
+    height: 95px;
+    display: block;
   }
   .tickets-field {
     display: flex;
@@ -2278,13 +2321,13 @@ iframe {
   .video-length {
     width: 100%;
   }
-  iframe {
+  .small-video {
     width: calc(50% - 10px);
     height: calc(100vw * 0.5 - 185px);
   }
 }
 @media (max-width: 590px) {
-  iframe {
+  .small-video {
     height: 101px;
   }
 }
@@ -2354,11 +2397,9 @@ iframe {
     margin-left: 5px;
   }
   .header-nav-container {
-    width: 420px;
     height: 544px;
     top: 90px;
     left: -420px;
-    box-sizing: border-box;
   }
   .header-nav-open {
     visibility: visible;
@@ -2369,27 +2410,14 @@ iframe {
   .nav-images-container-visible {
     gap: 12px;
   }
-  .nav-images-container {
-    width: 310px;
-    padding-bottom: 20px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  }
-  .nav-image {
-    width: 95px;
-    height: 95px;
-    display: block;
-  }
+
   .nav-image:first-child {
     order: 2;
   }
   .nav-image:last-child {
     order: 3;
   }
-  .socials-container {
-    width: 260px;
-    margin-left: 25px;
-  }
+
   .socials-item {
     margin-right: 5px;
   }
@@ -2419,30 +2447,7 @@ iframe {
   .card-item-title::after {
     bottom: -12px;
   }
-  .comparison-field {
-    width: 380px;
-    height: 368px;
-  }
-  .separator {
-    width: 16px;
-    height: 16px;
-    border: 2px solid #ffffff;
-    top: 51.5%;
-    left: 60.5%;
-  }
-  .separator::before {
-    bottom: 17px;
-    height: 182px;
-  }
-  .separator::after {
-    top: 17px;
-    height: 169px;
-  }
-  .separator::after,
-  .separator::before {
-    left: 7px;
-    width: 2px;
-  }
+
   .online-tour {
     padding-top: 36px;
   }
@@ -2489,10 +2494,6 @@ iframe {
   .video-playlist {
     margin-bottom: 40px;
   }
-  /* iframe {
-    width: 180px;
-    height: 101px;
-  } */
   .video-bullet {
     width: 8px;
     height: 8px;
@@ -2615,7 +2616,7 @@ iframe {
   }
   .card-img-back {
     position: static;
-    padding: 105px 20px 0px 235px;
+    padding: 85px 20px 0px 235px;
     margin-bottom: 40px;
   }
   .cardholder-name {
@@ -2635,11 +2636,31 @@ iframe {
     font-size: 20px;
     line-height: 23px;
   }
+  .visacard-text:last-child {
+    font-size: 9px;
+    line-height: 11px;
+    padding: 0 13px;
+  }
 }
 @media (max-width: 410px) {
   .card-list {
     padding-left: 20px;
     padding-right: 20px;
     margin-bottom: 2px;
+  }
+  .nav-images-container {
+    gap: 5px;
+    width: calc(100% - 12px);
+  }
+  .nav-image {
+    width: calc(100% / 3 - 5px);
+    height: auto;
+  }
+  .header-nav-container .socials-container {
+    width: 260px;
+    margin: 0;
+  }
+  .bullets-container {
+    justify-content: right;
   }
 }
