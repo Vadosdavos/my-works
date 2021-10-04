@@ -29,9 +29,21 @@
             <li class="nav-item"><a class="nav-item-link" href="#contacts">Contacts</a></li>
           </ul>
           <div class="nav-images-container nav-images-container-visible">
-            <img class="nav-image" src="./assets/img/nav-image1.jpg" alt="nav-image1" />
-            <img class="nav-image" src="./assets/img/nav-image2.jpg" alt="nav-image2" />
-            <img class="nav-image" src="./assets/img/nav-image3.jpg" alt="nav-image3" />
+            <picture>
+              <source media="(min-width: 760px)" srcset="./assets/img/nav-image1.jpg" />
+              <source media="(min-width: 320px)" srcset="./assets/img/nav-image1-mini.jpg" />
+              <img class="nav-image" src="./assets/img/nav-image1.jpg" alt="nav-image1" />
+            </picture>
+            <picture>
+              <source media="(min-width: 760px)" srcset="./assets/img/nav-image2.jpg" />
+              <source media="(min-width: 320px)" srcset="./assets/img/nav-image2-mini.jpg" />
+              <img class="nav-image" src="./assets/img/nav-image2.jpg" alt="nav-image2" />
+            </picture>
+            <picture>
+              <source media="(min-width: 760px)" srcset="./assets/img/nav-image3.jpg" />
+              <source media="(min-width: 320px)" srcset="./assets/img/nav-image3-mini.jpg" />
+              <img class="nav-image" src="./assets/img/nav-image3.jpg" alt="nav-image3" />
+            </picture>
           </div>
           <nav class="socials-container">
             <ul class="socials">
@@ -351,7 +363,13 @@
               <li class="contacts-list-item">mail: <a class="contacts-list-item-link" href="mailto:info@louvre.fr">info@louvre.fr</a></li>
             </ul>
             <div class="map-field">
-              <img class="map-field-image" src="assets/img/map.png" alt="Map" />
+              <picture>
+                <source media="(min-width: 1030px)" srcset="assets/img/map.png" />
+                <source media="(min-width: 770px)" srcset="assets/img/map1024.png" />
+                <source media="(min-width: 421px)" srcset="assets/img/map768.png" />
+                <source media="(min-width: 320px)" srcset="assets/img/map420.png" />
+                <img class="map-field-image" src="assets/img/map420.png" alt="Map" />
+              </picture>
             </div>
           </div>
         </div>

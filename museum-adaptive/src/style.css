@@ -1900,6 +1900,67 @@ option:checked {
     border-top: 1px solid #666666;
     padding: 40px 0;
   }
+  .form-wrapper {
+    width: 590px;
+    height: 1479px;
+    left: -590px;
+  }
+  .form-visible {
+    left: calc(50% - 295px);
+    top: 0;
+    height: 100vh;
+  }
+  .book-form {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 75px;
+    margin-bottom: 30px;
+  }
+  .form-close {
+    top: 25px;
+  }
+  .form-section:first-child {
+    width: 530px;
+  }
+  .form-text-border {
+    margin-bottom: 39px;
+  }
+  input[type='date'] {
+    width: 251px;
+    margin-right: 28px;
+  }
+  input[type='time'] {
+    width: 251px;
+  }
+  .date-psewdo {
+    top: 195px;
+  }
+  .time-psewdo {
+    top: 195px;
+    left: 325px;
+  }
+  .form-select {
+    top: 443px;
+  }
+  .ticket-amount-container {
+    margin-bottom: 51px;
+  }
+  .form-section:last-child {
+    padding: 25px 15px;
+  }
+  .ticket-cost-box {
+    margin-bottom: 15px;
+  }
+  .card-img-back {
+    top: 358px;
+    left: auto;
+    right: 15px;
+  }
+  .ripple-target {
+    margin-left: auto;
+    font-size: 20px;
+    line-height: 23px;
+  }
 }
 @media (max-width: 768px) {
   :root {
@@ -2144,69 +2205,22 @@ option:checked {
     font-size: 18px;
     line-height: 21px;
   }
-  .form-wrapper {
-    width: 590px;
-    height: 1479px;
-    left: -590px;
-  }
-  .form-visible {
-    left: calc(50% - 295px);
-    top: 0;
-    height: 100vh;
-  }
-  .book-form {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 75px;
-    margin-bottom: 30px;
-  }
-  .form-close {
-    top: 25px;
-  }
-  .form-section:first-child {
-    width: 530px;
-  }
-  .form-text-border {
-    margin-bottom: 39px;
-  }
-  input[type='date'] {
-    width: 251px;
-    margin-right: 28px;
-  }
-  input[type='time'] {
-    width: 251px;
-  }
-  .date-psewdo {
-    top: 195px;
-  }
-  .time-psewdo {
-    top: 195px;
-    left: 325px;
-  }
-  .form-select {
-    top: 443px;
-  }
-  .ticket-amount-container {
-    margin-bottom: 51px;
-  }
-  .form-section:last-child {
-    padding: 25px 15px;
-  }
-  .ticket-cost-box {
-    margin-bottom: 15px;
-  }
-  .card-img-back {
-    top: 358px;
-    left: auto;
-    right: 15px;
-  }
-  .ripple-target {
-    margin-left: auto;
-    font-size: 20px;
-    line-height: 23px;
-  }
 }
 @media (max-width: 760px) {
+  .bullets-container {
+    width: 450px;
+    height: 80px;
+    bottom: -80px;
+  }
+  .bullet-item {
+    margin-right: 10px;
+  }
+  .bullets-number {
+    margin-right: 25px;
+  }
+  .bullets {
+    margin-right: 25px;
+  }
   .separator {
     width: 16px;
     height: 16px;
@@ -2249,10 +2263,6 @@ option:checked {
   }
   .pictures-container {
     height: 637px;
-  }
-  .pictures-inner-container {
-    height: 2500px;
-    column-gap: 12px;
   }
   .nav-image {
     width: 95px;
@@ -2330,8 +2340,109 @@ option:checked {
   .small-video {
     height: 101px;
   }
+  .form-wrapper {
+    width: 420px;
+    height: 1754px;
+    left: -420px;
+  }
+  .form-visible {
+    left: calc(50% - 210px);
+    top: 0;
+    height: 100vh;
+  }
+  .book-form {
+    margin-top: 80px;
+    margin-bottom: 50px;
+  }
+  .form-close {
+    top: 30px;
+  }
+  .form-section:first-child,
+  .form-section:last-child {
+    width: 360px;
+  }
+  .form-title {
+    font-size: 32px;
+    line-height: 35px;
+    margin-bottom: 15px;
+  }
+  input[type='date'] {
+    width: 360px;
+    margin-right: 0;
+  }
+  input[type='time'] {
+    width: 360px;
+    float: none;
+  }
+  .date-psewdo {
+    top: 178px;
+    left: 44px;
+  }
+  .time-psewdo {
+    top: 244px;
+    left: 44px;
+  }
+  .form-select {
+    top: 488px;
+  }
+  .ticket-amount-container {
+    margin-bottom: 49px;
+  }
+  .form-section:last-child {
+    padding: 25px 15px;
+  }
+  .form-img {
+    width: 120px;
+    height: 96px;
+  }
+  .ticket-cost-item {
+    margin-bottom: 7px;
+  }
+  .ticket-cost-box {
+    margin-bottom: 15px;
+  }
+  .card-img-front,
+  .card-img-back {
+    width: 330px;
+    height: 209px;
+  }
+  .card-img-front {
+    background-image: url('./assets/img/card-front-mini.jpg');
+    margin-bottom: 23px;
+  }
+  .card-img-back {
+    position: static;
+    padding: 85px 20px 0px 235px;
+    margin-bottom: 40px;
+  }
+  .cardholder-name {
+    width: 290px;
+  }
+  .visacard-text {
+    font-size: 11px;
+    line-height: 13px;
+    font-weight: normal;
+  }
+  .card-img-back .visacard-text:nth-of-type(1) {
+    font-size: 13px;
+    line-height: 15px;
+  }
+  .ripple-target {
+    margin-left: auto;
+    font-size: 20px;
+    line-height: 23px;
+  }
+  .visacard-text:last-child {
+    font-size: 9px;
+    line-height: 11px;
+    padding: 0 13px;
+  }
 }
 @media (max-width: 420px) {
+  .pictures-inner-container {
+    height: 2500px;
+    column-gap: 12px;
+  }
   .container {
     max-width: 380px;
   }
@@ -2362,19 +2473,10 @@ option:checked {
   }
   .bullets-container {
     width: 380px;
-    height: 80px;
-    bottom: -80px;
   }
   .bullets-number {
     font-size: 16px;
     line-height: 40px;
-    margin-right: 25px;
-  }
-  .bullets {
-    margin-right: 25px;
-  }
-  .bullet-item {
-    margin-right: 10px;
   }
   .bullet {
     width: 7px;
@@ -2544,103 +2646,6 @@ option:checked {
     font-size: 16px;
     line-height: 22px;
   }
-  .form-wrapper {
-    width: 420px;
-    height: 1754px;
-    left: -420px;
-  }
-  .form-visible {
-    left: calc(50% - 210px);
-    top: 0;
-    height: 100vh;
-  }
-  .book-form {
-    margin-top: 80px;
-    margin-bottom: 50px;
-  }
-  .form-close {
-    top: 30px;
-  }
-  .form-section:first-child,
-  .form-section:last-child {
-    width: 360px;
-  }
-  .form-title {
-    font-size: 32px;
-    line-height: 35px;
-    margin-bottom: 15px;
-  }
-  input[type='date'] {
-    width: 360px;
-    margin-right: 0;
-  }
-  input[type='time'] {
-    width: 360px;
-    float: none;
-  }
-  .date-psewdo {
-    top: 178px;
-    left: 44px;
-  }
-  .time-psewdo {
-    top: 244px;
-    left: 44px;
-  }
-  .form-select {
-    top: 488px;
-  }
-  .ticket-amount-container {
-    margin-bottom: 49px;
-  }
-  .form-section:last-child {
-    padding: 25px 15px;
-  }
-  .form-img {
-    width: 120px;
-    height: 96px;
-  }
-  .ticket-cost-item {
-    margin-bottom: 7px;
-  }
-  .ticket-cost-box {
-    margin-bottom: 15px;
-  }
-  .card-img-front,
-  .card-img-back {
-    width: 330px;
-    height: 209px;
-  }
-  .card-img-front {
-    background-image: url('./assets/img/card-front-mini.jpg');
-    margin-bottom: 23px;
-  }
-  .card-img-back {
-    position: static;
-    padding: 85px 20px 0px 235px;
-    margin-bottom: 40px;
-  }
-  .cardholder-name {
-    width: 290px;
-  }
-  .visacard-text {
-    font-size: 11px;
-    line-height: 13px;
-    font-weight: normal;
-  }
-  .card-img-back .visacard-text:nth-of-type(1) {
-    font-size: 13px;
-    line-height: 15px;
-  }
-  .ripple-target {
-    margin-left: auto;
-    font-size: 20px;
-    line-height: 23px;
-  }
-  .visacard-text:last-child {
-    font-size: 9px;
-    line-height: 11px;
-    padding: 0 13px;
-  }
 }
 @media (max-width: 410px) {
   .card-list {
@@ -2652,9 +2657,11 @@ option:checked {
     gap: 5px;
     width: calc(100% - 12px);
   }
-  .nav-image {
-    width: calc(100% / 3 - 5px);
-    height: auto;
+  .header-nav-container {
+    padding-top: 0;
+  }
+  .header-nav .nav-item {
+    margin-bottom: 10px;
   }
   .header-nav-container .socials-container {
     width: 260px;
@@ -2662,5 +2669,31 @@ option:checked {
   }
   .bullets-container {
     justify-content: right;
+  }
+  .form-wrapper {
+    width: 100%;
+  }
+  .form-section:first-child,
+  .form-section:last-child {
+    width: 100%;
+  }
+  input[type='date'] {
+    width: 100%;
+  }
+  input[type='time'] {
+    width: 100%;
+  }
+  .form-visible {
+    left: 0;
+  }
+  .card-img-front,
+  .card-img-back {
+    width: 100%;
+  }
+  .card-img-back {
+    padding: 85px 20px 0px 200px;
+  }
+  .cardholder-name {
+    width: calc(100% - 20px);
   }
 }
