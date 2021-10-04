@@ -632,7 +632,7 @@ input[type='range']::-webkit-slider-thumb {
 .tickets-field-img {
   width: 720px;
   height: 550px;
-  background-image: url(assets/tickets-img.jpg);
+  background-image: url(assets/tickets-img.webp);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -1420,6 +1420,7 @@ option:checked {
   border: none;
   width: 452px;
   height: 254px;
+  position: relative;
 }
 .burger-container {
   display: none;
@@ -1430,6 +1431,57 @@ option:checked {
 .opacity-zero {
   opacity: 0;
   transition: opacity 1s;
+}
+.small-video-fake {
+  border: none;
+  width: 452px;
+  height: 254px;
+  position: relative;
+}
+.video-link{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.video-prew {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: none;
+  padding: 0;
+  width: 68px;
+  height: 48px;
+  border: none;
+  background-color: transparent;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.video-play-shape {
+  fill: #212121;
+  fill-opacity: 0.8;
+}
+.video-play-icon {
+  fill: #ffffff;
+}
+.video-play:focus {
+  outline: none;
+}
+.video-enabled {
+  cursor: pointer;
+}
+.video-enabled .video-play {
+  display: block;
 }
 @keyframes ripple {
   to {
