@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="icon" href="assets/svg/favicon.ico" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <title>Louvre museum</title>
   </head>
   <body>
@@ -69,8 +70,34 @@
             <p class="section-text">From the castle to the museum</p>
             <a class="btn btn-nonvisible" href="tour7.html" target="_blank">Discover the Louvre</a>
           </div>
+          <div class="shadow"></div>
           <div class="slider">
-            <div class="bullets-container">
+            <div class="swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <picture class="swiper-slide-img"><img src="./assets/img/welcome-slider/1.jpg" alt="Welcome-slider-image1" /></picture>
+                </div>
+                <div class="swiper-slide">
+                  <picture class="swiper-slide-img"><img src="./assets/img/welcome-slider/2.jpg" alt="Welcome-slider-image2" /></picture>
+                </div>
+                <div class="swiper-slide">
+                  <picture class="swiper-slide-img"><img src="./assets/img/welcome-slider/3.jpg" alt="Welcome-slider-image3" /></picture>
+                </div>
+                <div class="swiper-slide">
+                  <picture class="swiper-slide-img"><img src="./assets/img/welcome-slider/4.jpg" alt="Welcome-slider-image4" /></picture>
+                </div>
+                <div class="swiper-slide">
+                  <picture class="swiper-slide-img"><img src="./assets/img/welcome-slider/5.jpg" alt="Welcome-slider-image5" /></picture>
+                </div>
+              </div>
+              <div class="bullets-container">
+                <p class="bullets-number">0<span class="current-bullet"></span>|<span class="bul-num">05</span></p>
+                <div class="swiper-pagination bullets"></div>
+                <div class="swiper-button-prev arrow-left"></div>
+                <div class="swiper-button-next arrow-right"></div>
+              </div>
+            </div>
+            <!-- <div class="bullets-container">
               <p class="bullets-number"><span class="current-bullet">01</span>|<span class="bul-num">05</span></p>
               <ul class="bullets">
                 <li class="bullet-item"><span class="bullet b-active"></span></li>
@@ -81,7 +108,7 @@
               </ul>
               <button class="arrow-left"></button>
               <button class="arrow-right"></button>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
