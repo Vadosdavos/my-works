@@ -653,6 +653,13 @@ input[type='range']::-webkit-slider-thumb {
 }
 .gallery-img {
   width: calc(33.3% - 23.5px);
+  transform: translateY(50px) scale(0.9);
+  opacity: 0;
+  transition: all 0.4s;
+}
+.gallery-img.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 .gallery-img:first-child,
 .gallery-img:nth-child(11) {
