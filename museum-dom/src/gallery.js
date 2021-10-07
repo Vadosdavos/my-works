@@ -24,19 +24,18 @@ function debounce(func, wait = 20, immediate = true) {
 }
 
 function appearImages() {
-  const galleryImagesArray = Array.from(galleryImages);
-
-  galleryImagesArray.forEach((galleryImage) => {
-    const slideInAt = window.scrollY + window.innerHeight - galleryImage.height / 2;
-    const imageBottom = galleryImage.offsetTop + galleryImage.height;
-    const isHalfShown = slideInAt > galleryImage.offsetTop;
+  for (image of galleryImages) {
+    const slideInAt = window.scrollY + window.innerHeight - image.height / 2;
+    const imageTop = image.getBoundingClientRect().top + window.scrollY;
+    const imageBottom = imageTop + image.height;
+    const isHalfShown = slideInAt > imageTop;
     const isNotScrolledPast = window.scrollY < imageBottom;
     if (isHalfShown && isNotScrolledPast) {
-      galleryImage.classList.add('active');
+      image.classList.add('active-img');
     } else {
-      galleryImage.classList.remove('active');
+      image.classList.remove('active-img');
     }
-  });
+  }
 }
-
+window.addEventListener('load', debounce(appearImages));
 window.addEventListener('scroll', debounce(appearImages));
