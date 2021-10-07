@@ -199,7 +199,10 @@
               <button class="video-btn fullscreen"></button>
             </div>
             <div class="video-playlist">
-              <div class="small-video-fake">
+              <iframe class="small-video" src="https://www.youtube.com/embed/aWmJ5DgyWPI" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="small-video" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="small-video" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <div class="small-video-fake">
                 <a class="video-link" href="https://youtu.be/aWmJ5DgyWPI">
                   <picture>
                     <source srcset="https://i.ytimg.com/vi_webp/aWmJ5DgyWPI/maxresdefault.webp" type="image/webp" />
@@ -212,8 +215,8 @@
                     </svg>
                   </button>
                 </a>
-              </div>
-              <div class="small-video-fake">
+              </div> -->
+              <!-- <div class="small-video-fake">
                 <a class="video-link" href="https://youtu.be/Vi5D6FKhRmo">
                   <picture>
                     <source srcset="https://i.ytimg.com/vi_webp/Vi5D6FKhRmo/maxresdefault.webp" type="image/webp" />
@@ -226,9 +229,8 @@
                     </svg>
                   </button>
                 </a>
-              </div>
-              <!-- <iframe class="small-video" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-              <div class="small-video-fake">
+              </div> -->
+              <!-- <div class="small-video-fake">
                 <a class="video-link" href="https://youtu.be/NOhDysLnTvY">
                   <picture>
                     <source srcset="https://i.ytimg.com/vi_webp/NOhDysLnTvY/maxresdefault.webp" type="image/webp" />
@@ -241,7 +243,7 @@
                     </svg>
                   </button>
                 </a>
-              </div>
+              </div> -->
             </div>
             <div class="video-bullets">
               <ul class="bullets">
@@ -288,10 +290,10 @@
             <ul class="ticket-amount-list">
               <li class="ticket-amount-list-item"><h4 class="ticket-amount-list-item-title">Amount</h4></li>
               <li class="ticket-amount-list-item">Basic 18+</li>
-              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
+              <li class="ticket-amount-list-item"><button class="ticket-amout-change minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number ticket-number-basic" value="1" min="0" max="20" /><button class="ticket-amout-change plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
               <li class="ticket-amount-list-item">Senior 65+</li>
-              <li class="ticket-amount-list-item"><button class="minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number" value="1" min="0" max="20" /><button class="plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
-              <li class="ticket-amount-list-item">Total <span class="euro">€</span> 220</li>
+              <li class="ticket-amount-list-item"><button class="ticket-amout-change minus" onclick="this.nextElementSibling.stepDown()">_</button><input type="number" class="ticket-number ticket-number-senior" value="1" min="0" max="20" /><button class="ticket-amout-change plus" onclick="this.previousElementSibling.stepUp()">+</button></li>
+              <li class="ticket-amount-list-item">Total <span class="euro">€</span> <span class="total-cost">0</span></li>
               <li class="ticket-amount-list-item"><button class="buy-btn">Buy Now</button></li>
             </ul>
           </div>
