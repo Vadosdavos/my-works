@@ -329,12 +329,12 @@
                   <p class="ticket-amount-title">Entry ticket</p>
                   <div class="ticket-amount-border"></div>
                   <div class="ticket-amount-item">
-                    <p>Basic 18+ (20 €)</p>
-                    <div class="number-container"><span class="form-minus" onclick="this.nextElementSibling.stepDown()"></span><input type="number" class="form-number" value="2" min="0" max="20" /><span class="form-plus" onclick="this.previousElementSibling.stepUp()"></span></div>
+                    <p>Basic 18+ (<span class="basic-price">20</span> €)</p>
+                    <div class="number-container"><span class="ticket-amout-change form-minus" onclick="this.nextElementSibling.stepDown()"></span><input type="number" class="form-number ticket-number-basic-form" value="1" min="0" max="20" /><span class="ticket-amout-change form-plus" onclick="this.previousElementSibling.stepUp()"></span></div>
                   </div>
                   <div class="ticket-amount-item">
-                    <p>Senior 65+ (10 €)</p>
-                    <div class="number-container"><span class="form-minus" onclick="this.nextElementSibling.stepDown()"></span><input type="number" class="form-number" value="2" min="0" max="20" /><span class="form-plus" onclick="this.previousElementSibling.stepUp()"></span></div>
+                    <p>Senior 65+ (<span class="senior-price">10</span> €)</p>
+                    <div class="number-container"><span class="ticket-amout-change form-minus" onclick="this.nextElementSibling.stepDown()"></span><input type="number" class="form-number ticket-number-senior-form" value="1" min="0" max="20" /><span class="ticket-amout-change form-plus" onclick="this.previousElementSibling.stepUp()"></span></div>
                   </div>
                 </div>
               </div>
@@ -369,23 +369,23 @@
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M10.9425 4.185L6 9.1275L3.3075 6.4425L2.25 7.5L6 11.25L12 5.25L10.9425 4.185ZM7.5 0C3.36 0 0 3.36 0 7.5C0 11.64 3.36 15 7.5 15C11.64 15 15 11.64 15 7.5C15 3.36 11.64 0 7.5 0ZM7.5 13.5C4.185 13.5 1.5 10.815 1.5 7.5C1.5 4.185 4.185 1.5 7.5 1.5C10.815 1.5 13.5 4.185 13.5 7.5C13.5 10.815 10.815 13.5 7.5 13.5Z" fill="black" />
                     </svg>
-                    Temporary exhibition
+                    <span class="overview-ticket-type">Permanent exhibition</span>
                   </li>
                 </ul>
                 <ul class="ticket-cost-list">
                   <li class="ticket-cost-item">
-                    <p class="ticket-cost-text"><span class="ticket-amount">2</span> Basic (20 €)</p>
-                    <p class="ticket-cost-text">40 €</p>
+                    <p class="ticket-cost-text"><span class="ticket-amount ticket-overview-basic">0</span> Basic (<span class="basic-price">20</span> €)</p>
+                    <p class="ticket-cost-text"><span class="overview-cost-basic">0</span> €</p>
                   </li>
                   <li class="ticket-cost-item">
-                    <p class="ticket-cost-text"><span class="ticket-amount">2</span> Senior (10 €)</p>
-                    <p class="ticket-cost-text">20 €</p>
+                    <p class="ticket-cost-text"><span class="ticket-amount ticket-overview-senior">0</span> Senior (<span class="senior-price">10</span> €)</p>
+                    <p class="ticket-cost-text"><span class="overview-cost-senior">0</span> €</p>
                   </li>
                 </ul>
                 <div class="ticket-cost-border"></div>
                 <div class="ticket-cost-box">
                   <p class="overview-title">Total:</p>
-                  <p class="overview-title">60 €</p>
+                  <p class="overview-title"><span class="total-cost-form">0</span> €</p>
                 </div>
                 <div class="card-img-front">
                   <p class="visacard-text">Card number</p>
