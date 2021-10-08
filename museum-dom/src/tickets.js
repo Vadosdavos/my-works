@@ -1,3 +1,5 @@
+import { formDate } from './form';
+import { formTime } from './form';
 const ticketBasic = document.querySelector('.ticket-number-basic');
 const ticketSenior = document.querySelector('.ticket-number-senior');
 const ticketBasicForm = document.querySelector('.ticket-number-basic-form');
@@ -15,6 +17,8 @@ const formSelectOptions = Array.from(formSelect.options);
 const basicPrice = document.querySelectorAll('.basic-price');
 const seniorPrice = document.querySelectorAll('.senior-price');
 const overviewTicketType = document.querySelector('.overview-ticket-type');
+const overviewDate = document.querySelector('.overview-date');
+const overviewTime = document.querySelector('.overview-time');
 let radioId = 'ticket-radio-1';
 const prices = {
   'ticket-radio-1': 20,
@@ -48,6 +52,13 @@ const calcCost = (type) => ticketBasic.value * prices[type] + (ticketSenior.valu
 const calcCostForm = (type) => ticketBasicForm.value * prices[type] + (ticketSeniorForm.value * prices[type]) / 2;
 const calcCostOverviewBasic = (type) => ticketBasicForm.value * prices[type];
 const calcCostOverviewSenior = (type) => (ticketSeniorForm.value * prices[type]) / 2;
+
+const validateDate = () => {
+  let todayDate = new Date();
+  const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+  formDate.min = todayDate.toLocaleString('ru-RU', options).replace(/\./g, '-').split('-').reverse().join('-');
+};
+validateDate();
 
 window.addEventListener('DOMContentLoaded', () => {
   totalCost.textContent = calcCost(radioId);
@@ -138,6 +149,16 @@ ticketAmountChangeButtons.forEach((el) => {
     overviewCostBasic.textContent = calcCostOverviewBasic(radioId);
     overviewCostSenior.textContent = calcCostOverviewSenior(radioId);
   });
+});
+
+formDate.addEventListener('input', () => {
+  let date = new Date(formDate.value);
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  overviewDate.textContent = date.toLocaleString('en-US', options);
+});
+
+formTime.addEventListener('input', () => {
+  overviewTime.textContent = formTime.value;
 });
 
 const setLocalStorage = () => {

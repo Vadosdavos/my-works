@@ -3,9 +3,9 @@ const buyNow = document.querySelector('.buy-btn');
 const formClose = document.querySelector('.form-close');
 const overlay = document.querySelector('.overlay');
 const formSelect = document.querySelector('.form-select');
-const formDate = document.querySelector('.date');
+export const formDate = document.querySelector('.date');
 const formDatePsewdo = document.querySelector('.date-psewdo');
-const formTime = document.querySelector('.time');
+export const formTime = document.querySelector('.time');
 const formTimePsewdo = document.querySelector('.time-psewdo');
 
 buyNow.addEventListener('click', function () {
