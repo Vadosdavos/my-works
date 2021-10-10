@@ -456,11 +456,11 @@ body {
   margin-top: 75px;
   margin-bottom: var(--section-padding);
 }
-.video-container-image {
+.video-container-video {
   width: 100%;
   position: relative;
 }
-.video-container-image img {
+.large-video {
   width: 100%;
   display: block;
 }
@@ -524,6 +524,10 @@ input[type='range']::-webkit-slider-thumb {
   left: 610px;
   top: 215px;
   padding: 0;
+}
+.play-big-hidden {
+  visibility: hidden;
+  opacity: 0;
 }
 .play {
   width: 23px;
@@ -1849,6 +1853,7 @@ option:checked {
   }
   .video-length {
     width: 564px;
+    position: relative;
   }
   .video-volume {
     width: 143px;
