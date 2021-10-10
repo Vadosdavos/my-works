@@ -316,9 +316,18 @@
                 <input class="form-input date" type="date" required />
                 <span class="time-psewdo">Time</span>
                 <input class="form-input time" type="time" step="1800" min="09:00" max="18:00" required />
-                <input class="form-input text" type="text" placeholder="Name" required />
-                <input class="form-input" type="email" placeholder="E-mail" required />
-                <input class="form-input" type="tel" placeholder="Phone" required />
+                <div class="input-container">
+                  <input class="form-input text" type="text" placeholder="Name" required />
+                  <label class="invalid-text">Invalid input!</label>
+                </div>
+                <div class="input-container">
+                  <input class="form-input" id="email" type="email" placeholder="E-mail" required />
+                  <label class="invalid-text">Invalid input!</label>
+                </div>
+                <div class="input-container">
+                  <input class="form-input" id="tel" type="tel" placeholder="Phone" required />
+                  <label class="invalid-text">Invalid input!</label>
+                </div>
                 <select class="form-input form-select" onfocus="this.size=4;" onblur="this.size=0;" onchange="this.size=1; this.blur();">
                   <option>Ticket Type</option>
                   <option>Permanent exhibition</option>
@@ -392,14 +401,14 @@
                   <input class="visacard-input-text card-number" type="text" />
                   <p class="visacard-text">Expiration date</p>
                   <div class="expir-month-container">
-                    <input class="expir-number" type="number" value="03" min="0" max="12" />
-                    <div class="input-top"></div>
-                    <div class="input-bottom"></div>
+                    <div class="input-top" onclick="this.nextElementSibling.stepUp()"></div>
+                    <input class="expir-number expir-number-month" type="number" value="3" min="0" max="12" />
+                    <div class="input-bottom" onclick="this.previousElementSibling.stepDown()"></div>
                   </div>
                   <div class="expir-year-container">
-                    <input class="expir-number" type="number" value="2024" min="0" max="2050" />
-                    <div class="input-top"></div>
-                    <div class="input-bottom"></div>
+                    <div class="input-top" onclick="this.nextElementSibling.stepUp()"></div>
+                    <input class="expir-number expir-number-year" type="number" value="2024" min="0" max="2050" />
+                    <div class="input-bottom" onclick="this.previousElementSibling.stepDown()"></div>
                   </div>
                   <p class="visacard-text">Cardholder name</p>
                   <input class="visacard-input-text cardholder-name" type="text" />
