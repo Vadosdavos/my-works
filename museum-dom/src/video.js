@@ -1,10 +1,10 @@
 const ranges = document.querySelectorAll('.ranges');
-const play = document.querySelector('.play');
-const playBig = document.querySelector('.play-big');
+export  const play = document.querySelector('.play');
+export  const playBig = document.querySelector('.play-big');
 const sound = document.querySelector('.sound');
 const fullscreen = document.querySelector('.fullscreen');
 const videoPlayer = document.querySelector('.video-player');
-const video = videoPlayer.querySelector('.large-video');
+export const video = videoPlayer.querySelector('.large-video');
 const videoLengthBar = videoPlayer.querySelector('.video-length');
 const videoVolumeBar = videoPlayer.querySelector('.video-volume');
 const playbackRateText = videoPlayer.querySelector('.playbackRate');
@@ -34,7 +34,7 @@ const updateRanges = function () {
 };
 
 const handleProgress = function () {
-  const percent = (video.currentTime / video.duration) * 100;
+  const percent = (video.currentTime / video.duration) * 100 || 0;
   videoLengthBar.style.background = `linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) ${percent}%, #C4C4C4 ${percent}%, #C4C4C4 100%)`;
   videoLengthBar.value = percent;
 };

@@ -1,13 +1,8 @@
 import Swiper, { Navigation, Pagination } from 'swiper';
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
 
-// configure Swiper to use modules
 Swiper.use([Navigation, Pagination]);
 
 const welcomeSwiper = new Swiper('.swiper', {
-  // Optional parameters
   direction: 'horizontal',
   loop: true,
   pagination: {

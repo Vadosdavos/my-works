@@ -134,7 +134,6 @@ body {
   content: '';
   visibility: hidden;
 }
-
 .slider {
   right: 0;
   top: 0;
@@ -590,9 +589,6 @@ input[type='range']::-webkit-slider-thumb {
 :-webkit-full-screen .fullscreen {
   background-image: url('assets/svg/fullscreen-on.svg');
 }
-.video-bullets .bullets {
-  margin-right: 0;
-}
 .online-tour .section-title {
   color: var(--font-gold);
 }
@@ -601,13 +597,32 @@ input[type='range']::-webkit-slider-thumb {
   line-height: 38.5px;
   font-weight: 300;
 }
+.video-bullets {
+  position: absolute;
+  top: 294px;
+  left: 620px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 60px;
+}
 .video-playlist {
+  width: 1440px;
+  height: 306px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+  min-width: 0;
+  overflow-x: hidden;
+  position: relative;
 }
-.video-bullet {
+.pag-video {
+  display: flex;
+  justify-content: space-around;
+}
+.pag-video .swiper-pagination-bullet {
   display: block;
   width: 12px;
   height: 12px;
@@ -616,10 +631,14 @@ input[type='range']::-webkit-slider-thumb {
   cursor: pointer;
   transition: background-color 0.4s;
 }
-.video-bullet-nav {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+.pag-video .swiper-pagination-bullet:hover {
+  background-color: var(--dark-red);
+}
+.pag-video .swiper-pagination-bullet-active {
+  background-color: #333333;
+}
+.next-video,
+.prev-video {
   border: 0;
   border-radius: 0;
   background-color: transparent;
@@ -629,20 +648,16 @@ input[type='range']::-webkit-slider-thumb {
   cursor: pointer;
   transition: filter 0.4s;
 }
-.video-bullet-nav:hover {
+.next-video:hover,
+.prev-video:hover {
   filter: invert(8%) sepia(59%) saturate(5710%) brightness(35%) contrast(100%);
 }
 .vb-prev {
   background-image: url('./assets/svg/vb-prev.svg');
+  margin-right: 20px;
 }
 .vb-next {
   background-image: url('./assets/svg/vb-next.svg');
-}
-.video-bullet:hover {
-  background-color: var(--dark-red);
-}
-.vb-active {
-  background-color: #333333;
 }
 .gallery {
   background-color: var(--bg-dark);
