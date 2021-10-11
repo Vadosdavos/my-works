@@ -70,7 +70,7 @@ formNameInput.addEventListener('input', () => {
 formEmailInput.addEventListener('input', () => {
   let reg = /^[a-zA-Z0-9_.+-]{3,15}@[a-zA-Z0-9-]{4,15}\.[a-zA-Z0-9-.]{2,10}$/;
   let email = formEmailInput.value;
-  if (email.length < 3 || email.length > 15 || !formEmailInput.validity.valid || !reg.test(email)) {
+  if (!formEmailInput.validity.valid || !reg.test(email)) {
     setInvalid.apply(formEmailInput);
   } else {
     removeInvalid.apply(formEmailInput);

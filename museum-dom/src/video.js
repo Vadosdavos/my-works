@@ -1,6 +1,6 @@
 const ranges = document.querySelectorAll('.ranges');
-export  const play = document.querySelector('.play');
-export  const playBig = document.querySelector('.play-big');
+export const play = document.querySelector('.play');
+export const playBig = document.querySelector('.play-big');
 const sound = document.querySelector('.sound');
 const fullscreen = document.querySelector('.fullscreen');
 const videoPlayer = document.querySelector('.video-player');
@@ -110,11 +110,12 @@ window.addEventListener('keyup', (event) => {
 });
 
 window.addEventListener('keydown', (event) => {
-  event.preventDefault();
-  if (event.repeat) {
-    return;
-  }
   if (video.getBoundingClientRect().y < video.clientHeight && -video.getBoundingClientRect().y < video.clientHeight) {
+    event.preventDefault();
+    if (event.repeat) {
+      return;
+    }
+
     if (event.code === 'Space') {
       togglePlay();
     }
