@@ -467,6 +467,24 @@ body {
   display: block;
   cursor: pointer;
 }
+.playbackRate {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 15%;
+  left: 47.5%;
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+}
 .video-control {
   width: 100%;
   height: 85px;

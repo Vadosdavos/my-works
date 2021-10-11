@@ -7,8 +7,11 @@ const videoPlayer = document.querySelector('.video-player');
 const video = videoPlayer.querySelector('.large-video');
 const videoLengthBar = videoPlayer.querySelector('.video-length');
 const videoVolumeBar = videoPlayer.querySelector('.video-volume');
+const playbackRateText = videoPlayer.querySelector('.playbackRate');
 let mousedown = false;
 let curVolume = 0.43;
+let isShiftDown = false;
+
 const togglePlay = function () {
   const method = video.paused ? 'play' : 'pause';
   video[method]();
@@ -48,6 +51,15 @@ const mute = function () {
   videoVolumeBar.value = video.volume;
 };
 
+const toggleFullScreen = function () {
+  if (!document.fullscreenElement) videoPlayer.requestFullscreen();
+  else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+};
+
 video.addEventListener('timeupdate', () => {
   handleProgress();
 });
@@ -77,13 +89,62 @@ sound.addEventListener('click', () => {
   mute();
 });
 
-function toggleFullScreen() {
-  if (!document.fullscreenElement) videoPlayer.requestFullscreen();
-  else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    }
-  }
-}
-
 fullscreen.addEventListener('click', toggleFullScreen);
+
+window.addEventListener('keydown', (event) => {
+  if (event.repeat) {
+    return;
+  }
+  if (event.key === 'Shift') {
+    isShiftDown = true;
+  }
+});
+
+window.addEventListener('keyup', (event) => {
+  if (event.repeat) {
+    return;
+  }
+  if (event.key === 'Shift') {
+    isShiftDown = false;
+  }
+});
+
+window.addEventListener('keydown', (event) => {
+  event.preventDefault();
+  if (event.repeat) {
+    return;
+  }
+  if (video.getBoundingClientRect().y < video.clientHeight && -video.getBoundingClientRect().y < video.clientHeight) {
+    if (event.code === 'Space') {
+      togglePlay();
+    }
+    if (event.code === 'KeyM') {
+      mute();
+    }
+    if (event.code === 'KeyF') {
+      toggleFullScreen();
+    }
+    window.addEventListener('keydown', (event) => {
+      if (isShiftDown) {
+        switch (event.code) {
+          case 'Period':
+            video.playbackRate >= 3 ? (video.playbackRate = 3) : (video.playbackRate += 0.25);
+            playbackRateText.textContent = 'x' + video.playbackRate;
+            playbackRateText.style = 'visibility: visible; opacity: 1;';
+            setTimeout(() => {
+              playbackRateText.style = 'visibility: hidden; opacity: 0;';
+            }, 1000);
+            break;
+          case 'Comma':
+            video.playbackRate <= 0.25 ? (video.playbackRate = 0.25) : (video.playbackRate -= 0.25);
+            playbackRateText.textContent = 'x' + video.playbackRate;
+            playbackRateText.style = 'visibility: visible; opacity: 1;';
+            setTimeout(() => {
+              playbackRateText.style = 'visibility: hidden; opacity: 0;';
+            }, 1000);
+            break;
+        }
+      }
+    });
+  }
+});
