@@ -736,10 +736,13 @@ input[type='range']::-webkit-slider-thumb {
 .tickets-field-img {
   width: 720px;
   height: 550px;
-  background-image: url('./assets/img/tickets-img.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  overflow: hidden;
+}
+.tickets-swiper-slide-img {
+  text-align: center;
+}
+.tickets-swiper-slide-img img {
+  max-width: 100%;
 }
 .ticket-radio {
   margin-right: 18px;

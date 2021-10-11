@@ -4,8 +4,6 @@ import { play } from './video';
 import { playBig } from './video';
 Swiper.use([Navigation, Pagination]);
 
-const smallVideos = document.querySelectorAll('.video-swiper-slide');
-
 const videoSwiper = new Swiper('.video-playlist', {
   direction: 'horizontal',
   loop: true,
