@@ -2,7 +2,8 @@ const ranges = document.querySelectorAll('.ranges');
 const play = document.querySelector('.play');
 const playBig = document.querySelector('.play-big');
 const sound = document.querySelector('.sound');
-const videoPlayer = document.querySelector('.video-container');
+const fullscreen = document.querySelector('.fullscreen');
+const videoPlayer = document.querySelector('.video-player');
 const video = videoPlayer.querySelector('.large-video');
 const videoLengthBar = videoPlayer.querySelector('.video-length');
 const videoVolumeBar = videoPlayer.querySelector('.video-volume');
@@ -11,7 +12,7 @@ let curVolume = 0.43;
 const togglePlay = function () {
   const method = video.paused ? 'play' : 'pause';
   video[method]();
-  video.volume = 0.43;
+  video.volume = videoVolumeBar.value;
 };
 
 const updateButtons = function () {
@@ -24,6 +25,9 @@ const updateRanges = function () {
   video[this.name] = value;
   curVolume = video.volume;
   this.style.background = `linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) ${value <= 1 ? value * 100 : value}%, #C4C4C4 ${value <= 1 ? value * 100 : value}%, #C4C4C4 100%)`;
+  if (video.volume === 0) {
+    sound.classList.add('sound-stop');
+  } else sound.classList.remove('sound-stop');
 };
 
 const handleProgress = function () {
@@ -39,8 +43,6 @@ const scrub = function (event) {
 
 const mute = function () {
   sound.classList.toggle('sound-stop');
-  let isPlayed = false;
-
   video.volume != 0 ? (video.volume = 0) : (video.volume = curVolume);
   videoVolumeBar.style.background = `linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) ${video.volume * 100}%, #C4C4C4 ${video.volume * 100}%, #C4C4C4 100%)`;
   videoVolumeBar.value = video.volume;
@@ -74,3 +76,14 @@ videoLengthBar.addEventListener('mouseup', () => (mousedown = false));
 sound.addEventListener('click', () => {
   mute();
 });
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) videoPlayer.requestFullscreen();
+  else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+}
+
+fullscreen.addEventListener('click', toggleFullScreen);

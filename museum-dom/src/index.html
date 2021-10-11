@@ -187,17 +187,18 @@
           <h2 class="section-title">Video journey</h2>
           <p class="online-tour-text text-nonvisible">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
           <div class="video-container">
-            <div class="video-container-video">
-              <button class="video-btn play-big"></button>
-              <!-- <img src="assets/img/video-prew.webp" alt="Online tour video" /> -->
-              <video class="large-video" src="./assets/video/video0.webm"></video>
-            </div>
-            <div class="video-control">
-              <button class="video-btn play"></button>
-              <input type="range" class="ranges video-length" max="100" min="0" value="54" step="1" />
-              <button class="video-btn sound"></button>
-              <input type="range" name="volume" class="ranges video-volume" max="1" min="0" value="0.43" step="0.05" />
-              <button class="video-btn fullscreen"></button>
+            <div class="video-player">
+              <div class="video-container-video">
+                <button class="video-btn play-big"></button>
+                <video class="large-video" src="./assets/video/video0.webm" preload="metadata" poster="./assets/img/video-prew.webp" alt="Online tour video"></video>
+              </div>
+              <div class="video-control">
+                <button class="video-btn play"></button>
+                <input type="range" class="ranges video-length" max="100" min="0" value="0" step="1" />
+                <button class="video-btn sound"></button>
+                <input type="range" name="volume" class="ranges video-volume" max="1" min="0" value="0.43" step="0.05" />
+                <button class="video-btn fullscreen"></button>
+              </div>
             </div>
             <div class="video-playlist">
               <iframe class="small-video" src="https://www.youtube.com/embed/aWmJ5DgyWPI" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

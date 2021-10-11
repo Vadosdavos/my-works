@@ -457,12 +457,15 @@ body {
   margin-bottom: var(--section-padding);
 }
 .video-container-video {
-  width: 100%;
+  max-width: 1440px;
+  max-height: 650px;
+  overflow: hidden;
   position: relative;
 }
 .large-video {
   width: 100%;
   display: block;
+  cursor: pointer;
 }
 .video-control {
   width: 100%;
@@ -492,7 +495,7 @@ body {
 .video-length,
 .video-volume {
   cursor: pointer;
-  background: linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) 54%, #c4c4c4 54%, #c4c4c4 100%);
+  background: linear-gradient(to right, var(--dark-red) 0%, var(--dark-red) 0%, #c4c4c4 0%, #c4c4c4 100%);
   height: 8px;
   outline: none;
   -webkit-appearance: none;
@@ -524,6 +527,7 @@ input[type='range']::-webkit-slider-thumb {
   left: 610px;
   top: 215px;
   padding: 0;
+  cursor: pointer;
 }
 .play-big-hidden {
   visibility: hidden;
@@ -564,6 +568,9 @@ input[type='range']::-webkit-slider-thumb {
   background-position: center;
   margin-right: 0;
   background-size: contain;
+}
+:-webkit-full-screen .fullscreen {
+  background-image: url('assets/svg/fullscreen-on.svg');
 }
 .video-bullets .bullets {
   margin-right: 0;
@@ -2847,5 +2854,37 @@ option:checked {
   }
   .cardholder-name {
     width: calc(100% - 20px);
+  }
+}
+@media all and (display-mode: fullscreen) {
+  .video-container-video {
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+  .large-video {
+    height: 100vh;
+  }
+  .video-control {
+    justify-content: space-around;
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
+  }
+  .play-big {
+    left: 45%;
+    top: 35%;
+  }
+  .video-btn {
+    margin-right: 0;
+  }
+  .video-length,
+  .video-volume {
+    margin-right: 0;
+  }
+  .video-volume {
+    width: 20%;
+  }
+  .video-length {
+    width: 60%;
   }
 }
