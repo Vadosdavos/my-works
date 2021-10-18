@@ -93,9 +93,15 @@ audio.onended = () => {
 function createSong() {
   playList.forEach((el) => {
     const song = document.createElement('li');
+    const songName = document.createElement('span');
+    const playIcon = document.createElement('button');
+    playIcon.className = 'play player-icon';
+    songName.textContent = el.title + ' | ' + el.duration;
+    songName.className = 'song-name';
     song.className = 'play-item';
-    song.textContent = el.title;
     song.id = el.id;
+    song.appendChild(playIcon);
+    song.appendChild(songName);
     playListField.appendChild(song);
   });
 }
@@ -109,7 +115,11 @@ let randomNum;
 function showDate() {
   const day = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
-  dateContainer.textContent = day.toLocaleDateString('en-US', options);
+  if (lang === 'ru') {
+    dateContainer.textContent = day.toLocaleDateString('ru-RU', options);
+  } else {
+    dateContainer.textContent = day.toLocaleDateString('en-US', options);
+  }
 }
 
 function showTime() {
@@ -171,7 +181,7 @@ function setBg() {
   const timeOfDay = getTimeOfDay();
   const bgNum = String(randomNum).padStart(2, '0');
   const img = new Image();
-  img.src = `assets/img/${timeOfDay === 'afternoon' ? 'day' : timeOfDay}/${bgNum}.jpg`;
+  img.src = `https://raw.githubusercontent.com/Vadosdavos/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
   img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 }
 
@@ -235,7 +245,7 @@ city.addEventListener('change', getWeather);
 setPlaceholders();
 
 async function getQuote() {
-  const res = await fetch('js/quotes.json');
+  const res = lang === 'ru' ? await fetch('js/quotes-ru.json') : await fetch('js/quotes.json');
   const quotes = await res.json();
   let randomNumQuote = Math.floor(Math.random() * (quotes.length + 1));
   quote.textContent = quotes[randomNumQuote].text;

@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Arial-MT";
-  src: url("../assets/fonts/Arial-MT.woff"); /* Путь к файлу со шрифтом */
+  font-family: 'Arial-MT';
+  src: url('../assets/fonts/Arial-MT.woff'); /* Путь к файлу со шрифтом */
 }
 
 * {
@@ -12,11 +12,10 @@
 body {
   min-width: 480px;
   min-height: 100vh;
-  font-family: "Arial", sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 16px;
   color: #fff;
   text-align: center;
-  /* background: url("../assets/img/bg.jpg") center/cover, rgba(0, 0, 0, 0.5); */
   background: rgba(0, 0, 0, 0.5);
   background-blend-mode: multiply;
   transition: background-image 1s ease-in-out;
@@ -36,7 +35,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
+  width: 500px;
   margin-bottom: 28px;
 }
 
@@ -45,7 +44,9 @@ body {
 }
 
 .play-item {
+  display: flex;
   position: relative;
+  align-items: center;
   padding: 5px;
   padding-left: 20px;
   list-style: none;
@@ -58,15 +59,19 @@ body {
   opacity: 1;
 }
 
-.play-item::before {
-  content: "\2713";
+.play-item {
+  position: relative;
+}
+
+.play-item::after {
+  content: '\2713';
   position: absolute;
-  left: 0;
-  top: 2px;
+  left: 250px;
+  top: 10px;
   font-weight: 900;
 }
 
-.item-active::before {
+.item-active {
   color: #c5b358;
 }
 
@@ -108,19 +113,19 @@ body {
   width: 40px;
   height: 40px;
   background-size: 40px 40px;
-  background-image: url("../assets/svg/play.svg");
+  background-image: url('../assets/svg/play.svg');
 }
 
 .pause {
-  background-image: url("../assets/svg/pause.svg");
+  background-image: url('../assets/svg/pause.svg');
 }
 
 .play-prev {
-  background-image: url("../assets/svg/play-prev.svg");
+  background-image: url('../assets/svg/play-prev.svg');
 }
 
 .play-next {
-  background-image: url("../assets/svg/play-next.svg");
+  background-image: url('../assets/svg/play-next.svg');
 }
 
 .weather {
@@ -190,18 +195,18 @@ body {
 
 .slide-prev {
   left: 20px;
-  background-image: url("../assets/svg/slider-prev.svg");
+  background-image: url('../assets/svg/slider-prev.svg');
 }
 
 .slide-next {
   right: 20px;
-  background-image: url("../assets/svg/slider-next.svg");
+  background-image: url('../assets/svg/slider-next.svg');
 }
 
 .time {
   min-height: 124px;
   margin-bottom: 10px;
-  font-family: "Arial-MT";
+  font-family: 'Arial-MT';
   font-size: 100px;
   letter-spacing: -4px;
 }
@@ -258,7 +263,7 @@ body {
 
 .change-quote {
   margin-bottom: 30px;
-  background-image: url("../assets/svg/reload.svg");
+  background-image: url('../assets/svg/reload.svg');
 }
 
 .quote {
