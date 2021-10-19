@@ -16,7 +16,7 @@ const wind = document.querySelector('.wind');
 const humidity = document.querySelector('.humidity');
 const weatherError = document.querySelector('.weather-error');
 const changeQuoteButton = document.querySelector('.change-quote');
-const playButton = document.querySelector('.play');
+const playButton = document.querySelector('.play-main');
 const playPrevButton = document.querySelector('.play-prev');
 const playNextButton = document.querySelector('.play-next');
 const playListField = document.querySelector('.play-list');
@@ -24,18 +24,13 @@ const audio = new Audio();
 let isPlay = false;
 let playNum = 0;
 createSong();
-const tracks = document.querySelectorAll('.play-item');
+const tracks = playListField.querySelectorAll('.song-name');
+const playlistPlayButtons = playListField.querySelectorAll('.playlist-play');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 let lang = 'ru';
-
-playListField.addEventListener('click', (evt) => {
-  tracks[playNum].classList.remove('item-active');
-  playButton.classList.add('pause');
-  evt.target.classList.toggle('item-active');
-  playNum = +evt.target.id;
-  playAudio();
-});
+const audioLenght = document.querySelector('.audio-lenght');
+const audioVolume = document.querySelector('.volume');
 
 function setPlaceholders() {
   if (lang === 'ru') {
@@ -47,9 +42,26 @@ function setPlaceholders() {
   }
 }
 
+function createSong() {
+  playList.forEach((el) => {
+    const song = document.createElement('li');
+    const songName = document.createElement('span');
+    const playIcon = document.createElement('button');
+    playIcon.className = `play player-icon playlist-play`;
+    playIcon.id = el.id;
+    songName.textContent = el.title + ' | ' + el.duration;
+    songName.className = `song-name`;
+    song.className = 'play-item';
+    song.appendChild(playIcon);
+    song.appendChild(songName);
+    playListField.appendChild(song);
+  });
+}
+
 function playAudio() {
   audio.src = playList[playNum].src;
   tracks[playNum].classList.add('item-active');
+  playlistPlayButtons[playNum].classList.add('pause');
   audio.currentTime = 0;
   audio.play();
   isPlay = true;
@@ -57,6 +69,7 @@ function playAudio() {
 
 function playNext() {
   tracks[playNum].classList.remove('item-active');
+  playlistPlayButtons[playNum].classList.remove('pause');
   playNum += 1;
   if (playNum === 4) playNum = 0;
   playAudio();
@@ -65,16 +78,42 @@ function playNext() {
 
 function playPrev() {
   tracks[playNum].classList.remove('item-active');
+  playlistPlayButtons[playNum].classList.remove('pause');
   playNum -= 1;
   if (playNum === -1) playNum = 3;
   playAudio();
   playButton.classList.add('pause');
 }
+let audioCurTime;
+playlistPlayButtons.forEach((el) => {
+  el.addEventListener('click', (evt) => {
+    playButton.classList.toggle('pause');
+    if (el.classList.contains('pause')) {
+      el.classList.remove('pause');
+      audioCurTime = audio.currentTime;
+      audio.pause();
+      isPlay = false;
+    } else if (!isPlay && tracks[playNum].classList.contains('item-active') && el.id === playNum) {
+      el.classList.add('pause');
+      audio.currentTime = audioCurTime;
+      audio.play();
+    } else {
+      el.classList.add('pause');
+      playlistPlayButtons[playNum].classList.remove('pause');
+      tracks[playNum].classList.remove('item-active');
+      playNum = +evt.target.id;
+      tracks[playNum].classList.add('item-active');
+      playAudio();
+    }
+  });
+});
 
 playButton.addEventListener('click', () => {
   playButton.classList.toggle('pause');
   if (isPlay) {
+    audioCurTime = audio.currentTime;
     audio.pause();
+    playlistPlayButtons[playNum].classList.remove('pause');
     isPlay = false;
   } else {
     playAudio();
@@ -89,22 +128,6 @@ audio.onended = () => {
   if (playNum === 4) playNum = 0;
   playAudio();
 };
-
-function createSong() {
-  playList.forEach((el) => {
-    const song = document.createElement('li');
-    const songName = document.createElement('span');
-    const playIcon = document.createElement('button');
-    playIcon.className = 'play player-icon';
-    songName.textContent = el.title + ' | ' + el.duration;
-    songName.className = 'song-name';
-    song.className = 'play-item';
-    song.id = el.id;
-    song.appendChild(playIcon);
-    song.appendChild(songName);
-    playListField.appendChild(song);
-  });
-}
 
 changeQuoteButton.addEventListener('click', () => {
   changeQuoteButton.classList.toggle('rotate');

@@ -30,12 +30,15 @@ body {
   min-height: 220px;
   padding: 20px;
 }
-
+.player {
+  position: relative;
+  z-index: 5;
+}
 .player-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 500px;
+  width: 600px;
   margin-bottom: 28px;
 }
 
@@ -51,7 +54,6 @@ body {
   padding-left: 20px;
   list-style: none;
   opacity: 0.8;
-  cursor: pointer;
   transition: 0.3s;
 }
 
@@ -59,18 +61,9 @@ body {
   opacity: 1;
 }
 
-.play-item {
-  position: relative;
+.song-name {
+  margin-left: 20px;
 }
-
-.play-item::after {
-  content: '\2713';
-  position: absolute;
-  left: 250px;
-  top: 10px;
-  font-weight: 900;
-}
-
 .item-active {
   color: #c5b358;
 }
@@ -127,7 +120,15 @@ body {
 .play-next {
   background-image: url('../assets/svg/play-next.svg');
 }
-
+.sound {
+  background-image: url('../assets/svg/sound.svg');
+}
+.audio-lenght {
+  width: 200px;
+}
+.volume {
+  width: 100px;
+}
 .weather {
   display: flex;
   flex-direction: column;
