@@ -38,7 +38,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 600px;
+  width: 35vw;
   margin-bottom: 28px;
 }
 
@@ -123,11 +123,23 @@ body {
 .sound {
   background-image: url('../assets/svg/sound.svg');
 }
+.length-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  min-width: 75px;
+}
+.song-title {
+  font-size: 0.8rem;
+}
 .audio-lenght {
-  width: 200px;
+  width: 100%;
 }
 .volume {
-  width: 100px;
+  width: 15%;
+  min-width: 45px;
 }
 .weather {
   display: flex;

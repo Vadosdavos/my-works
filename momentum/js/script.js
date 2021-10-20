@@ -31,6 +31,8 @@ const author = document.querySelector('.author');
 let lang = 'ru';
 const audioLenght = document.querySelector('.audio-lenght');
 const audioVolume = document.querySelector('.volume');
+const audioDuration = document.querySelector('.duration');
+const songTitle = document.querySelector('.song-title');
 
 function setPlaceholders() {
   if (lang === 'ru') {
@@ -65,6 +67,8 @@ function playAudio() {
   audio.currentTime = 0;
   audio.play();
   isPlay = true;
+  audioDuration.textContent = playList[playNum].duration;
+  songTitle.textContent = playList[playNum].title;
 }
 
 function playNext() {
