@@ -29,10 +29,53 @@ const playlistPlayButtons = playListField.querySelectorAll('.playlist-play');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 let lang = 'ru';
-const audioLenght = document.querySelector('.audio-lenght');
+const audioLength = document.querySelector('.audio-length');
 const audioVolume = document.querySelector('.volume');
 const audioDuration = document.querySelector('.duration');
 const songTitle = document.querySelector('.song-title');
+const sound = document.querySelector('.sound');
+let curVolume = 0.5;
+let mousedown = false;
+let audioCurTime;
+const audioCurTimeText = document.querySelector('.audio-cur-time');
+
+const updateVolume = function () {
+  const value = this.value;
+  audio[this.name] = value;
+  curVolume = audio.volume;
+  if (audio.volume === 0) {
+    sound.classList.add('sound-stop');
+  } else sound.classList.remove('sound-stop');
+};
+
+const handleProgress = function () {
+  const percent = (audio.currentTime / audio.duration) * 100 || 0;
+  audioLength.value = percent;
+  audioCurTimeText.textContent = getTimeCodeFromNum(audio.currentTime);
+};
+
+const scrub = function (event) {
+  const scrubTime = (event.offsetX / audioLength.offsetWidth) * audio.duration;
+  audio.currentTime = scrubTime;
+};
+
+const mute = function () {
+  sound.classList.toggle('sound-stop');
+  audio.volume != 0 ? (audio.volume = 0) : (audio.volume = curVolume);
+  audioVolume.value = audio.volume;
+};
+
+function getTimeCodeFromNum(num) {
+  let seconds = parseInt(num);
+  let minutes = parseInt(seconds / 60);
+  seconds -= minutes * 60;
+  const hours = parseInt(minutes / 60);
+  minutes -= hours * 60;
+  if (hours === 0) {
+    return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+  }
+  return `${String(hours).padStart(2, 0)}:${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+}
 
 function setPlaceholders() {
   if (lang === 'ru') {
@@ -88,16 +131,16 @@ function playPrev() {
   playAudio();
   playButton.classList.add('pause');
 }
-let audioCurTime;
 playlistPlayButtons.forEach((el) => {
   el.addEventListener('click', (evt) => {
-    playButton.classList.toggle('pause');
     if (el.classList.contains('pause')) {
+      playButton.classList.remove('pause');
       el.classList.remove('pause');
       audioCurTime = audio.currentTime;
       audio.pause();
       isPlay = false;
     } else if (!isPlay && tracks[playNum].classList.contains('item-active') && el.id === playNum) {
+      playButton.classList.add('pause');
       el.classList.add('pause');
       audio.currentTime = audioCurTime;
       audio.play();
@@ -106,6 +149,7 @@ playlistPlayButtons.forEach((el) => {
       playlistPlayButtons[playNum].classList.remove('pause');
       tracks[playNum].classList.remove('item-active');
       playNum = +evt.target.id;
+      playButton.classList.add('pause');
       tracks[playNum].classList.add('item-active');
       playAudio();
     }
@@ -128,6 +172,7 @@ playNextButton.addEventListener('click', playNext);
 
 audio.onended = () => {
   tracks[playNum].classList.remove('item-active');
+  playlistPlayButtons[playNum].classList.remove('pause');
   playNum += 1;
   if (playNum === 4) playNum = 0;
   playAudio();
@@ -287,3 +332,15 @@ showTime();
 setBg();
 slideNext.addEventListener('click', getSlideNext);
 slidePrev.addEventListener('click', getSlidePrev);
+
+audio.addEventListener('timeupdate', () => {
+  handleProgress();
+});
+audioLength.addEventListener('click', scrub);
+audioLength.addEventListener('mousemove', (event) => mousedown && scrub(event));
+audioLength.addEventListener('mousedown', () => (mousedown = true));
+audioLength.addEventListener('mouseup', () => (mousedown = false));
+sound.addEventListener('click', () => {
+  mute();
+});
+audioVolume.addEventListener('input', updateVolume);
