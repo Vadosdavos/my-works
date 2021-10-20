@@ -153,8 +153,21 @@ body {
   width: 180px;
   min-height: 180px;
   text-align: left;
+  position: relative;
 }
-
+.settings {
+  position: absolute;
+  bottom: -50px;
+  display: flex;
+  z-index: 10;
+}
+.settings-title {
+  font-size: 22px;
+}
+.set {
+  background-image: url('../assets/svg/set.svg');
+  background-size: contain;
+}
 .weather-error {
   margin-top: -10px;
 }
@@ -289,7 +302,31 @@ body {
 .author {
   min-height: 20px;
 }
-
+@media (max-width: 1050px) {
+  .player-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    width: 270px;
+    margin-bottom: 28px;
+  }
+  .player-controls::before {
+    content: '';
+    order: 2;
+    width: 100%;
+  }
+  .sound,
+  .volume,
+  .duration-container,
+  .length-container {
+    order: 2;
+  }
+  .player-icon {
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+  }
+}
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
@@ -308,5 +345,21 @@ body {
   .name {
     font-size: 32px;
     padding: 5px;
+  }
+}
+@media (max-width: 470px) {
+  .player-controls {
+    margin-bottom: 10px;
+  }
+  .greeting-container {
+    justify-content: center;
+    align-items: center;
+  }
+  .name {
+    max-width: 100%;
+    text-align: center;
+  }
+  .greeting {
+    text-align: center;
   }
 }

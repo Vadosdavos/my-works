@@ -38,6 +38,7 @@ let curVolume = 0.5;
 let mousedown = false;
 let audioCurTime;
 const audioCurTimeText = document.querySelector('.audio-cur-time');
+const settingsTitle = document.querySelector('.settings-title');
 
 const updateVolume = function () {
   const value = this.value;
@@ -311,7 +312,10 @@ function setCity(event) {
   }
 }
 
-window.addEventListener('load', getWeather);
+window.addEventListener('load', () => {
+  getWeather();
+  getUnsplashImages();
+});
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
 setPlaceholders();
@@ -322,6 +326,13 @@ async function getQuote() {
   let randomNumQuote = Math.floor(Math.random() * (quotes.length + 1));
   quote.textContent = quotes[randomNumQuote].text;
   author.textContent = quotes[randomNumQuote].author;
+}
+let photoTag = 'nature';
+async function getUnsplashImages() {
+  const url = `https://api.unsplash.com/search/photos?query=${photoTag}&client_id=mqoEykHFq6TpCZ-jzGnGA2QWp4H7CqqDVLjDx7tNVQQ`;
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(data);
 }
 
 changeQuoteButton.addEventListener('click', getQuote);
