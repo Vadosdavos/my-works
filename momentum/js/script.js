@@ -1,5 +1,5 @@
 import playList from './playList.js';
-import { greetingTranslation, endings } from './objects.js';
+import endings from './objects.js';
 
 const timeContainer = document.querySelector('.time');
 const dateContainer = document.querySelector('.date');
@@ -39,7 +39,17 @@ let mousedown = false;
 let audioCurTime;
 const audioCurTimeText = document.querySelector('.audio-cur-time');
 const settingsTitle = document.querySelector('.settings-title');
-let photoTag = 'cars';
+const settingsContainer = document.querySelector('.set-container');
+const settingsButton = document.querySelector('.set');
+const settingsCloseButton = document.querySelector('.set-close');
+let photoTag = '';
+let flickrUrlsArr;
+
+const state = {
+  language: 'en',
+  photoSource: 'github',
+  blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio'],
+};
 
 const updateVolume = function () {
   const value = this.value;
@@ -268,7 +278,7 @@ async function getUnsplashImages() {
   img.src = data.urls.regular;
   img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 }
-let urlsArr;
+
 async function getFlickrImages() {
   const timeOfDay = getTimeOfDay();
   let key = 'bea8c11052155e6ad750417f790467fd';
@@ -276,14 +286,13 @@ async function getFlickrImages() {
   if (photoTag !== '') {
     url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${photoTag}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
   } else {
-    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${timeOfDay}&extras=url_l&format=json&nojsoncallback=1`;
+    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${timeOfDay}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
   }
   const res = await fetch(url);
   const data = await res.json();
   const img = new Image();
-  urlsArr = data.photos.photo;
-  console.log(randomNum);
-  img.src = urlsArr[randomNum].url_l;
+  flickrUrlsArr = data.photos.photo;
+  img.src = flickrUrlsArr[randomNum].url_l;
   img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 }
 
@@ -378,11 +387,11 @@ getFlickrImages();
 // slidePrev.addEventListener('click', getUnsplashImages);
 slideNext.addEventListener('click', () => {
   // getSlideNext();
-  console.log(urlsArr);
   const img = new Image();
   randomNum += 1;
   if (randomNum === 21) randomNum = 1;
-  img.src = urlsArr[randomNum].url_l;
+  img.src = flickrUrlsArr[randomNum].url_l;
+  console.log(randomNum, flickrUrlsArr);
   img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 });
 slidePrev.addEventListener('click', getSlidePrev);
@@ -398,3 +407,10 @@ sound.addEventListener('click', () => {
   mute();
 });
 audioVolume.addEventListener('input', updateVolume);
+
+settingsButton.addEventListener('click', () => {
+  settingsContainer.classList.add('set-visible');
+});
+settingsCloseButton.addEventListener('click', () => {
+  settingsContainer.classList.remove('set-visible');
+});

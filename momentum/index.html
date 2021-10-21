@@ -11,6 +11,51 @@
     <script src="js/quotes.json" defer></script>
   </head>
   <body>
+    <div class="set-container">
+      <span class="set-close player-icon"></span>
+      <ul class="settings">
+        <li class="set-item">
+          <span class="set-item-title">Language</span>
+          <div class="set-item-container">
+            <label>
+              <input type="radio" name="lang-item" value="en" checked />
+              English
+            </label>
+            <label>
+              <input type="radio" name="lang-item" value="ru" />
+              Russian
+            </label>
+          </div>
+        </li>
+        <li class="set-item">
+          <span class="set-item-title">Photo source</span>
+          <div class="set-item-container">
+            <label>
+              <input type="radio" name="photo-source" value="github" checked />
+              Github
+            </label>
+            <label>
+              <input type="radio" name="photo-source" value="unsplash" />
+              Unsplash
+            </label>
+            <label>
+              <input type="radio" name="photo-source" value="flickr" />
+              Flickr
+            </label>
+          </li>
+        <li class="set-item">
+          <span class="set-item-title">Photo tags</span>
+          <input type="text" name="photo-tags" placeholder="Set tags" />
+        </li>
+        <li class="set-item">
+          <span class="set-item-title">Page block visibility</span>
+          <label>
+            <input type="checkbox" name="block-visibility"/>
+            Audio player
+          </label>
+        </li>
+      </ul>
+    </div>
     <header class="header">
       <div class="player">
         <div class="player-controls">
@@ -41,7 +86,7 @@
         </div>
         <div class="wind"></div>
         <div class="humidity"></div>
-        <div class="settings">
+        <div class="settings-label">
           <span class="settings-title">Settings</span>
           <button class="set player-icon"></button>
         </div>

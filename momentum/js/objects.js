@@ -1,11 +1,7 @@
-const greetingTranslation = {
-  ru: 'Добрый',
-  en: 'Good',
-};
 const endings = {
-  'утро': 'Доброе',
-  'день': 'Добрый',
-  'вечер': 'Добрый',
-  'ночи': 'Доброй',
+  утро: 'Доброе',
+  день: 'Добрый',
+  вечер: 'Добрый',
+  ночи: 'Доброй',
 };
-export { greetingTranslation, endings};
+export default endings;
