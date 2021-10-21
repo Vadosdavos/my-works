@@ -39,6 +39,7 @@ let mousedown = false;
 let audioCurTime;
 const audioCurTimeText = document.querySelector('.audio-cur-time');
 const settingsTitle = document.querySelector('.settings-title');
+let photoTag = 'cars';
 
 const updateVolume = function () {
   const value = this.value;
@@ -250,6 +251,42 @@ function getRandomNum(min, max) {
   randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomNum;
 }
+
+async function getUnsplashImages() {
+  const timeOfDay = getTimeOfDay();
+  let key = 'mqoEykHFq6TpCZ-jzGnGA2QWp4H7CqqDVLjDx7tNVQQ';
+  let key2 = '4ACglsyIKsJ0xcoZyT3M9kjfC7QFPmqYC1lXFfIH-Ro';
+  let url;
+  if (photoTag !== '') {
+    url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${photoTag}&client_id=${key}`;
+  } else {
+    url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${timeOfDay}&client_id=${key}`;
+  }
+  const res = await fetch(url);
+  const data = await res.json();
+  const img = new Image();
+  img.src = data.urls.regular;
+  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+}
+let urlsArr;
+async function getFlickrImages() {
+  const timeOfDay = getTimeOfDay();
+  let key = 'bea8c11052155e6ad750417f790467fd';
+  let url;
+  if (photoTag !== '') {
+    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${photoTag}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
+  } else {
+    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${timeOfDay}&extras=url_l&format=json&nojsoncallback=1`;
+  }
+  const res = await fetch(url);
+  const data = await res.json();
+  const img = new Image();
+  urlsArr = data.photos.photo;
+  console.log(randomNum);
+  img.src = urlsArr[randomNum].url_l;
+  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+}
+
 function setBg() {
   const timeOfDay = getTimeOfDay();
   const bgNum = String(randomNum).padStart(2, '0');
@@ -261,12 +298,14 @@ function setBg() {
 function getSlideNext() {
   randomNum += 1;
   if (randomNum === 21) randomNum = 1;
-  setBg();
+  // setBg();
+  getFlickrImages();
 }
 function getSlidePrev() {
   randomNum -= 1;
   if (randomNum === 1) randomNum = 20;
-  setBg();
+  // setBg();
+  getFlickrImages();
 }
 
 function weatherClearText() {
@@ -314,7 +353,6 @@ function setCity(event) {
 
 window.addEventListener('load', () => {
   getWeather();
-  getUnsplashImages();
 });
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
@@ -327,21 +365,26 @@ async function getQuote() {
   quote.textContent = quotes[randomNumQuote].text;
   author.textContent = quotes[randomNumQuote].author;
 }
-let photoTag = 'nature';
-async function getUnsplashImages() {
-  const url = `https://api.unsplash.com/search/photos?query=${photoTag}&client_id=mqoEykHFq6TpCZ-jzGnGA2QWp4H7CqqDVLjDx7tNVQQ`;
-  const res = await fetch(url);
-  const data = await res.json();
-  console.log(data);
-}
 
 changeQuoteButton.addEventListener('click', getQuote);
 
 getQuote();
 getRandomNum(1, 20);
 showTime();
-setBg();
-slideNext.addEventListener('click', getSlideNext);
+// setBg();
+// getUnsplashImages();
+getFlickrImages();
+// slideNext.addEventListener('click', getUnsplashImages);
+// slidePrev.addEventListener('click', getUnsplashImages);
+slideNext.addEventListener('click', () => {
+  // getSlideNext();
+  console.log(urlsArr);
+  const img = new Image();
+  randomNum += 1;
+  if (randomNum === 21) randomNum = 1;
+  img.src = urlsArr[randomNum].url_l;
+  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+});
 slidePrev.addEventListener('click', getSlidePrev);
 
 audio.addEventListener('timeupdate', () => {
