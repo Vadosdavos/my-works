@@ -28,7 +28,6 @@ const tracks = playListField.querySelectorAll('.song-name');
 const playlistPlayButtons = playListField.querySelectorAll('.playlist-play');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
-let lang = 'ru';
 const audioLength = document.querySelector('.audio-length');
 const audioVolume = document.querySelector('.volume');
 const audioDuration = document.querySelector('.duration');
@@ -44,13 +43,12 @@ const settingsButton = document.querySelector('.set');
 const settingsCloseButton = document.querySelector('.set-close');
 let photoTag = '';
 let flickrUrlsArr;
-
 const state = {
-  language: 'en',
+  lang: 'en',
   photoSource: 'github',
   blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio'],
 };
-
+const langInputs = document.querySelectorAll('.lang-input');
 const updateVolume = function () {
   const value = this.value;
   audio[this.name] = value;
@@ -90,7 +88,7 @@ function getTimeCodeFromNum(num) {
 }
 
 function setPlaceholders() {
-  if (lang === 'ru') {
+  if (state.lang === 'ru') {
     city.placeholder = '[Введите город]';
     nameContainer.placeholder = '[Введите имя]';
   } else {
@@ -199,7 +197,7 @@ let randomNum;
 function showDate() {
   const day = new Date();
   const options = { weekday: 'long', month: 'long', day: 'numeric' };
-  if (lang === 'ru') {
+  if (state.lang === 'ru') {
     dateContainer.textContent = day.toLocaleDateString('ru-RU', options);
   } else {
     dateContainer.textContent = day.toLocaleDateString('en-US', options);
@@ -210,7 +208,7 @@ function showTime() {
   const date = new Date();
   timeContainer.textContent = date.toLocaleTimeString();
   showDate();
-  showGreeting(lang);
+  showGreeting();
   setTimeout(showTime, 1000);
 }
 
@@ -220,41 +218,47 @@ function getHours() {
   return hours;
 }
 
-function getTimeOfDay(lang) {
-  if (getHours() >= 6 && getHours() < 12) return lang === 'ru' ? 'утро' : 'morning';
-  else if (getHours() >= 12 && getHours() < 18) return lang === 'ru' ? 'день' : 'afternoon';
-  else if (getHours() >= 18 && getHours() < 24) return lang === 'ru' ? 'вечер' : 'evening';
-  else if (getHours() >= 0 && getHours() < 6) return lang === 'ru' ? 'ночи' : 'night';
+function getTimeOfDay() {
+  if (getHours() >= 6 && getHours() < 12) return state.lang === 'ru' ? 'утро' : 'morning';
+  else if (getHours() >= 12 && getHours() < 18) return state.lang === 'ru' ? 'день' : 'afternoon';
+  else if (getHours() >= 18 && getHours() < 24) return state.lang === 'ru' ? 'вечер' : 'evening';
+  else if (getHours() >= 0 && getHours() < 6) return state.lang === 'ru' ? 'ночи' : 'night';
 }
-function showGreeting(lang = 'en') {
-  if (lang === 'ru') {
-    greetingContainer.textContent = `${endings[getTimeOfDay(lang)]} ${getTimeOfDay(lang)},`;
+function showGreeting() {
+  if (state.lang === 'ru') {
+    greetingContainer.textContent = `${endings[getTimeOfDay(state.lang)]} ${getTimeOfDay(state.lang)},`;
   } else {
-    greetingContainer.textContent = `Good ${getTimeOfDay(lang)},`;
+    greetingContainer.textContent = `Good ${getTimeOfDay(state.lang)},`;
   }
 }
-
 function setLocalStorage() {
   localStorage.setItem('userName', nameContainer.value);
   localStorage.setItem('city', city.value);
+
+  localStorage.setItem('lang', state.lang);
 }
+console.log('ЗАПОМИНАЕТСЯ РУССКИЙ ЯЗЫК');
 window.addEventListener('beforeunload', setLocalStorage);
 
 function getLocalStorage() {
   if (localStorage.getItem('userName')) nameContainer.value = localStorage.getItem('userName');
   if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
+  if (localStorage.getItem('lang')) state.lang = localStorage.getItem('lang');
   getWeather();
 }
-
-window.addEventListener('load', () => {
-  getLocalStorage();
+function setCityName() {
   if (city.value === '') {
-    if ((lang = 'ru')) {
+    if ((state.lang = 'ru')) {
       city.value = 'Минск';
     } else {
       city.value = 'Minsk';
     }
   }
+}
+window.addEventListener('load', () => {
+  setCityName();
+  getLocalStorage();
+  getWeather();
 });
 
 function getRandomNum(min, max) {
@@ -325,19 +329,19 @@ function weatherClearText() {
 }
 
 async function getWeather() {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&state.lang=${state.lang}&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
   const res = await fetch(url);
   const data = await res.json();
   if (data.cod === '404') {
     weatherClearText();
-    if (lang === 'ru') {
+    if (state.lang === 'ru') {
       weatherError.textContent = `Ошибка! Город ${city.value} не найден!`;
     } else {
       weatherError.textContent = `Error! City not found for ${city.value}!`;
     }
   } else if (data.cod === '400') {
     weatherClearText();
-    if (lang === 'ru') {
+    if (state.lang === 'ru') {
       weatherError.textContent = `Ошибка! Нечего геокодировать для ${city.value}!`;
     } else {
       weatherError.textContent = `Error! Nothing to geocode for ${city.value}!`;
@@ -348,8 +352,8 @@ async function getWeather() {
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${Math.round(data.main.temp)}°C`;
     weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `${lang === 'ru' ? 'Cкорость ветра:' : 'Wind speed:'} ${Math.round(data.wind.speed)} ${lang === 'ru' ? 'м/с' : 'm/s'}`;
-    humidity.textContent = `${lang === 'ru' ? 'Влажность:' : 'Humidity:'} ${Math.round(data.main.humidity)}%`;
+    wind.textContent = `${state.lang === 'ru' ? 'Cкорость ветра:' : 'Wind speed:'} ${Math.round(data.wind.speed)} ${state.lang === 'ru' ? 'м/с' : 'm/s'}`;
+    humidity.textContent = `${state.lang === 'ru' ? 'Влажность:' : 'Humidity:'} ${Math.round(data.main.humidity)}%`;
   }
 }
 
@@ -360,15 +364,12 @@ function setCity(event) {
   }
 }
 
-window.addEventListener('load', () => {
-  getWeather();
-});
 city.addEventListener('keypress', setCity);
 city.addEventListener('change', getWeather);
 setPlaceholders();
 
 async function getQuote() {
-  const res = lang === 'ru' ? await fetch('js/quotes-ru.json') : await fetch('js/quotes.json');
+  const res = state.lang === 'ru' ? await fetch('js/quotes-ru.json') : await fetch('js/quotes.json');
   const quotes = await res.json();
   let randomNumQuote = Math.floor(Math.random() * (quotes.length + 1));
   quote.textContent = quotes[randomNumQuote].text;
@@ -413,4 +414,13 @@ settingsButton.addEventListener('click', () => {
 });
 settingsCloseButton.addEventListener('click', () => {
   settingsContainer.classList.remove('set-visible');
+});
+langInputs.forEach((el) => {
+  el.addEventListener('change', () => {
+    state.lang = el.value;
+    setPlaceholders();
+    showTime();
+    getQuote();
+    getWeather();
+  });
 });
