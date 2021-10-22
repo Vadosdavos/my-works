@@ -307,14 +307,14 @@ function setBg() {
 function getSlideNext() {
   randomNum += 1;
   if (randomNum === 21) randomNum = 1;
-  // setBg();
-  getFlickrImages();
+  setBg();
+  // getFlickrImages();
 }
 function getSlidePrev() {
   randomNum -= 1;
   if (randomNum === 1) randomNum = 20;
-  // setBg();
-  getFlickrImages();
+  setBg();
+  // getFlickrImages();
 }
 
 function weatherClearText() {
@@ -380,19 +380,19 @@ changeQuoteButton.addEventListener('click', getQuote);
 getQuote();
 getRandomNum(1, 20);
 showTime();
-// setBg();
+setBg();
 // getUnsplashImages();
-getFlickrImages();
+// getFlickrImages();
 // slideNext.addEventListener('click', getUnsplashImages);
 // slidePrev.addEventListener('click', getUnsplashImages);
 slideNext.addEventListener('click', () => {
-  // getSlideNext();
-  const img = new Image();
-  randomNum += 1;
-  if (randomNum === 21) randomNum = 1;
-  img.src = flickrUrlsArr[randomNum].url_l;
-  console.log(randomNum, flickrUrlsArr);
-  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+  getSlideNext();
+  // const img = new Image();
+  // randomNum += 1;
+  // if (randomNum === 21) randomNum = 1;
+  // img.src = flickrUrlsArr[randomNum].url_l;
+  // console.log(randomNum, flickrUrlsArr);
+  // img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 });
 slidePrev.addEventListener('click', getSlidePrev);
 
