@@ -8,7 +8,6 @@ import { endings, timeOfDayTranslate } from './objects.js';
 const timeContainer = document.querySelector('.time');
 const dateContainer = document.querySelector('.date');
 const greetingText = document.querySelector('.greeting');
-const greetingContainer = document.querySelector('.greeting-container');
 const nameContainer = document.querySelector('.name');
 const body = document.querySelector('body');
 const slideNext = document.querySelector('.slide-next');
@@ -44,7 +43,7 @@ let audioCurTime;
 const audioCurTimeText = document.querySelector('.audio-cur-time');
 const settingsTitle = document.querySelector('.settings-title');
 const settingsContainer = document.querySelector('.set-container');
-const settingsButton = document.querySelector('.set');
+const settingsButton = document.querySelector('.settings-label');
 const tagsInput = document.querySelector('.tags');
 const tagsTitle = document.getElementById('photoTags');
 const settingsCloseButton = document.querySelector('.set-close');
@@ -299,6 +298,7 @@ function activateTags() {
   tagsInput.removeAttribute('disabled');
 }
 function preloadSetting() {
+  state.lang = 'en';
   langInputs.forEach((el) => {
     if (el.value === localStorage.getItem('lang')) {
       el.setAttribute('checked', true);
@@ -621,7 +621,6 @@ visibilityInputs.forEach((el) => {
       block.style.visibility = 'hidden';
       block.style.opacity = '0';
       let index = activeBlocks.indexOf(el.name);
-      console.log(typeof activeBlocks);
       activeBlocks.splice(index, 1);
     } else {
       let block = document.querySelector(`.${el.name}`);
