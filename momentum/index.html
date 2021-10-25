@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="css/owfont-regular.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>momentum</title>
+    <script type="module" src="js/script.js" defer></script>
+    <script src="js/quotes.json" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="player">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play play-main player-icon"></button>
+          <button class="play-next player-icon"></button>
+          <div class="length-container">
+            <span class="song-title">Aqua Caelestis</span>
+            <input type="range" class="ranges audio-length" max="100" min="0" value="0" step="1" />
+          </div>
+          <div class="duration-container">
+            <span class="audio-cur-time">0:00</span>
+            <span> / </span>
+            <span class="duration">00:40</span>
+          </div>
+          <button class="sound player-icon"></button>
+          <input type="range" name="volume" class="ranges volume" max="1" min="0" value="0.5" step="0.05" />
+        </div>
+        <ul class="play-list"></ul>
+      </div>
+      <div class="weather">
+        <input type="text" class="city" />
+        <i class="weather-icon owf"></i>
+        <div class="weather-error"></div>
+        <div class="description-container">
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+        </div>
+        <div class="wind"></div>
+        <div class="humidity"></div>
+      </div>
+      <div class="settings-label">
+        <button class="set player-icon"></button>
+        <span class="settings-title">Settings</span>
+      </div>
+      <div class="set-container">
+        <span class="set-close player-icon"></span>
+        <ul class="settings">
+          <li class="set-item">
+            <span class="set-item-title" id="titleLang">Language</span>
+            <div class="set-item-container">
+              <label class="block" >
+                <input type="radio" name="lang-item" class="lang-input"  value="en" checked />
+                <span id="eng" class="input-label">English</span>
+              </label>
+              <label class="block" >
+                <input type="radio" name="lang-item" class="lang-input"  value="ru" />
+                <span class="input-label" id="rus">Russian</span>
+              </label>
+            </div>
+          </li>
+          <li class="set-item">
+            <span class="set-item-title" id="titlePhoto">Photo source</span>
+            <div class="set-item-container">
+              <label class="block">
+                <input type="radio" name="photo-source" value="github" class="sourse-input" checked />
+                <span class="input-label" id="github">Github</span>
+              </label>
+              <label class="block">
+                <input type="radio" name="photo-source" value="unsplash" class="sourse-input"/>
+                <span class="input-label" id="unsplash">Unsplash</span>
+              </label >
+              <label class="block">
+                <input type="radio" name="photo-source" value="flickr" class="sourse-input"/>
+                <span class="input-label" id="flickr">Flickr</span>
+              </label>
+            </li>
+          <li class="set-item">
+            <span class="set-item-title" id="photoTags">Photo tags</span>
+            <input class="block tags" type="text" name="photo-tags" placeholder="[Set tags separated by commas without spaces]" />
+          </li>
+          <li class="set-item">
+            <span class="set-item-title" id="blocks">Page blocks visibility</span>
+            <label class="block">
+              <input type="checkbox" name="player" checked/>
+              <span class="input-label" id='audio' >Audio player</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="weather"  checked/>
+              <span class="input-label" id='weather'>Weather</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="time"  checked/>
+              <span class="input-label" id='time'>Time</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="date"  checked/>
+              <span class="input-label" id='date'>Date</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="greeting-container"  checked/>
+              <span class="input-label" id='greet'>Greetings</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="quotes" checked/>
+              <span class="input-label" id='quotes'>Quotes</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="main">
+      <div class="slider-icons">
+        <button class="slide-prev slider-icon"></button>
+        <button class="slide-next slider-icon"></button>
+      </div>
+      <time class="time"></time>
+      <date class="date"></date>
+      <div class="greeting-container">
+        <span class="greeting"></span>
+        <input type="text" class="name" />
+      </div>
+    </main>
+    <footer class="footer">
+      
+      <div class="quotes">
+        <button class="change-quote"></button>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+    </footer>
+    <div class="sub-footer">
+      <div class="container">
+        <p class="sub-footer-text">© 2021</p>
+        <a class="sub-footer-link" href="https://rs.school/js/"><img src="assets/svg/rs_school_js.svg" width="85" alt="RSschool logo"></a>
+        <a class="sub-footer-link" href="https://github.com/Vadosdavos">Vadosdavos</a>
+      </div>
+    </div>
+  </body>
+</html>
