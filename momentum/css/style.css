@@ -44,7 +44,7 @@ body {
   height: 32vh;
   min-height: 260px;
   padding: 20px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .player {
   position: relative;
@@ -260,9 +260,16 @@ body {
   display: flex;
   align-items: center;
   z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+.settings-label:hover {
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 .settings-title {
   font-size: 22px;
+  cursor: pointer;
 }
 .set {
   background-image: url('../assets/svg/set.svg');
