@@ -50,6 +50,14 @@ body {
   position: relative;
   z-index: 5;
 }
+.player,
+.weather,
+.quotes,
+.time,
+.date,
+.greeting-container {
+  transition: visibility 1s, opacity 1s;
+}
 .player-controls {
   display: flex;
   align-items: center;

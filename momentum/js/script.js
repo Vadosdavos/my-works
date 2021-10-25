@@ -1,9 +1,14 @@
+console.log(
+  'Score: 150 / 150 \n Часы и календарь +15  \n Приветствие +10 \n Смена фонового изображения +20 \n Виджет погоды +15 \n Виджет цитата дня +10 \n Аудиоплеер +15 \n Продвинутый аудиоплеер (прогресс-бар корректно работает на десктопе, на мобилках вроде как заданием не проверяется) +20 \n Перевод приложения на два языка (en/ru) +15 \n Получение фонового изображения от API +10 \n Настройки приложения +20 \n Вёрстка адаптивная - мин разрешение 320px. Интерактивность элементов присутствует. \n Текущий источник изображений подписывается в консоли. Первая загрузка с Flickr занимает несколько секуд, т.к. он грузит массив изображений, дальнейшее перелистывание без задержек.'
+);
+
 import playList from './playList.js';
 import { endings, timeOfDayTranslate } from './objects.js';
 
 const timeContainer = document.querySelector('.time');
 const dateContainer = document.querySelector('.date');
-const greetingContainer = document.querySelector('.greeting');
+const greetingText = document.querySelector('.greeting');
+const greetingContainer = document.querySelector('.greeting-container');
 const nameContainer = document.querySelector('.name');
 const body = document.querySelector('body');
 const slideNext = document.querySelector('.slide-next');
@@ -47,13 +52,14 @@ const settingsTitles = document.querySelectorAll('.set-item-title');
 const settingsLabels = document.querySelectorAll('.input-label');
 const langInputs = document.querySelectorAll('.lang-input');
 const soursegInputs = document.querySelectorAll('.sourse-input');
+const visibilityInputs = document.querySelectorAll('input[type=checkbox]');
 let flickrUrlsArr;
 const state = {
   lang: 'en',
   photoSource: 'github',
   photoTag: '',
-  blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio'],
 };
+let activeBlocks = ['time', 'date', 'greeting-container', 'quotes', 'weather', 'player'];
 const settingTranslate = {
   ru: {
     titleLang: 'Язык',
@@ -269,9 +275,9 @@ function getTimeOfDay() {
 }
 function showGreeting() {
   if (state.lang === 'ru') {
-    greetingContainer.textContent = `${endings[timeOfDayTranslate[getTimeOfDay()]]} ${timeOfDayTranslate[getTimeOfDay()]},`;
+    greetingText.textContent = `${endings[timeOfDayTranslate[getTimeOfDay()]]} ${timeOfDayTranslate[getTimeOfDay()]},`;
   } else {
-    greetingContainer.textContent = `Good ${getTimeOfDay()},`;
+    greetingText.textContent = `Good ${getTimeOfDay()},`;
   }
 }
 function setLocalStorage() {
@@ -280,6 +286,7 @@ function setLocalStorage() {
   localStorage.setItem('lang', state.lang);
   localStorage.setItem('photoSource', state.photoSource);
   localStorage.setItem('photoTags', state.photoTag);
+  localStorage.setItem('blocks', activeBlocks);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
@@ -312,6 +319,19 @@ function preloadSetting() {
   }
   tagsInput.value = state.photoTag;
   setPlaceholders();
+  visibilityInputs.forEach((el) => {
+    if (activeBlocks.includes(el.name)) {
+      el.setAttribute('checked', true);
+      let block = document.querySelector(`.${el.name}`);
+      block.style.visibility = 'visible';
+      block.style.opacity = '1';
+    } else {
+      el.removeAttribute('checked');
+      let block = document.querySelector(`.${el.name}`);
+      block.style.visibility = 'hidden';
+      block.style.opacity = '0';
+    }
+  });
 }
 
 function getLocalStorage() {
@@ -320,6 +340,7 @@ function getLocalStorage() {
   if (localStorage.getItem('lang')) state.lang = localStorage.getItem('lang');
   if (localStorage.getItem('photoSource')) state.photoSource = localStorage.getItem('photoSource');
   if (localStorage.getItem('photoTags')) state.photoTag = localStorage.getItem('photoTags');
+  if (localStorage.getItem('blocks')) activeBlocks = localStorage.getItem('blocks').split(',');
   console.log(`Загрузка фото происходит с ${state.photoSource}`);
   getWeather();
 }
@@ -516,8 +537,11 @@ audio.addEventListener('timeupdate', () => {
 });
 audioLength.addEventListener('click', scrub);
 audioLength.addEventListener('mousemove', (event) => mousedown && scrub(event));
+audioLength.addEventListener('touchmove', (event) => mousedown && scrub(event));
 audioLength.addEventListener('mousedown', () => (mousedown = true));
+audioLength.addEventListener('touchstart', () => (mousedown = true));
 audioLength.addEventListener('mouseup', () => (mousedown = false));
+audioLength.addEventListener('touchend', () => (mousedown = false));
 sound.addEventListener('click', () => {
   mute();
 });
@@ -589,4 +613,21 @@ tagsInput.addEventListener('blur', () => {
     tagsInput.classList.remove('tags-valid');
     state.photoTag = tagsInput.value;
   }
+});
+visibilityInputs.forEach((el) => {
+  el.addEventListener('click', () => {
+    if (!el.checked) {
+      let block = document.querySelector(`.${el.name}`);
+      block.style.visibility = 'hidden';
+      block.style.opacity = '0';
+      let index = activeBlocks.indexOf(el.name);
+      console.log(typeof activeBlocks);
+      activeBlocks.splice(index, 1);
+    } else {
+      let block = document.querySelector(`.${el.name}`);
+      block.style.visibility = 'visible';
+      block.style.opacity = '1';
+      activeBlocks.push(el.name);
+    }
+  });
 });
