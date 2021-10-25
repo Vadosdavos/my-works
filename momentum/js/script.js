@@ -41,16 +41,17 @@ const settingsTitle = document.querySelector('.settings-title');
 const settingsContainer = document.querySelector('.set-container');
 const settingsButton = document.querySelector('.set');
 const tagsInput = document.querySelector('.tags');
+const tagsTitle = document.getElementById('photoTags');
 const settingsCloseButton = document.querySelector('.set-close');
 const settingsTitles = document.querySelectorAll('.set-item-title');
 const settingsLabels = document.querySelectorAll('.input-label');
 const langInputs = document.querySelectorAll('.lang-input');
 const soursegInputs = document.querySelectorAll('.sourse-input');
-let photoTag = '';
 let flickrUrlsArr;
 const state = {
   lang: 'en',
   photoSource: 'github',
+  photoTag: '',
   blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio'],
 };
 const settingTranslate = {
@@ -89,7 +90,6 @@ const settingTranslate = {
     quotes: 'Quotes',
   },
 };
-console.log(`Загрузка фото происходит с ${state.photoSource}`);
 const updateVolume = function () {
   const value = this.value;
   audio[this.name] = value;
@@ -132,11 +132,11 @@ function setPlaceholders() {
   if (state.lang === 'ru') {
     city.placeholder = '[Введите город]';
     nameContainer.placeholder = '[Введите имя]';
-    tagsInput.placeholder = '[Введите теги]';
+    tagsInput.placeholder = '[Введите теги через запятую без пробелов]';
   } else {
     city.placeholder = '[Enter city]';
     nameContainer.placeholder = '[Enter name]';
-    tagsInput.placeholder = '[Set tags]';
+    tagsInput.placeholder = '[Set tags separated by commas without spaces]';
   }
 }
 
@@ -278,9 +278,19 @@ function setLocalStorage() {
   localStorage.setItem('userName', nameContainer.value);
   localStorage.setItem('city', city.value);
   localStorage.setItem('lang', state.lang);
+  localStorage.setItem('photoSource', state.photoSource);
+  localStorage.setItem('photoTags', state.photoTag);
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
+function disableTags() {
+  tagsTitle.style.color = '#8A8A8A';
+  tagsInput.setAttribute('disabled', true);
+}
+function activateTags() {
+  tagsTitle.style.color = '#fff';
+  tagsInput.removeAttribute('disabled');
+}
 function preloadSetting() {
   langInputs.forEach((el) => {
     if (el.value === localStorage.getItem('lang')) {
@@ -292,12 +302,25 @@ function preloadSetting() {
       settingsTitle.textContent = 'Settings';
     }
   });
+  soursegInputs.forEach((el) => {
+    if (el.value === localStorage.getItem('photoSource')) {
+      el.setAttribute('checked', true);
+    }
+  });
+  if (state.photoSource === 'github') {
+    disableTags();
+  }
+  tagsInput.value = state.photoTag;
+  setPlaceholders();
 }
 
 function getLocalStorage() {
   if (localStorage.getItem('userName')) nameContainer.value = localStorage.getItem('userName');
   if (localStorage.getItem('city')) city.value = localStorage.getItem('city');
   if (localStorage.getItem('lang')) state.lang = localStorage.getItem('lang');
+  if (localStorage.getItem('photoSource')) state.photoSource = localStorage.getItem('photoSource');
+  if (localStorage.getItem('photoTags')) state.photoTag = localStorage.getItem('photoTags');
+  console.log(`Загрузка фото происходит с ${state.photoSource}`);
   getWeather();
 }
 function setCityName() {
@@ -315,6 +338,7 @@ window.addEventListener('load', () => {
   getWeather();
   preloadSetting();
   setLanguage();
+  setBg(state.photoSource);
 });
 
 function getRandomNum(min, max) {
@@ -327,16 +351,26 @@ async function getUnsplashImages() {
   let key = 'mqoEykHFq6TpCZ-jzGnGA2QWp4H7CqqDVLjDx7tNVQQ';
   let key2 = '4ACglsyIKsJ0xcoZyT3M9kjfC7QFPmqYC1lXFfIH-Ro';
   let url;
-  if (photoTag !== '') {
-    url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${photoTag}&client_id=${key}`;
+  if (state.photoTag !== '') {
+    url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${state.photoTag}&client_id=${key}`;
   } else {
     url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${timeOfDay}&client_id=${key}`;
   }
-  const res = await fetch(url);
-  const data = await res.json();
-  const img = new Image();
-  img.src = data.urls.regular;
-  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const img = new Image();
+    img.src = data.urls.regular;
+    img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+  } catch (error) {
+    console.log('Закончился базовый лимит на 50 запросов, загружаю картинку с запасного аккаунта!');
+    url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${timeOfDay}&client_id=${key2}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const img = new Image();
+    img.src = data.urls.regular;
+    img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+  }
 }
 
 async function getFlickrImages() {
@@ -344,8 +378,8 @@ async function getFlickrImages() {
   const timeOfDay = getTimeOfDay();
   let key = 'bea8c11052155e6ad750417f790467fd';
   let url;
-  if (photoTag !== '') {
-    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${photoTag}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
+  if (state.photoTag !== '') {
+    url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${state.photoTag}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
   } else {
     url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${timeOfDay}&extras=url_l&format=json&nojsoncallback=1&media=photos&per_page=21`;
   }
@@ -448,7 +482,6 @@ changeQuoteButton.addEventListener('click', getQuote);
 getQuote();
 getRandomNum(1, 20);
 showTime();
-setBg(state.photoSource);
 function flickrNextImg() {
   const img = new Image();
   randomNum += 1;
@@ -512,11 +545,12 @@ langInputs.forEach((el) => {
   });
 });
 function setLanguage() {
+  let curLang = settingTranslate[state.lang];
   settingsTitles.forEach((el) => {
-    el.textContent = `${settingTranslate[state.lang][el.id]}`;
+    el.textContent = `${curLang[el.id]}`;
   });
   settingsLabels.forEach((el) => {
-    el.textContent = `${settingTranslate[state.lang][el.id]}`;
+    el.textContent = `${curLang[el.id]}`;
   });
 }
 soursegInputs.forEach((el) => {
@@ -524,5 +558,35 @@ soursegInputs.forEach((el) => {
     state.photoSource = el.value;
     console.log(`Загрузка фото происходит с ${state.photoSource}`);
     setBg(state.photoSource);
+    if (el.value === 'github') {
+      disableTags();
+    } else {
+      activateTags();
+    }
   });
+});
+
+tagsInput.addEventListener('keypress', (event) => {
+  if (event.code === 'Enter') {
+    tagsInput.blur();
+  }
+});
+tagsInput.addEventListener('blur', () => {
+  let reg = new RegExp(/^[A-Za-z0-9,]+$/);
+  let value = tagsInput.value;
+  if (value) {
+    if (reg.test(value)) {
+      state.photoTag = tagsInput.value;
+      tagsInput.classList.remove('tags-invalid');
+      tagsInput.classList.add('tags-valid');
+      setBg(state.photoSource);
+    } else {
+      state.photoTag = tagsInput.value;
+      tagsInput.classList.remove('tags-valid');
+      tagsInput.classList.add('tags-invalid');
+    }
+  } else {
+    tagsInput.classList.remove('tags-valid');
+    state.photoTag = tagsInput.value;
+  }
 });

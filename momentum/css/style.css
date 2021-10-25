@@ -218,9 +218,29 @@ body {
   width: 120px;
   margin-top: 5px;
   display: block;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.block.tags {
+  cursor: auto;
+  color: black;
+  transition: 0.4s;
+}
+.block:hover {
+  color: rgba(255, 255, 255, 0.808);
+  transition: 0.4s;
+}
+.block.tags:hover {
+  color: black;
 }
 .tags {
-  width: 200px;
+  width: 300px;
+}
+.tags-valid {
+  outline: 2px solid green;
+}
+.tags-invalid {
+  outline: 2px solid red;
 }
 .settings {
   list-style: none;
