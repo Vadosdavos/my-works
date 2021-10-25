@@ -1,5 +1,5 @@
 import playList from './playList.js';
-import endings from './objects.js';
+import { endings, timeOfDayTranslate } from './objects.js';
 
 const timeContainer = document.querySelector('.time');
 const dateContainer = document.querySelector('.date');
@@ -40,7 +40,12 @@ const audioCurTimeText = document.querySelector('.audio-cur-time');
 const settingsTitle = document.querySelector('.settings-title');
 const settingsContainer = document.querySelector('.set-container');
 const settingsButton = document.querySelector('.set');
+const tagsInput = document.querySelector('.tags');
 const settingsCloseButton = document.querySelector('.set-close');
+const settingsTitles = document.querySelectorAll('.set-item-title');
+const settingsLabels = document.querySelectorAll('.input-label');
+const langInputs = document.querySelectorAll('.lang-input');
+const soursegInputs = document.querySelectorAll('.sourse-input');
 let photoTag = '';
 let flickrUrlsArr;
 const state = {
@@ -48,7 +53,43 @@ const state = {
   photoSource: 'github',
   blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio'],
 };
-const langInputs = document.querySelectorAll('.lang-input');
+const settingTranslate = {
+  ru: {
+    titleLang: 'Язык',
+    eng: 'Английский',
+    rus: 'Русский',
+    titlePhoto: 'Источник фотографий',
+    photoTags: 'Теги для фото',
+    blocks: 'Видимость блоков',
+    github: 'Github',
+    unsplash: 'Unsplash',
+    flickr: 'Flickr',
+    audio: 'Аудио-плеер',
+    weather: 'Погода',
+    time: 'Время',
+    date: 'Дата',
+    greet: 'Приветствие',
+    quotes: 'Цитаты',
+  },
+  en: {
+    titleLang: 'Language',
+    eng: 'English',
+    rus: 'Russian',
+    titlePhoto: 'Photo source',
+    photoTags: 'Photo tags',
+    blocks: 'Page blocks visibility',
+    github: 'Github',
+    unsplash: 'Unsplash',
+    flickr: 'Flickr',
+    audio: 'Audio player',
+    weather: 'Weather',
+    time: 'Time',
+    date: 'Date',
+    greet: 'Greetings',
+    quotes: 'Quotes',
+  },
+};
+console.log(`Загрузка фото происходит с ${state.photoSource}`);
 const updateVolume = function () {
   const value = this.value;
   audio[this.name] = value;
@@ -91,9 +132,11 @@ function setPlaceholders() {
   if (state.lang === 'ru') {
     city.placeholder = '[Введите город]';
     nameContainer.placeholder = '[Введите имя]';
+    tagsInput.placeholder = '[Введите теги]';
   } else {
     city.placeholder = '[Enter city]';
     nameContainer.placeholder = '[Enter name]';
+    tagsInput.placeholder = '[Set tags]';
   }
 }
 
@@ -219,26 +262,37 @@ function getHours() {
 }
 
 function getTimeOfDay() {
-  if (getHours() >= 6 && getHours() < 12) return state.lang === 'ru' ? 'утро' : 'morning';
-  else if (getHours() >= 12 && getHours() < 18) return state.lang === 'ru' ? 'день' : 'afternoon';
-  else if (getHours() >= 18 && getHours() < 24) return state.lang === 'ru' ? 'вечер' : 'evening';
-  else if (getHours() >= 0 && getHours() < 6) return state.lang === 'ru' ? 'ночи' : 'night';
+  if (getHours() >= 6 && getHours() < 12) return 'morning';
+  else if (getHours() >= 12 && getHours() < 18) return 'afternoon';
+  else if (getHours() >= 18 && getHours() < 24) return 'evening';
+  else if (getHours() >= 0 && getHours() < 6) return 'night';
 }
 function showGreeting() {
   if (state.lang === 'ru') {
-    greetingContainer.textContent = `${endings[getTimeOfDay(state.lang)]} ${getTimeOfDay(state.lang)},`;
+    greetingContainer.textContent = `${endings[timeOfDayTranslate[getTimeOfDay()]]} ${timeOfDayTranslate[getTimeOfDay()]},`;
   } else {
-    greetingContainer.textContent = `Good ${getTimeOfDay(state.lang)},`;
+    greetingContainer.textContent = `Good ${getTimeOfDay()},`;
   }
 }
 function setLocalStorage() {
   localStorage.setItem('userName', nameContainer.value);
   localStorage.setItem('city', city.value);
-
   localStorage.setItem('lang', state.lang);
 }
-console.log('ЗАПОМИНАЕТСЯ РУССКИЙ ЯЗЫК');
 window.addEventListener('beforeunload', setLocalStorage);
+
+function preloadSetting() {
+  langInputs.forEach((el) => {
+    if (el.value === localStorage.getItem('lang')) {
+      el.setAttribute('checked', true);
+    }
+    if (state.lang === 'ru') {
+      settingsTitle.textContent = 'Настройки';
+    } else {
+      settingsTitle.textContent = 'Settings';
+    }
+  });
+}
 
 function getLocalStorage() {
   if (localStorage.getItem('userName')) nameContainer.value = localStorage.getItem('userName');
@@ -259,6 +313,8 @@ window.addEventListener('load', () => {
   setCityName();
   getLocalStorage();
   getWeather();
+  preloadSetting();
+  setLanguage();
 });
 
 function getRandomNum(min, max) {
@@ -284,6 +340,7 @@ async function getUnsplashImages() {
 }
 
 async function getFlickrImages() {
+  console.log('Идёт загрузка, пожалуйста, подождите');
   const timeOfDay = getTimeOfDay();
   let key = 'bea8c11052155e6ad750417f790467fd';
   let url;
@@ -300,25 +357,35 @@ async function getFlickrImages() {
   img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
 }
 
-function setBg() {
-  const timeOfDay = getTimeOfDay();
-  const bgNum = String(randomNum).padStart(2, '0');
-  const img = new Image();
-  img.src = `https://raw.githubusercontent.com/Vadosdavos/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
-  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+function setBg(sourse = 'github') {
+  switch (sourse) {
+    case 'github':
+      {
+        const timeOfDay = getTimeOfDay();
+        const bgNum = String(randomNum).padStart(2, '0');
+        const img = new Image();
+        img.src = `https://raw.githubusercontent.com/Vadosdavos/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
+        img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+      }
+      break;
+    case 'flickr':
+      getFlickrImages();
+      break;
+    case 'unsplash':
+      getUnsplashImages();
+      break;
+  }
 }
 
 function getSlideNext() {
   randomNum += 1;
   if (randomNum === 21) randomNum = 1;
-  setBg();
-  // getFlickrImages();
+  setBg(state.photoSource);
 }
 function getSlidePrev() {
   randomNum -= 1;
   if (randomNum === 1) randomNum = 20;
-  setBg();
-  // getFlickrImages();
+  setBg(state.photoSource);
 }
 
 function weatherClearText() {
@@ -329,7 +396,7 @@ function weatherClearText() {
 }
 
 async function getWeather() {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&state.lang=${state.lang}&appid=d2330da0be102c4023a469490ba496c9&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=d2330da0be102c4023a469490ba496c9&units=metric&lang=${state.lang}`;
   const res = await fetch(url);
   const data = await res.json();
   if (data.cod === '404') {
@@ -381,21 +448,35 @@ changeQuoteButton.addEventListener('click', getQuote);
 getQuote();
 getRandomNum(1, 20);
 showTime();
-setBg();
-// getUnsplashImages();
-// getFlickrImages();
-// slideNext.addEventListener('click', getUnsplashImages);
-// slidePrev.addEventListener('click', getUnsplashImages);
+setBg(state.photoSource);
+function flickrNextImg() {
+  const img = new Image();
+  randomNum += 1;
+  if (randomNum === 21) randomNum = 1;
+  img.src = flickrUrlsArr[randomNum].url_l;
+  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+}
+function flickrPrevImg() {
+  const img = new Image();
+  randomNum -= 1;
+  if (randomNum === 1) randomNum = 20;
+  img.src = flickrUrlsArr[randomNum].url_l;
+  img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+}
 slideNext.addEventListener('click', () => {
-  getSlideNext();
-  // const img = new Image();
-  // randomNum += 1;
-  // if (randomNum === 21) randomNum = 1;
-  // img.src = flickrUrlsArr[randomNum].url_l;
-  // console.log(randomNum, flickrUrlsArr);
-  // img.addEventListener('load', () => (body.style.backgroundImage = `url(${img.src})`));
+  if (state.photoSource === 'flickr') {
+    flickrNextImg();
+  } else {
+    getSlideNext();
+  }
 });
-slidePrev.addEventListener('click', getSlidePrev);
+slidePrev.addEventListener('click', () => {
+  if (state.photoSource === 'flickr') {
+    flickrPrevImg();
+  } else {
+    getSlidePrev();
+  }
+});
 
 audio.addEventListener('timeupdate', () => {
   handleProgress();
@@ -422,5 +503,26 @@ langInputs.forEach((el) => {
     showTime();
     getQuote();
     getWeather();
+    if (state.lang === 'ru') {
+      settingsTitle.textContent = 'Настройки';
+    } else {
+      settingsTitle.textContent = 'Settings';
+    }
+    setLanguage();
+  });
+});
+function setLanguage() {
+  settingsTitles.forEach((el) => {
+    el.textContent = `${settingTranslate[state.lang][el.id]}`;
+  });
+  settingsLabels.forEach((el) => {
+    el.textContent = `${settingTranslate[state.lang][el.id]}`;
+  });
+}
+soursegInputs.forEach((el) => {
+  el.addEventListener('change', () => {
+    state.photoSource = el.value;
+    console.log(`Загрузка фото происходит с ${state.photoSource}`);
+    setBg(state.photoSource);
   });
 });

@@ -4,4 +4,11 @@ const endings = {
   вечер: 'Добрый',
   ночи: 'Доброй',
 };
-export default endings;
+const timeOfDayTranslate = {
+  morning: 'утро',
+  afternoon: 'день',
+  evening: 'вечер',
+  night: 'ночи',
+};
+
+export { endings, timeOfDayTranslate };

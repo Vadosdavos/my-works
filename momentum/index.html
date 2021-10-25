@@ -50,63 +50,63 @@
         <span class="set-close player-icon"></span>
         <ul class="settings">
           <li class="set-item">
-            <span class="set-item-title">Language</span>
+            <span class="set-item-title" id="titleLang">Language</span>
             <div class="set-item-container">
-              <label class="block">
-                <input type="radio" name="lang-item" class="lang-input" value="en" checked />
-                English
+              <label class="block" >
+                <input type="radio" name="lang-item" class="lang-input"  value="en" checked />
+                <span id="eng" class="input-label">English</span>
               </label>
-              <label class="block">
-                <input type="radio" name="lang-item" class="lang-input" value="ru" />
-                Russian
+              <label class="block" >
+                <input type="radio" name="lang-item" class="lang-input"  value="ru" />
+                <span class="input-label" id="rus">Russian</span>
               </label>
             </div>
           </li>
           <li class="set-item">
-            <span class="set-item-title">Photo source</span>
+            <span class="set-item-title" id="titlePhoto">Photo source</span>
             <div class="set-item-container">
               <label class="block">
-                <input type="radio" name="photo-source" value="github" checked />
-                Github
+                <input type="radio" name="photo-source" value="github" class="sourse-input" checked />
+                <span class="input-label" id="github">Github</span>
               </label>
               <label class="block">
-                <input type="radio" name="photo-source" value="unsplash" />
-                Unsplash
+                <input type="radio" name="photo-source" value="unsplash" class="sourse-input"/>
+                <span class="input-label" id="unsplash">Unsplash</span>
               </label >
               <label class="block">
-                <input type="radio" name="photo-source" value="flickr" />
-                Flickr
+                <input type="radio" name="photo-source" value="flickr" class="sourse-input"/>
+                <span class="input-label" id="flickr">Flickr</span>
               </label>
             </li>
           <li class="set-item">
-            <span class="set-item-title">Photo tags</span>
-            <input class="block tags" type="text" name="photo-tags" placeholder="Set tags" />
+            <span class="set-item-title" id="photoTags">Photo tags</span>
+            <input class="block tags" type="text" name="photo-tags" placeholder="[Set tags]" />
           </li>
           <li class="set-item">
-            <span class="set-item-title">Page blocks visibility</span>
+            <span class="set-item-title" id="blocks">Page blocks visibility</span>
             <label class="block">
               <input type="checkbox" name="block-visibility" checked/>
-              Audio player
+              <span class="input-label" id='audio' >Audio player</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="block-visibility"  checked/>
+              <span class="input-label" id='weather'>Weather</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="block-visibility"  checked/>
+              <span class="input-label" id='time'>Time</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="block-visibility"  checked/>
+              <span class="input-label" id='date'>Date</span>
+            </label>
+            <label class="block">
+              <input type="checkbox" name="block-visibility"  checked/>
+              <span class="input-label" id='greet'>Greetings</span>
             </label>
             <label class="block">
               <input type="checkbox" name="block-visibility" checked/>
-              Weather
-            </label>
-            <label class="block">
-              <input type="checkbox" name="block-visibility" checked/>
-              Time
-            </label>
-            <label class="block">
-              <input type="checkbox" name="block-visibility" checked/>
-              Date
-            </label>
-            <label class="block">
-              <input type="checkbox" name="block-visibility" checked/>
-              Greetings
-            </label>
-            <label class="block">
-              <input type="checkbox" name="block-visibility" checked/>
-              Quotes
+              <span class="input-label" id='quotes'>Quotes</span>
             </label>
           </li>
         </ul>
