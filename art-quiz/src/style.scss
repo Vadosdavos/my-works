@@ -1,10 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 body {
-  min-height: 100vh;
+  background-color: rgb(44, 126, 126);
+  color: white;
+  text-transform: uppercase;
+}
+html {
+  font-size: 14px;
+}
+main {
+  min-height: calc(100vh - 2rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: darkslategrey;
-  color: white;
-  text-transform: uppercase;
+}
+footer {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s;
 }

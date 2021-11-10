@@ -1,0 +1,17 @@
+.main-page {
+  width: 70%;
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "artists pictures"
+    "settings settings";
+
+  & .settings-button {
+    grid-area: settings;
+  }
+
+  & .main-title {
+    grid-area: title;
+  }
+  transition: all 1s;
+}

@@ -1,0 +1,13 @@
+.main-card {
+  width: 30%;
+  height: 500px;
+  background-color: darkgrey;
+}
+
+.artist-card {
+  grid-area: artists;
+}
+
+.picture-card {
+  grid-area: pictures;
+}
