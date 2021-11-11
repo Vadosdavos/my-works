@@ -2,8 +2,8 @@ import { MainPage } from '../components/main-page/main-page';
 import { Settings } from '../components/settings/settings';
 
 export class App {
-  private readonly mainPage: MainPage;
-  private readonly settings: Settings;
+  mainPage: MainPage;
+  settings: Settings;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.mainPage = new MainPage();
@@ -19,9 +19,7 @@ export class App {
 
   openSettings() {
     this.mainPage.element.classList.add('hidden');
-    setTimeout(() => {
-      this.rootElement.removeChild(this.mainPage.element);
-    }, 500);
+    this.rootElement.removeChild(this.mainPage.element);
     this.rootElement.appendChild(this.settings.element);
     setTimeout(() => {
       this.settings.element.classList.remove('hidden');
@@ -30,9 +28,7 @@ export class App {
 
   openMain() {
     this.settings.element.classList.add('hidden');
-    setTimeout(() => {
-      this.rootElement.removeChild(this.settings.element);
-    }, 500);
+    this.rootElement.removeChild(this.settings.element);
     this.rootElement.appendChild(this.mainPage.element);
     setTimeout(() => {
       this.mainPage.element.classList.remove('hidden');
