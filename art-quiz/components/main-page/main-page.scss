@@ -5,7 +5,9 @@
     "title title"
     "artists pictures"
     "settings settings";
-
+  justify-items: center;
+  gap: 20px;
+  transition: all 500ms;
   & .settings-button {
     grid-area: settings;
   }
@@ -13,5 +15,4 @@
   & .main-title {
     grid-area: title;
   }
-  transition: all 500ms;
 }

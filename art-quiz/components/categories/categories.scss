@@ -1,0 +1,29 @@
+.categories {
+  width: 70%;
+  display: grid;
+  grid-template-areas:
+    "home title"
+    "cards cards";
+  row-gap: 20px;
+  transition: all 500ms;
+}
+
+.categories-title {
+  grid-area: title;
+  margin-left: -100px;
+}
+
+.home-button {
+  grid-area: home;
+  justify-self: left;
+  width: 100px;
+  height: 50px;
+}
+
+.cards-wrapper {
+  grid-area: cards;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2%;
+  row-gap: 20px;
+}
