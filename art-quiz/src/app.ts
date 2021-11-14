@@ -2,15 +2,23 @@ import { Categories } from '../components/categories/categories';
 import { CategoriesTypes } from '../components/categories/categories.type';
 import { MainPage } from '../components/main-page/main-page';
 import { QuestionPage } from '../components/question-page/question-page';
+import { Score } from '../components/score/score';
 import { Settings } from '../components/settings/settings';
 
 export class App {
   mainPage: MainPage;
+
   settings: Settings;
+
   artistsCategories: Categories;
+
   picturesCategories: Categories;
+
   artistsQuestionPage: QuestionPage;
+
   pictureQuestionPage: QuestionPage;
+
+  score: Score;
 
   constructor(private readonly rootElement: HTMLElement) {
     this.mainPage = new MainPage();
@@ -19,6 +27,7 @@ export class App {
     this.picturesCategories = new Categories(CategoriesTypes.pictures);
     this.artistsQuestionPage = new QuestionPage(CategoriesTypes.artists);
     this.pictureQuestionPage = new QuestionPage(CategoriesTypes.pictures);
+    this.score = new Score();
     this.rootElement.appendChild(this.mainPage.element);
     this.mainPage.settingsButton.element.addEventListener('click', () => {
       this.openSettings();
@@ -44,8 +53,10 @@ export class App {
         const target = event.target as HTMLDivElement;
         if (target.className === 'categories-card') {
           this.openQuestion(CategoriesTypes.artists);
+        } else if (target.className === 'score-button') {
+          this.openScore();
         }
-      }
+      },
     );
     this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
       'click',
@@ -53,33 +64,41 @@ export class App {
         const target = event.target as HTMLDivElement;
         if (target.className === 'categories-card') {
           this.openQuestion(CategoriesTypes.pictures);
+        } else if (target.className === 'score-button') {
+          this.openScore();
         }
-      }
+      },
     );
     this.artistsQuestionPage.categoriesButton.element.addEventListener(
       'click',
       () => {
         this.openCategories(this.artistsCategories);
-      }
+      },
     );
     this.pictureQuestionPage.categoriesButton.element.addEventListener(
       'click',
       () => {
         this.openCategories(this.picturesCategories);
-      }
+      },
     );
     this.artistsQuestionPage.homeButton.element.addEventListener(
       'click',
       () => {
         this.goToMainPage();
-      }
+      },
     );
     this.pictureQuestionPage.homeButton.element.addEventListener(
       'click',
       () => {
         this.goToMainPage();
-      }
+      },
     );
+    this.score.homeButton.element.addEventListener('click', () => {
+      this.goToMainPage();
+    });
+    this.score.categoriesButton.element.addEventListener('click', () => {
+      this.openCategories(this.picturesCategories);
+    });
   }
 
   clearPage() {
@@ -119,5 +138,10 @@ export class App {
     if (type === CategoriesTypes.artists) {
       this.rootElement.append(this.artistsQuestionPage.element);
     } else this.rootElement.append(this.pictureQuestionPage.element);
+  }
+
+  openScore() {
+    this.clearPage();
+    this.rootElement.append(this.score.element);
   }
 }

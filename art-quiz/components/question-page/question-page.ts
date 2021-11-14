@@ -66,7 +66,7 @@ export class QuestionPage extends BaseComponent {
         'pictures-image',
       ]);
       picturesImage.element.src = `./image${i + 3}.jpg`;
-      picturesImage.element.alt = 'Answer Option image';
+      picturesImage.element.alt = 'Answer option image';
       picturesImageContainer.element.append(picturesImage.element);
     }
     return picturesImageContainer.element;
