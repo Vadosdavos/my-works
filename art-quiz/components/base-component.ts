@@ -1,12 +1,12 @@
-export class BaseComponent {
-  readonly element: HTMLElement;
+export class BaseComponent<T extends HTMLElement = HTMLElement> {
+  readonly element: T;
 
   constructor(
     tag: keyof HTMLElementTagNameMap = 'div',
     styles: string[] = [],
     text?: string
   ) {
-    this.element = document.createElement(tag);
+    this.element = <T>document.createElement(tag);
     this.element.classList.add(...styles);
     if (text) this.element.textContent = text;
   }
