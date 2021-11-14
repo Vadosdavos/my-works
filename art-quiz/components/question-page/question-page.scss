@@ -1,0 +1,36 @@
+.question-page {
+  width: 70%;
+  display: grid;
+  grid-template-areas:
+    "home title categ"
+    "quest quest quest";
+  row-gap: 20px;
+  transition: all 500ms;
+  justify-items: center;
+}
+
+.home-button {
+  grid-area: home;
+  justify-self: left;
+  width: 100px;
+  height: 50px;
+}
+
+.categ-button {
+  grid-area: categ;
+  justify-self: right;
+  width: 100px;
+  height: 50px;
+}
+
+.question-wrapper {
+  grid-area: quest;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2%;
+  row-gap: 20px;
+  border: 1px solid;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50vh;
+}
