@@ -1,9 +1,10 @@
 import { BaseComponent } from '../base-component';
 import { CategoriesTypes } from '../categories/categories.type';
+import { PageTitle } from '../title/page-title';
 import './score.scss';
 
 export class Score extends BaseComponent {
-  title = new BaseComponent('h2', ['score-title'], 'Результаты');
+  title: PageTitle;
   homeButton = new BaseComponent(
     'button',
     ['button', 'home-button'],
@@ -17,6 +18,7 @@ export class Score extends BaseComponent {
   scoreWrapper: BaseComponent;
   constructor() {
     super('section', ['score']);
+    this.title = new PageTitle('Результаты');
     this.element.prepend(this.homeButton.element);
     this.element.append(this.title.element);
     this.element.append(this.categoriesButton.element);

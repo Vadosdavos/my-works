@@ -96,6 +96,7 @@ export class App {
     this.score.homeButton.element.addEventListener('click', () => {
       this.goToMainPage();
     });
+    // ДОБАВИТЬ ВОЗВРАТЬ В НУЖНУЮ КАТЕГОРИЮ
     this.score.categoriesButton.element.addEventListener('click', () => {
       this.openCategories(this.picturesCategories);
     });

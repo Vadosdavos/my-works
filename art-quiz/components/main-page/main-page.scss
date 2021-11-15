@@ -12,7 +12,17 @@
     grid-area: settings;
   }
 
-  & .main-title {
+  & .page-title {
     grid-area: title;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-page {
+    grid-template-areas:
+      "title"
+      "artists"
+      "pictures"
+      "settings";
   }
 }

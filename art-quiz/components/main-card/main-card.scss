@@ -1,13 +1,20 @@
 .main-card {
-  width: 30%;
-  height: 500px;
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+  max-width: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   background-color: darkgrey;
 }
 
 .artist-card {
   grid-area: artists;
+  background-image: url("../../public/artists-quiz.jpg");
 }
 
 .picture-card {
   grid-area: pictures;
+  background-image: url("../../public/pictures-quiz.jpg");
 }

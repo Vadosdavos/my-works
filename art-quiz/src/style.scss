@@ -3,7 +3,7 @@
   padding: 0;
 }
 body {
-  background-color: rgb(44, 126, 126);
+  background-color: rgb(178, 207, 226);
   color: white;
   text-transform: uppercase;
 }
@@ -16,6 +16,8 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
 footer {
   height: 2rem;
