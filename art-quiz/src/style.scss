@@ -41,7 +41,6 @@ footer {
   height: 50px;
   border: none;
   background-color: #660033;
-  background-image: url(../public/settings.svg);
   background-repeat: no-repeat;
   background-position: 3px center;
   font-size: 14px;
@@ -50,6 +49,9 @@ footer {
   font-family: inherit;
   padding-left: 45px;
   transition: 0.5s;
+}
+.settings-button {
+  background-image: url(../public/settings.svg);
 }
 .button:hover {
   background-color: rgba(102, 0, 51, 0.87);

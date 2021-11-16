@@ -8,9 +8,12 @@
   background-position: center;
   background-size: contain;
   filter: grayscale(1);
+  position: relative;
 }
 .score-button {
   width: 100%;
   height: 50px;
   background-color: rgb(182, 90, 90);
+  position: absolute;
+  bottom: -50px;
 }

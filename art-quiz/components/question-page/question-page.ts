@@ -1,5 +1,5 @@
 import { BaseComponent } from '../base-component';
-import { CategoriesTypes } from '../categories/categories.type';
+import { CategoriesTypes, ImagesData } from '../categories/categories.type';
 import './question-page.scss';
 
 export class QuestionPage extends BaseComponent {
@@ -16,24 +16,37 @@ export class QuestionPage extends BaseComponent {
   );
   questionWrapper: BaseComponent;
   type: CategoriesTypes;
+  questionsArr: ImagesData[];
+  fullData: ImagesData[];
 
-  constructor(type: CategoriesTypes) {
+  constructor(
+    type: CategoriesTypes,
+    questionsArr: ImagesData[],
+    fullData: ImagesData[]
+  ) {
     super('section', ['question-page']);
     this.type = type;
     const titles = {
       artists: 'Кто автор данной картины?',
       pictures: 'Какую картину из предложенных написал _____ ?',
     };
+    this.questionsArr = questionsArr;
+    this.fullData = fullData;
     this.title.element.textContent = titles[type];
     this.element.prepend(this.homeButton.element);
     this.element.append(this.title.element);
     this.element.append(this.categoriesButton.element);
     this.questionWrapper = new BaseComponent('div', ['question-wrapper']);
     this.element.append(this.questionWrapper.element);
-    if (this.type === CategoriesTypes.artists) {
-      this.questionWrapper.element.append(...this.createArtistsQuestions());
-    } else if (this.type === CategoriesTypes.pictures) {
-      this.questionWrapper.element.append(this.createPicturesQuestions());
+    if (this.questionsArr.length > 0) {
+      if (this.type === CategoriesTypes.artists) {
+        this.questionWrapper.element.classList.add('artists-question-wrapper');
+        this.questionWrapper.element.append(...this.createArtistsQuestions());
+      } else if (this.type === CategoriesTypes.pictures) {
+        this.questionWrapper.element.classList.add('pictures-question-wrapper');
+        this.questionWrapper.element.append(this.createPicturesQuestions());
+      }
+      console.log(this.questionsArr);
     }
   }
 
@@ -42,19 +55,35 @@ export class QuestionPage extends BaseComponent {
       'artist-image-container',
     ]);
     const artistsImage = new BaseComponent<HTMLImageElement>('img', [
+      'question-image',
       'artist-image',
     ]);
-    artistsImage.element.src = './image1.jpg';
+    console.log(+this.element.id);
+    artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${
+      this.questionsArr[+this.element.id].imageNum
+    }full.webp`;
     artistsImage.element.alt = 'Question image';
-    artistsImageContainer.element.append(artistsImage.element);
+    artistsImage.element.addEventListener('load', () =>
+      artistsImageContainer.element.append(artistsImage.element)
+    );
     const artistAnswersContainer = new BaseComponent('div', [
       'artist-answers-container',
     ]);
-    for (let i = 0; i < 4; i++) {
-      artistAnswersContainer.element.append(
-        new BaseComponent('p', ['artist-answers'], `test-${i}`).element
+    let answersArr: ImagesData[] = [];
+    answersArr.push(this.questionsArr[+this.element.id]);
+    for (let i = 0; i < 3; i++) {
+      answersArr.push(
+        this.fullData[Math.floor(Math.random() * this.fullData.length)]
       );
     }
+    console.log(answersArr);
+    answersArr
+      .sort(() => Math.random() - 0.5)
+      .forEach((el) =>
+        artistAnswersContainer.element.append(
+          new BaseComponent('p', ['artist-answers'], `${el.author}`).element
+        )
+      );
     return [artistsImageContainer.element, artistAnswersContainer.element];
   }
   createPicturesQuestions() {
