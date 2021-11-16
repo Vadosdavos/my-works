@@ -7,14 +7,41 @@
   background-size: cover;
   background-position: center;
   background-color: darkgrey;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: all 0.5s;
+  position: relative;
+}
+
+.main-card:hover {
+  box-shadow: 0px 0px 6px 0px #660033;
+  transform: scale(1.01);
+  transition: all 0.5s;
 }
 
 .artist-card {
   grid-area: artists;
   background-image: url("../../public/artists-quiz.jpg");
+  justify-self: left;
 }
 
 .picture-card {
   grid-area: pictures;
   background-image: url("../../public/pictures-quiz.jpg");
+  justify-self: right;
+}
+
+.card-title {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #660033;
+  transition: all 0.5s;
+  transform: scale(0.99);
+}
+
+@media screen and (max-width: 768px) {
+  .main-card {
+    justify-self: unset;
+  }
 }

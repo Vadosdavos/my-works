@@ -6,10 +6,11 @@
     "artists pictures"
     "settings settings";
   justify-items: center;
-  gap: 20px;
+  gap: 100px 40px;
   transition: all 500ms;
   & .settings-button {
     grid-area: settings;
+    cursor: pointer;
   }
 
   & .page-title {
@@ -19,6 +20,7 @@
 
 @media screen and (max-width: 768px) {
   .main-page {
+    gap: 20px;
     grid-template-areas:
       "title"
       "artists"
