@@ -46,7 +46,6 @@ export class QuestionPage extends BaseComponent {
         this.questionWrapper.element.classList.add('pictures-question-wrapper');
         this.questionWrapper.element.append(this.createPicturesQuestions());
       }
-      console.log(this.questionsArr);
     }
   }
 
@@ -58,7 +57,6 @@ export class QuestionPage extends BaseComponent {
       'question-image',
       'artist-image',
     ]);
-    console.log(+this.element.id);
     artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${
       this.questionsArr[+this.element.id].imageNum
     }full.webp`;
@@ -69,15 +67,14 @@ export class QuestionPage extends BaseComponent {
     const artistAnswersContainer = new BaseComponent('div', [
       'artist-answers-container',
     ]);
-    let answersArr: ImagesData[] = [];
-    answersArr.push(this.questionsArr[+this.element.id]);
+    let artistsAnswersArr: ImagesData[] = [];
+    artistsAnswersArr.push(this.questionsArr[+this.element.id]);
     for (let i = 0; i < 3; i++) {
-      answersArr.push(
+      artistsAnswersArr.push(
         this.fullData[Math.floor(Math.random() * this.fullData.length)]
       );
     }
-    console.log(answersArr);
-    answersArr
+    artistsAnswersArr
       .sort(() => Math.random() - 0.5)
       .forEach((el) =>
         artistAnswersContainer.element.append(
@@ -90,14 +87,24 @@ export class QuestionPage extends BaseComponent {
     const picturesImageContainer = new BaseComponent('div', [
       'pictures-image-container',
     ]);
-    for (let i = 0; i < 4; i++) {
-      const picturesImage = new BaseComponent<HTMLImageElement>('img', [
-        'pictures-image',
-      ]);
-      picturesImage.element.src = `./image${i + 3}.jpg`;
-      picturesImage.element.alt = 'Answer option image';
-      picturesImageContainer.element.append(picturesImage.element);
+    let picturesAnswersArr = [];
+    picturesAnswersArr.push(this.questionsArr[+this.element.id]);
+    for (let i = 0; i < 3; i++) {
+      picturesAnswersArr.push(
+        this.fullData[Math.floor(Math.random() * this.fullData.length)]
+      );
     }
+    picturesAnswersArr
+      .sort(() => Math.random() - 0.5)
+      .forEach((el) => {
+        const picturesImage = new BaseComponent<HTMLImageElement>('img', [
+          'question-image',
+          'pictures-image',
+        ]);
+        picturesImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${el.imageNum}full.webp`;
+        picturesImage.element.alt = 'Answer option image';
+        picturesImageContainer.element.append(picturesImage.element);
+      });
     return picturesImageContainer.element;
   }
 }
