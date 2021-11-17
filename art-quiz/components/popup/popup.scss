@@ -1,0 +1,18 @@
+.popup {
+  left: calc(50% - 720px);
+  top: calc(50% - 200px);
+  position: fixed;
+  z-index: 100;
+  width: 582px;
+  height: 715px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #660033;
+}
+
+.popup-image {
+  width: 200px;
+  height: 200px;
+}

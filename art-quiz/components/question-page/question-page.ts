@@ -1,5 +1,6 @@
 import { BaseComponent } from '../base-component';
 import { CategoriesTypes, ImagesData } from '../categories/categories.type';
+import { Popup } from '../popup/popup';
 import './question-page.scss';
 
 export class QuestionPage extends BaseComponent {
@@ -18,11 +19,13 @@ export class QuestionPage extends BaseComponent {
   type: CategoriesTypes;
   questionsArr: ImagesData[];
   fullData: ImagesData[];
+  curQuestionNumber: number;
 
   constructor(
     type: CategoriesTypes,
     questionsArr: ImagesData[],
-    fullData: ImagesData[]
+    fullData: ImagesData[],
+    curNumber: number
   ) {
     super('section', ['question-page']);
     this.type = type;
@@ -33,6 +36,7 @@ export class QuestionPage extends BaseComponent {
     this.questionsArr = questionsArr;
     this.fullData = fullData;
     this.title.element.textContent = titles[type];
+    this.curQuestionNumber = curNumber;
     this.element.prepend(this.homeButton.element);
     this.element.append(this.title.element);
     this.element.append(this.categoriesButton.element);
@@ -41,15 +45,23 @@ export class QuestionPage extends BaseComponent {
     if (this.questionsArr.length > 0) {
       if (this.type === CategoriesTypes.artists) {
         this.questionWrapper.element.classList.add('artists-question-wrapper');
-        this.questionWrapper.element.append(...this.createArtistsQuestions());
+        this.questionWrapper.element.append(
+          ...this.createArtistsQuestions(this.curQuestionNumber)
+        );
       } else if (this.type === CategoriesTypes.pictures) {
         this.questionWrapper.element.classList.add('pictures-question-wrapper');
         this.questionWrapper.element.append(this.createPicturesQuestions());
       }
     }
+
+    this.questionWrapper.element.childNodes[1]?.childNodes.forEach((el) => {
+      el.addEventListener('click', () => {
+        this.checkAnswer(el, this.curQuestionNumber);
+      });
+    });
   }
 
-  createArtistsQuestions() {
+  createArtistsQuestions(currentNum: number) {
     const artistsImageContainer = new BaseComponent('div', [
       'artist-image-container',
     ]);
@@ -57,9 +69,8 @@ export class QuestionPage extends BaseComponent {
       'question-image',
       'artist-image',
     ]);
-    artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${
-      this.questionsArr[+this.element.id].imageNum
-    }full.webp`;
+    console.log(this.questionsArr);
+    artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${this.questionsArr[currentNum].imageNum}full.webp`;
     artistsImage.element.alt = 'Question image';
     artistsImage.element.addEventListener('load', () =>
       artistsImageContainer.element.append(artistsImage.element)
@@ -68,11 +79,12 @@ export class QuestionPage extends BaseComponent {
       'artist-answers-container',
     ]);
     let artistsAnswersArr: ImagesData[] = [];
-    artistsAnswersArr.push(this.questionsArr[+this.element.id]);
-    for (let i = 0; i < 3; i++) {
-      artistsAnswersArr.push(
-        this.fullData[Math.floor(Math.random() * this.fullData.length)]
-      );
+    artistsAnswersArr.push(this.questionsArr[currentNum]);
+    while (artistsAnswersArr.length < 4) {
+      let number = Math.floor(Math.random() * this.fullData.length);
+      if (number !== currentNum) {
+        artistsAnswersArr.push(this.fullData[number]);
+      }
     }
     artistsAnswersArr
       .sort(() => Math.random() - 0.5)
@@ -106,5 +118,26 @@ export class QuestionPage extends BaseComponent {
         picturesImageContainer.element.append(picturesImage.element);
       });
     return picturesImageContainer.element;
+  }
+
+  checkAnswer(answerElement: Node | null, currentNum: number) {
+    if (answerElement?.textContent === this.questionsArr[currentNum].author) {
+      console.log('true');
+      (answerElement as HTMLElement).style.backgroundColor =
+        'rgba(0, 102, 53, 0.5)';
+      const newPopup = new Popup(this.questionsArr[currentNum]);
+      this.element.append(newPopup.element);
+    } else {
+      console.log('false');
+      (answerElement as HTMLElement).style.backgroundColor =
+        'rgba(102, 0, 51, 0.5)';
+    }
+  }
+
+  choseCorrect(answerElement: Node) {
+    (answerElement as HTMLElement).style.backgroundColor = 'green';
+  }
+  choseWrong(answerElement: Node) {
+    (answerElement as HTMLElement).style.backgroundColor = 'green';
   }
 }

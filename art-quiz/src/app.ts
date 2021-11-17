@@ -1,8 +1,5 @@
 import { Categories } from '../components/categories/categories';
-import {
-  CategoriesTypes,
-  ImagesData,
-} from '../components/categories/categories.type';
+import { CategoriesTypes } from '../components/categories/categories.type';
 import { MainPage } from '../components/main-page/main-page';
 import { QuestionPage } from '../components/question-page/question-page';
 import { Score } from '../components/score/score';
@@ -31,12 +28,14 @@ export class App {
     this.artistsQuestionPage = new QuestionPage(
       CategoriesTypes.artists,
       [],
-      []
+      [],
+      0,
     );
     this.pictureQuestionPage = new QuestionPage(
       CategoriesTypes.pictures,
       [],
-      []
+      [],
+      0,
     );
     this.score = new Score();
     this.rootElement.appendChild(this.mainPage.element);
@@ -77,25 +76,26 @@ export class App {
               this.artistsQuestionPage = new QuestionPage(
                 CategoriesTypes.artists,
                 artistData.slice((+target.id - 1) * 10, +target.id * 10),
-                data
+                data,
+                0,
               );
               this.artistsQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.artistsCategories);
-                }
+                },
               );
               this.artistsQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                }
+                },
               );
               this.openQuestion(CategoriesTypes.artists);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          }
+          },
         );
         this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
           'click',
@@ -105,30 +105,31 @@ export class App {
               this.pictureQuestionPage = new QuestionPage(
                 CategoriesTypes.pictures,
                 picturesData.slice((+target.id - 1) * 10, +target.id * 10),
-                data
+                data,
+                0,
               );
               this.pictureQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.picturesCategories);
-                }
+                },
               );
               this.pictureQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                }
+                },
               );
               this.openQuestion(CategoriesTypes.pictures);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          }
+          },
         );
       },
       (err) => {
-        throw new Error('Json is not found!');
-      }
+        if (err) throw new Error('Json is not found!');
+      },
     );
   }
 
