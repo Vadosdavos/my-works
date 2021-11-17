@@ -1,19 +1,47 @@
 .categories-card {
-  width: 23%;
-  height: 200px;
-  border: 1px solid;
+  width: 250px;
+  height: 250px;
+  padding-top: 10px;
   box-sizing: border-box;
+  border-radius: 15px;
   overflow-y: hidden;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
   filter: grayscale(1);
   position: relative;
+  font-weight: 600;
+  text-transform: none;
+  color: #660033;
+  transition: all 0.5s;
+  cursor: pointer;
 }
+
+.categories-card:hover {
+  box-shadow: 0px 0px 6px 0px #660033;
+  transform: scale(1.01);
+  transition: all 0.5s;
+}
+
 .score-button {
-  width: 100%;
+  width: 50px;
   height: 50px;
-  background-color: rgb(182, 90, 90);
+  background-image: url(../../public/score-star.svg);
+  background-repeat: no-repeat;
   position: absolute;
+  background-position: center;
+  right: 0;
   bottom: -50px;
+  cursor: help;
+  transition: 0.5s;
+}
+.score-button:hover {
+  filter: invert(61%) sepia(75%) saturate(1714%) hue-rotate(1deg)
+    brightness(104%) contrast(104%);
+  transition: 0.5s;
+}
+.title-back {
+  background-color: rgba(255, 255, 255, 0.356);
+  display: flex;
+  justify-content: space-around;
 }

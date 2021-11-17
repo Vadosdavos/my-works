@@ -22,11 +22,10 @@ export class Categories extends BaseComponent {
     this.categoriesCardsWrapper = new BaseComponent('div', ['cards-wrapper']);
     this.element.append(this.homeButton.element);
     this.element.append(this.categoriesCardsWrapper.element);
-    this.element.append(this.type); /* УБРАТЬ ПОТОМ */
 
     if (this.type === CategoriesTypes.artists) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach((el) => {
-        let card = new CategoriesCard(el.toString()).element;
+        let card = new CategoriesCard(el.toString() + ' Категория').element;
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el}.webp)`;
         this.categoriesCardsWrapper.element.append(card);
@@ -38,7 +37,7 @@ export class Categories extends BaseComponent {
 
     if (this.type === CategoriesTypes.pictures) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach((el) => {
-        let card = new CategoriesCard(el.toString()).element;
+        let card = new CategoriesCard(el.toString() + ' Категория').element;
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el + 12}.webp)`;
         this.categoriesCardsWrapper.element.append(card);

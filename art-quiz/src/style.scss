@@ -42,16 +42,24 @@ footer {
   border: none;
   background-color: #660033;
   background-repeat: no-repeat;
-  background-position: 3px center;
+  background-position: 10px center;
+  background-size: 30px;
   font-size: 14px;
-  line-height: 22px;
+  line-height: 14px;
   color: inherit;
   font-family: inherit;
-  padding-left: 45px;
+  padding-left: 30px;
   transition: 0.5s;
+  cursor: pointer;
 }
 .settings-button {
   background-image: url(../public/settings.svg);
+}
+.home-button {
+  grid-area: home;
+  justify-self: left;
+  align-self: flex-end;
+  background-image: url(../public/home.svg);
 }
 .button:hover {
   background-color: rgba(102, 0, 51, 0.87);
@@ -77,4 +85,10 @@ footer {
 }
 .copyright-item a:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+  .home-button {
+    justify-self: unset;
+  }
 }

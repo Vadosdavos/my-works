@@ -1,5 +1,5 @@
 .categories {
-  width: 70%;
+  width: 57%;
   display: grid;
   grid-template-areas:
     "home title"
@@ -12,17 +12,31 @@
   grid-area: title;
 }
 
-.home-button {
-  grid-area: home;
-  justify-self: left;
-  width: 100px;
-  height: 50px;
-}
-
 .cards-wrapper {
+  width: 100%;
   grid-area: cards;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 2%;
+  justify-content: space-between;
   row-gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .categories {
+    width: 95%;
+    grid-template-areas:
+      "title"
+      "home"
+      "cards";
+    justify-items: center;
+  }
+  .cards-wrapper {
+    gap: 20px;
+    grid-template-areas:
+      "title"
+      "artists"
+      "pictures"
+      "settings";
+    justify-content: center;
+  }
 }

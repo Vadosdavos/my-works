@@ -9,18 +9,10 @@
   justify-items: center;
 }
 
-.home-button {
-  grid-area: home;
-  justify-self: left;
-  width: 100px;
-  height: 50px;
-}
-
 .categ-button {
   grid-area: categ;
   justify-self: right;
-  width: 100px;
-  height: 50px;
+  background-image: url(../../public/categ.svg);
 }
 
 .question-wrapper {
