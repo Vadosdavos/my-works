@@ -1,18 +1,27 @@
 .popup {
-  left: calc(50% - 720px);
-  top: calc(50% - 200px);
+  left: calc(50% - 350px);
+  top: calc(50% - 450px);
   position: fixed;
   z-index: 100;
-  width: 582px;
-  height: 715px;
+  width: 700px;
+  height: 800px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
+  justify-content: center;
   color: #660033;
+  border-radius: 15px;
+  outline: 100vw solid rgba(0, 0, 0, 0.5);
 }
 
 .popup-image {
-  width: 200px;
-  height: 200px;
+  width: 50%;
+  border-radius: 15px;
+}
+
+.next-button {
+  color: #fff;
+  padding: 0;
 }

@@ -79,11 +79,14 @@ export class QuestionPage extends BaseComponent {
       'artist-answers-container',
     ]);
     let artistsAnswersArr: ImagesData[] = [];
+    let checkArr: number[] = [];
     artistsAnswersArr.push(this.questionsArr[currentNum]);
+    checkArr.push(+this.questionsArr[currentNum].imageNum);
     while (artistsAnswersArr.length < 4) {
       let number = Math.floor(Math.random() * this.fullData.length);
-      if (number !== currentNum) {
+      if (!checkArr.includes(number)) {
         artistsAnswersArr.push(this.fullData[number]);
+        checkArr.push(number);
       }
     }
     artistsAnswersArr
