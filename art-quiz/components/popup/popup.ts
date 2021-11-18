@@ -5,9 +5,12 @@ import './popup.scss';
 export class Popup extends BaseComponent {
   nextButton: BaseComponent;
   answerData: ImagesData;
-  constructor(answerData: ImagesData) {
+  isCorrectAnswer: boolean;
+
+  constructor(answerData: ImagesData, isCorrect: boolean) {
     super('div', ['popup']);
     this.answerData = answerData;
+    this.isCorrectAnswer = isCorrect;
     this.nextButton = new BaseComponent(
       'button',
       ['button', 'next-button'],
@@ -16,7 +19,13 @@ export class Popup extends BaseComponent {
     this.render(this.answerData);
   }
   render(data: ImagesData) {
+    const wrapper = new BaseComponent('div', ['popup-wrapper']);
     const check = new BaseComponent('span', ['correct-flag']);
+    if (this.isCorrectAnswer) {
+      check.element.classList.add('correct');
+    } else {
+      check.element.classList.add('wrong');
+    }
     const img = new BaseComponent('img', ['popup-image']);
     img.element.setAttribute(
       'src',
@@ -25,7 +34,7 @@ export class Popup extends BaseComponent {
     const name = new BaseComponent('p', ['popup-text'], `${data.name}`);
     const author = new BaseComponent('p', ['popup-text'], `${data.author}`);
     const year = new BaseComponent('p', ['popup-text'], `${data.year}`);
-    this.element.append(
+    wrapper.element.append(
       check.element,
       img.element,
       name.element,
@@ -33,5 +42,6 @@ export class Popup extends BaseComponent {
       year.element,
       this.nextButton.element
     );
+    this.element.append(wrapper.element);
   }
 }

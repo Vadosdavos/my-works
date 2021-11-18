@@ -69,7 +69,6 @@ export class QuestionPage extends BaseComponent {
       'question-image',
       'artist-image',
     ]);
-    console.log(this.questionsArr);
     artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${this.questionsArr[currentNum].imageNum}full.webp`;
     artistsImage.element.alt = 'Question image';
     artistsImage.element.addEventListener('load', () =>
@@ -125,22 +124,37 @@ export class QuestionPage extends BaseComponent {
 
   checkAnswer(answerElement: Node | null, currentNum: number) {
     if (answerElement?.textContent === this.questionsArr[currentNum].author) {
-      console.log('true');
       (answerElement as HTMLElement).style.backgroundColor =
         'rgba(0, 102, 53, 0.5)';
-      const newPopup = new Popup(this.questionsArr[currentNum]);
+      const newPopup = new Popup(this.questionsArr[currentNum], true);
       this.element.append(newPopup.element);
+      newPopup.nextButton.element.addEventListener('click', () => {
+        this.element.innerHTML = '';
+        this.element.append(
+          new QuestionPage(
+            this.type,
+            this.questionsArr,
+            this.fullData,
+            this.curQuestionNumber + 1
+          ).element
+        );
+      });
     } else {
-      console.log('false');
       (answerElement as HTMLElement).style.backgroundColor =
         'rgba(102, 0, 51, 0.5)';
+      const newPopup = new Popup(this.questionsArr[currentNum], false);
+      this.element.append(newPopup.element);
+      newPopup.nextButton.element.addEventListener('click', () => {
+        this.element.innerHTML = '';
+        this.element.append(
+          new QuestionPage(
+            this.type,
+            this.questionsArr,
+            this.fullData,
+            this.curQuestionNumber + 1
+          ).element
+        );
+      });
     }
-  }
-
-  choseCorrect(answerElement: Node) {
-    (answerElement as HTMLElement).style.backgroundColor = 'green';
-  }
-  choseWrong(answerElement: Node) {
-    (answerElement as HTMLElement).style.backgroundColor = 'green';
   }
 }

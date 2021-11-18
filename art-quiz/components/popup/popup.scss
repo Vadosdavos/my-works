@@ -1,8 +1,16 @@
 .popup {
-  left: calc(50% - 350px);
-  top: calc(50% - 450px);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: center;
+  top: 0;
   position: fixed;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup-wrapper {
   width: 700px;
   height: 800px;
   background-color: #fff;
@@ -13,7 +21,6 @@
   justify-content: center;
   color: #660033;
   border-radius: 15px;
-  outline: 100vw solid rgba(0, 0, 0, 0.5);
 }
 
 .popup-image {
@@ -24,4 +31,20 @@
 .next-button {
   color: #fff;
   padding: 0;
+}
+
+.correct-flag {
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.correct {
+  background-image: url("../../public/correct.svg");
+}
+.wrong {
+  background-image: url("../../public/wrong.svg");
 }
