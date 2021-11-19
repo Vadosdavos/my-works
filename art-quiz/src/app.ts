@@ -29,13 +29,13 @@ export class App {
       CategoriesTypes.artists,
       [],
       [],
-      0,
+      0
     );
     this.pictureQuestionPage = new QuestionPage(
       CategoriesTypes.pictures,
       [],
       [],
-      0,
+      0
     );
     this.score = new Score();
     this.rootElement.appendChild(this.mainPage.element);
@@ -77,25 +77,31 @@ export class App {
                 CategoriesTypes.artists,
                 artistData.slice((+target.id - 1) * 10, +target.id * 10),
                 data,
-                0,
+                0
               );
               this.artistsQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.artistsCategories);
-                },
+                }
               );
               this.artistsQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                },
+                }
+              );
+              this.artistsQuestionPage.newPopup.nextButton.element.addEventListener(
+                'click',
+                () => {
+                  console.log('qqqqqqqqqqqqqqqqqqqqq');
+                }
               );
               this.openQuestion(CategoriesTypes.artists);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          },
+          }
         );
         this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
           'click',
@@ -106,30 +112,30 @@ export class App {
                 CategoriesTypes.pictures,
                 picturesData.slice((+target.id - 1) * 10, +target.id * 10),
                 data,
-                0,
+                0
               );
               this.pictureQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.picturesCategories);
-                },
+                }
               );
               this.pictureQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                },
+                }
               );
               this.openQuestion(CategoriesTypes.pictures);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          },
+          }
         );
       },
       (err) => {
         if (err) throw new Error('Json is not found!');
-      },
+      }
     );
   }
 

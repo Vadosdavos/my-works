@@ -20,6 +20,7 @@ export class QuestionPage extends BaseComponent {
   questionsArr: ImagesData[];
   fullData: ImagesData[];
   curQuestionNumber: number;
+  newPopup: Popup ;
 
   constructor(
     type: CategoriesTypes,
@@ -28,21 +29,24 @@ export class QuestionPage extends BaseComponent {
     curNumber: number
   ) {
     super('section', ['question-page']);
+    this.curQuestionNumber = curNumber;
     this.type = type;
-    const titles = {
-      artists: 'Кто автор данной картины?',
-      pictures: 'Какую картину из предложенных написал _____ ?',
-    };
     this.questionsArr = questionsArr;
     this.fullData = fullData;
-    this.title.element.textContent = titles[type];
-    this.curQuestionNumber = curNumber;
-    this.element.prepend(this.homeButton.element);
-    this.element.append(this.title.element);
-    this.element.append(this.categoriesButton.element);
+    // this.newPopup = null;
     this.questionWrapper = new BaseComponent('div', ['question-wrapper']);
     this.element.append(this.questionWrapper.element);
     if (this.questionsArr.length > 0) {
+      const titles = {
+        artists: 'Кто автор данной картины?',
+        pictures: `Какую картину написал ${
+          questionsArr[this.curQuestionNumber].author
+        } ?`,
+      };
+      this.title.element.textContent = titles[type];
+      this.element.prepend(this.homeButton.element);
+      this.element.append(this.title.element);
+      this.element.append(this.categoriesButton.element);
       if (this.type === CategoriesTypes.artists) {
         this.questionWrapper.element.classList.add('artists-question-wrapper');
         this.questionWrapper.element.append(
@@ -54,6 +58,10 @@ export class QuestionPage extends BaseComponent {
           this.createPicturesQuestions(this.curQuestionNumber)
         );
       }
+      this.newPopup = new Popup(
+        this.questionsArr[this.curQuestionNumber],
+        true
+      );
     }
 
     this.questionWrapper.element.childNodes[1]?.childNodes.forEach((el) => {
@@ -61,6 +69,19 @@ export class QuestionPage extends BaseComponent {
         this.checkAnswer(el, this.curQuestionNumber);
       });
     });
+
+    // this.element.append(this.newPopup.element);
+    // this.newPopup.nextButton.element.addEventListener('click', () => {
+    //   this.element.innerHTML = '';
+    //   this.element.append(
+    //     new QuestionPage(
+    //       this.type,
+    //       this.questionsArr,
+    //       this.fullData,
+    //       this.curQuestionNumber + 1
+    //     ).element
+    //   );
+    // });
   }
 
   createArtistsQuestions(currentNum: number) {
@@ -132,19 +153,19 @@ export class QuestionPage extends BaseComponent {
     if (answerElement?.textContent === this.questionsArr[currentNum].author) {
       (answerElement as HTMLElement).style.backgroundColor =
         'rgba(0, 102, 53, 0.5)';
-      const newPopup = new Popup(this.questionsArr[currentNum], true);
-      this.element.append(newPopup.element);
-      newPopup.nextButton.element.addEventListener('click', () => {
-        this.element.innerHTML = '';
-        this.element.append(
-          new QuestionPage(
-            this.type,
-            this.questionsArr,
-            this.fullData,
-            this.curQuestionNumber + 1
-          ).element
-        );
-      });
+      // const newPopup = new Popup(this.questionsArr[currentNum], true);
+      // this.element.append(newPopup.element);
+      // newPopup.nextButton.element.addEventListener('click', () => {
+      //   this.element.innerHTML = '';
+      //   this.element.append(
+      //     new QuestionPage(
+      //       this.type,
+      //       this.questionsArr,
+      //       this.fullData,
+      //       this.curQuestionNumber + 1
+      //     ).element
+      //   );
+      // });
     } else {
       (answerElement as HTMLElement).style.backgroundColor =
         'rgba(102, 0, 51, 0.5)';
