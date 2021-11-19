@@ -50,7 +50,9 @@ export class QuestionPage extends BaseComponent {
         );
       } else if (this.type === CategoriesTypes.pictures) {
         this.questionWrapper.element.classList.add('pictures-question-wrapper');
-        this.questionWrapper.element.append(this.createPicturesQuestions());
+        this.questionWrapper.element.append(
+          this.createPicturesQuestions(this.curQuestionNumber)
+        );
       }
     }
 
@@ -97,16 +99,20 @@ export class QuestionPage extends BaseComponent {
       );
     return [artistsImageContainer.element, artistAnswersContainer.element];
   }
-  createPicturesQuestions() {
+  createPicturesQuestions(currentNum: number) {
     const picturesImageContainer = new BaseComponent('div', [
       'pictures-image-container',
     ]);
-    let picturesAnswersArr = [];
-    picturesAnswersArr.push(this.questionsArr[+this.element.id]);
-    for (let i = 0; i < 3; i++) {
-      picturesAnswersArr.push(
-        this.fullData[Math.floor(Math.random() * this.fullData.length)]
-      );
+    let picturesAnswersArr: ImagesData[] = [];
+    let checkArr: number[] = [];
+    picturesAnswersArr.push(this.questionsArr[currentNum]);
+    checkArr.push(+this.questionsArr[currentNum].imageNum);
+    while (picturesAnswersArr.length < 4) {
+      let number = Math.floor(Math.random() * this.fullData.length);
+      if (!checkArr.includes(number)) {
+        picturesAnswersArr.push(this.fullData[number]);
+        checkArr.push(number);
+      }
     }
     picturesAnswersArr
       .sort(() => Math.random() - 0.5)
@@ -115,7 +121,7 @@ export class QuestionPage extends BaseComponent {
           'question-image',
           'pictures-image',
         ]);
-        picturesImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${el.imageNum}full.webp`;
+        picturesImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/img/${el.imageNum}.webp`;
         picturesImage.element.alt = 'Answer option image';
         picturesImageContainer.element.append(picturesImage.element);
       });
