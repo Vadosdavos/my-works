@@ -15,12 +15,12 @@ export class QuestionPage extends BaseComponent {
     ['button', 'categ-button'],
     'Категории'
   );
-  questionWrapper: BaseComponent;
+  questionWrapper = new BaseComponent('div', ['question-wrapper']);
   type: CategoriesTypes;
   questionsArr: ImagesData[];
   fullData: ImagesData[];
   curQuestionNumber: number;
-  newPopup: Popup ;
+  newPopup: Popup | undefined;
 
   constructor(
     type: CategoriesTypes,
@@ -33,58 +33,52 @@ export class QuestionPage extends BaseComponent {
     this.type = type;
     this.questionsArr = questionsArr;
     this.fullData = fullData;
-    // this.newPopup = null;
+    this.render(this.curQuestionNumber);
+  }
+
+  render(curNumber: number) {
     this.questionWrapper = new BaseComponent('div', ['question-wrapper']);
     this.element.append(this.questionWrapper.element);
     if (this.questionsArr.length > 0) {
       const titles = {
         artists: 'Кто автор данной картины?',
-        pictures: `Какую картину написал ${
-          questionsArr[this.curQuestionNumber].author
-        } ?`,
+        pictures: `Какую картину написал ${this.questionsArr[curNumber].author} ?`,
       };
-      this.title.element.textContent = titles[type];
+      this.title.element.textContent = titles[this.type];
       this.element.prepend(this.homeButton.element);
       this.element.append(this.title.element);
       this.element.append(this.categoriesButton.element);
       if (this.type === CategoriesTypes.artists) {
         this.questionWrapper.element.classList.add('artists-question-wrapper');
         this.questionWrapper.element.append(
-          ...this.createArtistsQuestions(this.curQuestionNumber)
+          ...this.createArtistsQuestion(curNumber)
         );
       } else if (this.type === CategoriesTypes.pictures) {
         this.questionWrapper.element.classList.add('pictures-question-wrapper');
         this.questionWrapper.element.append(
-          this.createPicturesQuestions(this.curQuestionNumber)
+          this.createPicturesQuestion(curNumber)
         );
       }
-      this.newPopup = new Popup(
-        this.questionsArr[this.curQuestionNumber],
-        true
-      );
+      this.newPopup = new Popup(this.questionsArr[curNumber]);
+      this.newPopup.nextButton.element.addEventListener('click', () => {
+        this.element.innerHTML = '';
+        this.curQuestionNumber++;
+        this.render(this.curQuestionNumber);
+      });
     }
-
     this.questionWrapper.element.childNodes[1]?.childNodes.forEach((el) => {
       el.addEventListener('click', () => {
-        this.checkAnswer(el, this.curQuestionNumber);
+        this.checkAnswer(el, curNumber);
       });
     });
-
-    // this.element.append(this.newPopup.element);
-    // this.newPopup.nextButton.element.addEventListener('click', () => {
-    //   this.element.innerHTML = '';
-    //   this.element.append(
-    //     new QuestionPage(
-    //       this.type,
-    //       this.questionsArr,
-    //       this.fullData,
-    //       this.curQuestionNumber + 1
-    //     ).element
-    //   );
-    // });
+    this.questionWrapper.element.childNodes[0]?.childNodes.forEach((el) => {
+      el.addEventListener('click', () => {
+        this.checkAnswer(el, curNumber);
+      });
+    });
   }
 
-  createArtistsQuestions(currentNum: number) {
+  createArtistsQuestion(currentNum: number) {
     const artistsImageContainer = new BaseComponent('div', [
       'artist-image-container',
     ]);
@@ -120,7 +114,7 @@ export class QuestionPage extends BaseComponent {
       );
     return [artistsImageContainer.element, artistAnswersContainer.element];
   }
-  createPicturesQuestions(currentNum: number) {
+  createPicturesQuestion(currentNum: number) {
     const picturesImageContainer = new BaseComponent('div', [
       'pictures-image-container',
     ]);
@@ -144,44 +138,44 @@ export class QuestionPage extends BaseComponent {
         ]);
         picturesImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/img/${el.imageNum}.webp`;
         picturesImage.element.alt = 'Answer option image';
+        picturesImage.element.id = `${el.author}`;
         picturesImageContainer.element.append(picturesImage.element);
       });
     return picturesImageContainer.element;
   }
 
   checkAnswer(answerElement: Node | null, currentNum: number) {
-    if (answerElement?.textContent === this.questionsArr[currentNum].author) {
-      (answerElement as HTMLElement).style.backgroundColor =
-        'rgba(0, 102, 53, 0.5)';
-      // const newPopup = new Popup(this.questionsArr[currentNum], true);
-      // this.element.append(newPopup.element);
-      // newPopup.nextButton.element.addEventListener('click', () => {
-      //   this.element.innerHTML = '';
-      //   this.element.append(
-      //     new QuestionPage(
-      //       this.type,
-      //       this.questionsArr,
-      //       this.fullData,
-      //       this.curQuestionNumber + 1
-      //     ).element
-      //   );
-      // });
-    } else {
-      (answerElement as HTMLElement).style.backgroundColor =
-        'rgba(102, 0, 51, 0.5)';
-      const newPopup = new Popup(this.questionsArr[currentNum], false);
-      this.element.append(newPopup.element);
-      newPopup.nextButton.element.addEventListener('click', () => {
-        this.element.innerHTML = '';
-        this.element.append(
-          new QuestionPage(
-            this.type,
-            this.questionsArr,
-            this.fullData,
-            this.curQuestionNumber + 1
-          ).element
-        );
-      });
+    if (this.newPopup) {
+      if (this.type === 'artists') {
+        if (
+          answerElement?.textContent === this.questionsArr[currentNum].author
+        ) {
+          (answerElement as HTMLElement).style.backgroundColor =
+            'rgba(0, 102, 53, 0.5)';
+          this.newPopup.check.element.classList.add('correct');
+          this.element.append(this.newPopup.element);
+        } else {
+          (answerElement as HTMLElement).style.backgroundColor =
+            'rgba(102, 0, 51, 0.5)';
+          this.newPopup.check.element.classList.add('wrong');
+          this.element.append(this.newPopup.element);
+        }
+      } else {
+        if (
+          (answerElement as HTMLElement).id ===
+          this.questionsArr[currentNum].author
+        ) {
+          (answerElement as HTMLElement).style.backgroundColor =
+            'rgba(0, 102, 53, 0.5)';
+          this.newPopup.check.element.classList.add('correct');
+          this.element.append(this.newPopup.element);
+        } else {
+          (answerElement as HTMLElement).style.backgroundColor =
+            'rgba(102, 0, 51, 0.5)';
+          this.newPopup.check.element.classList.add('wrong');
+          this.element.append(this.newPopup.element);
+        }
+      }
     }
   }
 }

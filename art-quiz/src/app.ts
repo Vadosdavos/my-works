@@ -91,12 +91,6 @@ export class App {
                   this.goToMainPage();
                 }
               );
-              this.artistsQuestionPage.newPopup.nextButton.element.addEventListener(
-                'click',
-                () => {
-                  console.log('qqqqqqqqqqqqqqqqqqqqq');
-                }
-              );
               this.openQuestion(CategoriesTypes.artists);
             } else if (target.className === 'score-button') {
               this.openScore();
