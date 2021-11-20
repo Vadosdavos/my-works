@@ -29,9 +29,6 @@ export class Categories extends BaseComponent {
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el}.webp)`;
         this.categoriesCardsWrapper.element.append(card);
-        // card.addEventListener('click', () => {
-        //   console.log(card.innerText);
-        // });
       });
     }
 
@@ -41,9 +38,6 @@ export class Categories extends BaseComponent {
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el + 12}.webp)`;
         this.categoriesCardsWrapper.element.append(card);
-        // card.addEventListener('click', () => {
-        //   console.log(card.innerText);
-        // });
       });
     }
   }

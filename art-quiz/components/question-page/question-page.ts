@@ -22,20 +22,24 @@ export class QuestionPage extends BaseComponent {
   fullData: ImagesData[];
   curQuestionNumber: number;
   newPopup: Popup | undefined;
+  endRound: EndroundPopup;
+  curCategory: number;
 
   constructor(
     type: CategoriesTypes,
     questionsArr: ImagesData[],
     fullData: ImagesData[],
-    curNumber: number
+    curNumber: number,
+    curCategory: number
   ) {
     super('section', ['question-page']);
+    this.curCategory = curCategory;
     this.curQuestionNumber = curNumber;
     this.type = type;
     this.questionsArr = questionsArr;
     this.fullData = fullData;
+    this.endRound = new EndroundPopup();
     this.render(this.curQuestionNumber);
-    this.element.append(new EndroundPopup().element);
   }
 
   render(curNumber: number) {
@@ -68,7 +72,8 @@ export class QuestionPage extends BaseComponent {
           this.curQuestionNumber++;
           this.render(this.curQuestionNumber);
         } else {
-          this.element.append(new EndroundPopup().element);
+          this.endRound.typeScore(this.getCategoryScore());
+          this.element.append(this.endRound.element);
         }
       });
     }
@@ -160,11 +165,13 @@ export class QuestionPage extends BaseComponent {
             'rgba(0, 102, 53, 0.5)';
           this.newPopup.check.element.classList.add('correct');
           this.element.append(this.newPopup.element);
+          this.updateScore(true);
         } else {
           (answerElement as HTMLElement).style.backgroundColor =
             'rgba(102, 0, 51, 0.5)';
           this.newPopup.check.element.classList.add('wrong');
           this.element.append(this.newPopup.element);
+          this.updateScore(false);
         }
       } else {
         if (
@@ -175,13 +182,32 @@ export class QuestionPage extends BaseComponent {
             'rgba(0, 102, 53, 0.5)';
           this.newPopup.check.element.classList.add('correct');
           this.element.append(this.newPopup.element);
+          this.updateScore(true);
         } else {
           (answerElement as HTMLElement).style.backgroundColor =
             'rgba(102, 0, 51, 0.5)';
           this.newPopup.check.element.classList.add('wrong');
           this.element.append(this.newPopup.element);
+          this.updateScore(false);
         }
       }
+    }
+  }
+
+  updateScore(isCorrect: boolean) {
+    let score = JSON.parse(localStorage.getItem('score') as string);
+    if (!score[this.type][this.curCategory]) {
+      score[this.type][this.curCategory] = [];
+    }
+    score[this.type][this.curCategory][this.curQuestionNumber] = isCorrect;
+    localStorage.setItem('score', JSON.stringify(score));
+  }
+
+  getCategoryScore() {
+    if (localStorage.getItem('score')) {
+      let score = JSON.parse(localStorage.getItem('score') as string);
+      return score[this.type][this.curCategory].filter((el: boolean) => el)
+        .length;
     }
   }
 }

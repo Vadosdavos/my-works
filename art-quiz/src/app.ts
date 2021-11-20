@@ -21,6 +21,7 @@ export class App {
   score: Score;
 
   constructor(private readonly rootElement: HTMLElement) {
+    this.setLocalStorage();
     this.mainPage = new MainPage();
     this.settings = new Settings();
     this.artistsCategories = new Categories(CategoriesTypes.artists);
@@ -29,13 +30,15 @@ export class App {
       CategoriesTypes.artists,
       [],
       [],
-      0
+      0,
+      0,
     );
     this.pictureQuestionPage = new QuestionPage(
       CategoriesTypes.pictures,
       [],
       [],
-      0
+      0,
+      0,
     );
     this.score = new Score();
     this.rootElement.appendChild(this.mainPage.element);
@@ -77,25 +80,38 @@ export class App {
                 CategoriesTypes.artists,
                 artistData.slice((+target.id - 1) * 10, +target.id * 10),
                 data,
-                0
+                0,
+                +target.id,
               );
               this.artistsQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.artistsCategories);
-                }
+                },
               );
               this.artistsQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                }
+                },
+              );
+              this.artistsQuestionPage.endRound.homeButton.element.addEventListener(
+                'click',
+                () => {
+                  this.goToMainPage();
+                },
+              );
+              this.artistsQuestionPage.endRound.categoriesButton.element.addEventListener(
+                'click',
+                () => {
+                  this.openCategories(this.artistsCategories);
+                },
               );
               this.openQuestion(CategoriesTypes.artists);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          }
+          },
         );
         this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
           'click',
@@ -106,30 +122,43 @@ export class App {
                 CategoriesTypes.pictures,
                 picturesData.slice((+target.id - 1) * 10, +target.id * 10),
                 data,
-                0
+                0,
+                +target.id,
               );
               this.pictureQuestionPage.categoriesButton.element.addEventListener(
                 'click',
                 () => {
                   this.openCategories(this.picturesCategories);
-                }
+                },
               );
               this.pictureQuestionPage.homeButton.element.addEventListener(
                 'click',
                 () => {
                   this.goToMainPage();
-                }
+                },
+              );
+              this.pictureQuestionPage.endRound.homeButton.element.addEventListener(
+                'click',
+                () => {
+                  this.goToMainPage();
+                },
+              );
+              this.pictureQuestionPage.endRound.categoriesButton.element.addEventListener(
+                'click',
+                () => {
+                  this.openCategories(this.picturesCategories);
+                },
               );
               this.openQuestion(CategoriesTypes.pictures);
             } else if (target.className === 'score-button') {
               this.openScore();
             }
-          }
+          },
         );
       },
       (err) => {
         if (err) throw new Error('Json is not found!');
-      }
+      },
     );
   }
 
@@ -181,5 +210,17 @@ export class App {
     const res = await fetch('./images.json');
     const data = await res.json();
     return data;
+  }
+
+  setLocalStorage() {
+    if (!localStorage.getItem('score')) {
+      localStorage.setItem(
+        'score',
+        JSON.stringify({
+          artists: {},
+          pictures: {},
+        }),
+      );
+    }
   }
 }

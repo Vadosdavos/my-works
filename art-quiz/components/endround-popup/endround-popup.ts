@@ -1,4 +1,5 @@
 import { BaseComponent } from '../base-component';
+import { CategoriesTypes, ImagesData } from '../categories/categories.type';
 import './endround-popup.scss';
 
 export class EndroundPopup extends BaseComponent {
@@ -30,5 +31,9 @@ export class EndroundPopup extends BaseComponent {
       this.categoriesButton.element
     );
     this.element.append(wrapper.element);
+  }
+
+  typeScore(scoreNum: number) {
+    this.result.element.textContent = `${scoreNum} / 10`;
   }
 }
