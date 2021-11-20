@@ -24,6 +24,7 @@ export class QuestionPage extends BaseComponent {
   newPopup: Popup | undefined;
   endRound: EndroundPopup;
   curCategory: number;
+  scoreRadiosContainer = new BaseComponent('div', ['score-rad-container']);
 
   constructor(
     type: CategoriesTypes,
@@ -89,6 +90,23 @@ export class QuestionPage extends BaseComponent {
     });
   }
 
+  createScoreIndicators(scoreArr: boolean[], curQuestion: number) {
+    this.scoreRadiosContainer = new BaseComponent('div', [
+      'score-rad-container',
+    ]);
+    for (let i = 0; i < 10; i++) {
+      const circle = new BaseComponent('div', ['circle']);
+      if (i < curQuestion) {
+        if (scoreArr && scoreArr[i]) {
+          circle.element.style.backgroundColor = 'green';
+        } else {
+          circle.element.style.backgroundColor = 'red';
+        }
+      }
+      this.scoreRadiosContainer.element.append(circle.element);
+    }
+  }
+
   createArtistsQuestion(currentNum: number) {
     const artistsImageContainer = new BaseComponent('div', [
       'artist-image-container',
@@ -99,9 +117,16 @@ export class QuestionPage extends BaseComponent {
     ]);
     artistsImage.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${this.questionsArr[currentNum].imageNum}full.webp`;
     artistsImage.element.alt = 'Question image';
-    artistsImage.element.addEventListener('load', () =>
-      artistsImageContainer.element.append(artistsImage.element)
-    );
+    artistsImage.element.addEventListener('load', () => {
+      this.createScoreIndicators(
+        this.getQuestionResult(),
+        this.curQuestionNumber
+      );
+      artistsImageContainer.element.append(
+        artistsImage.element,
+        this.scoreRadiosContainer.element
+      );
+    });
     const artistAnswersContainer = new BaseComponent('div', [
       'artist-answers-container',
     ]);
@@ -152,6 +177,11 @@ export class QuestionPage extends BaseComponent {
         picturesImage.element.id = `${el.author}`;
         picturesImageContainer.element.append(picturesImage.element);
       });
+    this.createScoreIndicators(
+      this.getQuestionResult(),
+      this.curQuestionNumber
+    );
+    picturesImageContainer.element.append(this.scoreRadiosContainer.element);
     return picturesImageContainer.element;
   }
 
@@ -191,6 +221,13 @@ export class QuestionPage extends BaseComponent {
           this.updateScore(false);
         }
       }
+    }
+  }
+
+  getQuestionResult() {
+    if (localStorage.getItem('score')) {
+      let score = JSON.parse(localStorage.getItem('score') as string);
+      return score[this.type][this.curCategory];
     }
   }
 

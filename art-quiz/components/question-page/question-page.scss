@@ -31,16 +31,12 @@
 .pictures-question-wrapper {
   width: calc(50vw - 90px);
 }
-// .artist-image-container {
-//   width: 1000px;
-//   height: 100%;
-//   background-color: rgba(102, 102, 102, 0.267);
-// }
 .pictures-image-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 10px;
+  position: relative;
 }
 .question-image {
   display: block;
@@ -78,6 +74,23 @@
   background-color: rgb(196, 196, 196);
   transition: 0.5s;
 }
+
+.score-rad-container {
+  display: flex;
+  column-gap: 10px;
+  justify-content: center;
+  position: absolute;
+  bottom: 100px;
+  left: calc(50% - 105px);
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
 @media screen and (max-width: 1500px) {
   .artist-image {
     width: 50vw;
