@@ -1,5 +1,6 @@
 import { BaseComponent } from '../base-component';
 import { CategoriesTypes, ImagesData } from '../categories/categories.type';
+import { EndroundPopup } from '../endround-popup/endround-popup';
 import { Popup } from '../popup/popup';
 import './question-page.scss';
 
@@ -34,6 +35,7 @@ export class QuestionPage extends BaseComponent {
     this.questionsArr = questionsArr;
     this.fullData = fullData;
     this.render(this.curQuestionNumber);
+    this.element.append(new EndroundPopup().element);
   }
 
   render(curNumber: number) {
@@ -61,9 +63,13 @@ export class QuestionPage extends BaseComponent {
       }
       this.newPopup = new Popup(this.questionsArr[curNumber]);
       this.newPopup.nextButton.element.addEventListener('click', () => {
-        this.element.innerHTML = '';
-        this.curQuestionNumber++;
-        this.render(this.curQuestionNumber);
+        if (curNumber <= 8) {
+          this.element.innerHTML = '';
+          this.curQuestionNumber++;
+          this.render(this.curQuestionNumber);
+        } else {
+          this.element.append(new EndroundPopup().element);
+        }
       });
     }
     this.questionWrapper.element.childNodes[1]?.childNodes.forEach((el) => {
