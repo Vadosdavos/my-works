@@ -30,7 +30,7 @@ export class Categories extends BaseComponent {
     if (this.type === CategoriesTypes.artists) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach((el) => {
         let card = new CategoriesCard(
-          el.toString() + ' Категория',
+          el,
           this.getCategoryScore(el)
         ).element;
         card.setAttribute('id', el.toString());
@@ -45,7 +45,7 @@ export class Categories extends BaseComponent {
     if (this.type === CategoriesTypes.pictures) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach((el) => {
         let card = new CategoriesCard(
-          el.toString() + ' Категория',
+          el,
           this.getCategoryScore(el)
         ).element;
         card.setAttribute('id', el.toString());

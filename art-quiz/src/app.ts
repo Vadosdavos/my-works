@@ -1,5 +1,8 @@
 import { Categories } from '../components/categories/categories';
-import { CategoriesTypes } from '../components/categories/categories.type';
+import {
+  CategoriesTypes,
+  ImagesData,
+} from '../components/categories/categories.type';
 import { MainPage } from '../components/main-page/main-page';
 import { QuestionPage } from '../components/question-page/question-page';
 import { Score } from '../components/score/score';
@@ -64,9 +67,9 @@ export class App {
       this.goToMainPage();
     });
     // ДОБАВИТЬ ВОЗВРАТЬ В НУЖНУЮ КАТЕГОРИЮ
-    this.score.categoriesButton.element.addEventListener('click', () => {
-      this.openCategories(this.picturesCategories);
-    });
+    // this.score.categoriesButton.element.addEventListener('click', () => {
+    //   this.openCategories(this.picturesCategories);
+    // });
     this.getImagesData().then(
       (data) => {
         this.renderCards(data);
@@ -128,7 +131,15 @@ export class App {
           );
           this.openQuestion(CategoriesTypes.artists);
         } else if (target.className === 'score-button') {
-          this.openScore();
+          const categoryDataArr = artistData.slice(
+            (+target.id[0] - 1) * 10,
+            +target.id[0] * 10
+          );
+          this.openScore(
+            +target.id[0],
+            categoryDataArr,
+            CategoriesTypes.artists
+          );
         }
       }
     );
@@ -170,7 +181,15 @@ export class App {
           );
           this.openQuestion(CategoriesTypes.pictures);
         } else if (target.className === 'score-button') {
-          this.openScore();
+          const categoryDataArr = picturesData.slice(
+            (+target.id[0] - 1) * 10,
+            +target.id[0] * 10
+          );
+          this.openScore(
+            +target.id[0],
+            categoryDataArr,
+            CategoriesTypes.pictures
+          );
         }
       }
     );
@@ -206,8 +225,18 @@ export class App {
     } else this.rootElement.append(this.pictureQuestionPage.element);
   }
 
-  openScore() {
+  openScore(
+    categoryNum: number,
+    categoryDataArr: ImagesData[],
+    type: CategoriesTypes
+  ) {
     this.clearPage();
+    this.score.categoriesButton.element.addEventListener('click', () => {
+      this.openCategories(
+        type === 'artists' ? this.artistsCategories : this.picturesCategories
+      );
+    });
+    this.score.render(categoryNum, categoryDataArr, type);
     this.rootElement.append(this.score.element);
   }
 

@@ -1,0 +1,41 @@
+.score {
+  width: 70%;
+  display: grid;
+  grid-template-areas:
+    "home title categ"
+    "score score score";
+  row-gap: 20px;
+  transition: all 500ms;
+  justify-items: center;
+  position: relative;
+
+  & .categ-button {
+    align-self: flex-end;
+  }
+}
+
+.score-wrapper {
+  grid-area: score;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media screen and (max-width: 880px) {
+  .score {
+    width: 95%;
+    grid-template-areas:
+      "title"
+      "home"
+      "categ"
+      "score";
+    & .categ-button {
+      justify-self: unset;
+    }
+  }
+  .score-wrapper {
+    justify-content: center;
+  }
+}

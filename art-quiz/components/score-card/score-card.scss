@@ -1,0 +1,51 @@
+.score-card {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  font-weight: 600;
+  text-transform: none;
+  color: #660033;
+  cursor: pointer;
+  filter: grayscale(1);
+  overflow-y: hidden;
+  border-radius: 15px;
+  box-shadow: 0px 0px 6px 0px #660033;
+}
+
+.score-card.colored {
+  filter: grayscale(0);
+}
+
+.score-image {
+  width: 250px;
+  height: 250px;
+  display: block;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.card-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: -74px;
+  opacity: 0;
+  color: #fff;
+  background-color: #00000080;
+  transition: 0.5s;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.visible .card-info {
+  top: 0;
+  opacity: 1;
+  transition: 0.5s;
+  z-index: 100;
+}
+.score-name {
+  text-align: center;
+}
