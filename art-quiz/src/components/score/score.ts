@@ -6,16 +6,19 @@ import './score.scss';
 
 export class Score extends BaseComponent {
   title: PageTitle;
+
   homeButton = new BaseComponent(
     'button',
     ['button', 'home-button'],
-    'На главную'
+    'На главную',
   );
+
   categoriesButton = new BaseComponent(
     'button',
     ['button', 'categ-button'],
-    'Категории'
+    'Категории',
   );
+
   scoreWrapper: BaseComponent;
 
   constructor() {
@@ -31,12 +34,12 @@ export class Score extends BaseComponent {
   render(
     categoryNum: number,
     categoryDataArr: ImagesData[],
-    type: CategoriesTypes
+    type: CategoriesTypes,
   ) {
 
     this.scoreWrapper.element.innerHTML = '';
     categoryDataArr.forEach((el, i) => {
-      let card = new ScoreCard(el).element;
+      const card = new ScoreCard(el).element;
       const image = new BaseComponent<HTMLImageElement>('img', ['score-image']);
       image.element.src = `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${+el.imageNum}full.webp`;
       image.element.alt = 'Score image';
@@ -45,7 +48,7 @@ export class Score extends BaseComponent {
         this.scoreWrapper.element.append(card);
       });
       if (localStorage.getItem('score')) {
-        let score = JSON.parse(localStorage.getItem('score') as string);
+        const score = JSON.parse(localStorage.getItem('score') as string);
         if (score[type][categoryNum][i]) {
           card.classList.add('colored');
         }

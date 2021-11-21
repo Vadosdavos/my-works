@@ -1,12 +1,12 @@
-import { Categories } from '../components/categories/categories';
+import { Categories } from './components/categories/categories';
 import {
   CategoriesTypes,
   ImagesData,
-} from '../components/categories/categories.type';
-import { MainPage } from '../components/main-page/main-page';
-import { QuestionPage } from '../components/question-page/question-page';
-import { Score } from '../components/score/score';
-import { Settings } from '../components/settings/settings';
+} from './components/categories/categories.type';
+import { MainPage } from './components/main-page/main-page';
+import { QuestionPage } from './components/question-page/question-page';
+import { Score } from './components/score/score';
+import { Settings } from './components/settings/settings';
 
 export class App {
   mainPage: MainPage;

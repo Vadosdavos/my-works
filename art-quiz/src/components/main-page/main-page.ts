@@ -5,13 +5,15 @@ import './main-page.scss';
 
 export class MainPage extends BaseComponent {
   artist = new MainCard('artist-card', 'Artists quiz');
+
   pictures = new MainCard('picture-card', 'Pictures quiz');
+
   title: PageTitle;
 
   settingsButton = new BaseComponent(
     'button',
     ['button', 'settings-button'],
-    'Настройки'
+    'Настройки',
   );
 
   constructor() {
@@ -21,7 +23,7 @@ export class MainPage extends BaseComponent {
       this.title.element,
       this.artist.element,
       this.pictures.element,
-      this.settingsButton.element
+      this.settingsButton.element,
     );
   }
 }

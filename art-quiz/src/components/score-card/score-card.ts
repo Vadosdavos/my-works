@@ -4,6 +4,7 @@ import './score-card.scss';
 
 export class ScoreCard extends BaseComponent {
   categoryData: ImagesData;
+
   cardInfo: BaseComponent;
 
   constructor(categoryData: ImagesData) {
@@ -13,17 +14,17 @@ export class ScoreCard extends BaseComponent {
     const name = new BaseComponent(
       'div',
       ['score-name'],
-      this.categoryData.name
+      this.categoryData.name,
     );
     const author = new BaseComponent(
       'div',
       ['score-author'],
-      this.categoryData.author
+      this.categoryData.author,
     );
     const year = new BaseComponent(
       'div',
       ['score-year'],
-      this.categoryData.year
+      this.categoryData.year,
     );
     this.cardInfo.element.append(name.element, author.element, year.element);
     this.element.append(this.cardInfo.element);

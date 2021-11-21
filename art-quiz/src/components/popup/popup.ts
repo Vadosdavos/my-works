@@ -4,7 +4,9 @@ import './popup.scss';
 
 export class Popup extends BaseComponent {
   nextButton: BaseComponent;
+
   answerData: ImagesData;
+
   check: BaseComponent;
 
   constructor(answerData: ImagesData) {
@@ -13,17 +15,18 @@ export class Popup extends BaseComponent {
     this.nextButton = new BaseComponent(
       'button',
       ['button', 'next-button'],
-      'Далее'
+      'Далее',
     );
     this.check = new BaseComponent('span', ['correct-flag']);
     this.render(this.answerData);
   }
+
   render(data: ImagesData) {
     const wrapper = new BaseComponent('div', ['popup-wrapper']);
     const img = new BaseComponent('img', ['popup-image']);
     img.element.setAttribute(
       'src',
-      `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${data.imageNum}full.webp`
+      `https://raw.githubusercontent.com/Vadosdavos/art-quiz-data/main/full/${data.imageNum}full.webp`,
     );
     const name = new BaseComponent('p', ['popup-text'], `${data.name}`);
     const author = new BaseComponent('p', ['popup-text'], `${data.author}`);
@@ -34,7 +37,7 @@ export class Popup extends BaseComponent {
       name.element,
       author.element,
       year.element,
-      this.nextButton.element
+      this.nextButton.element,
     );
     this.element.append(wrapper.element);
   }

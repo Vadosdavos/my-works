@@ -6,24 +6,35 @@ import './question-page.scss';
 
 export class QuestionPage extends BaseComponent {
   title = new BaseComponent('h3', ['question-title']);
+
   homeButton = new BaseComponent(
     'button',
     ['button', 'home-button'],
-    'На главную'
+    'На главную',
   );
+
   categoriesButton = new BaseComponent(
     'button',
     ['button', 'categ-button'],
-    'Категории'
+    'Категории',
   );
+
   questionWrapper = new BaseComponent('div', ['question-wrapper']);
+
   type: CategoriesTypes;
+
   questionsArr: ImagesData[];
+
   fullData: ImagesData[];
+
   curQuestionNumber: number;
+
   newPopup: Popup | undefined;
+
   endRound: EndroundPopup;
+
   curCategory: number;
+
   scoreRadiosContainer = new BaseComponent('div', ['score-rad-container']);
 
   constructor(
@@ -31,7 +42,7 @@ export class QuestionPage extends BaseComponent {
     questionsArr: ImagesData[],
     fullData: ImagesData[],
     curNumber: number,
-    curCategory: number
+    curCategory: number,
   ) {
     super('section', ['question-page']);
     this.curCategory = curCategory;
@@ -58,12 +69,12 @@ export class QuestionPage extends BaseComponent {
       if (this.type === CategoriesTypes.artists) {
         this.questionWrapper.element.classList.add('artists-question-wrapper');
         this.questionWrapper.element.append(
-          ...this.createArtistsQuestion(curNumber)
+          ...this.createArtistsQuestion(curNumber),
         );
       } else if (this.type === CategoriesTypes.pictures) {
         this.questionWrapper.element.classList.add('pictures-question-wrapper');
         this.questionWrapper.element.append(
-          this.createPicturesQuestion(curNumber)
+          this.createPicturesQuestion(curNumber),
         );
       }
       this.newPopup = new Popup(this.questionsArr[curNumber]);
@@ -120,22 +131,22 @@ export class QuestionPage extends BaseComponent {
     artistsImage.element.addEventListener('load', () => {
       this.createScoreIndicators(
         this.getQuestionResult(),
-        this.curQuestionNumber
+        this.curQuestionNumber,
       );
       artistsImageContainer.element.append(
         artistsImage.element,
-        this.scoreRadiosContainer.element
+        this.scoreRadiosContainer.element,
       );
     });
     const artistAnswersContainer = new BaseComponent('div', [
       'artist-answers-container',
     ]);
-    let artistsAnswersArr: ImagesData[] = [];
-    let checkArr: string[] = [];
+    const artistsAnswersArr: ImagesData[] = [];
+    const checkArr: string[] = [];
     artistsAnswersArr.push(this.questionsArr[currentNum]);
     checkArr.push(this.questionsArr[currentNum].author);
     while (artistsAnswersArr.length < 4) {
-      let number = Math.floor(Math.random() * this.fullData.length);
+      const number = Math.floor(Math.random() * this.fullData.length);
       if (!checkArr.includes(this.fullData[number].author)) {
         artistsAnswersArr.push(this.fullData[number]);
         checkArr.push(this.fullData[number].author);
@@ -145,21 +156,22 @@ export class QuestionPage extends BaseComponent {
       .sort(() => Math.random() - 0.5)
       .forEach((el) =>
         artistAnswersContainer.element.append(
-          new BaseComponent('p', ['artist-answers'], `${el.author}`).element
-        )
+          new BaseComponent('p', ['artist-answers'], `${el.author}`).element,
+        ),
       );
     return [artistsImageContainer.element, artistAnswersContainer.element];
   }
+
   createPicturesQuestion(currentNum: number) {
     const picturesImageContainer = new BaseComponent('div', [
       'pictures-image-container',
     ]);
-    let picturesAnswersArr: ImagesData[] = [];
-    let checkArr: string[] = [];
+    const picturesAnswersArr: ImagesData[] = [];
+    const checkArr: string[] = [];
     picturesAnswersArr.push(this.questionsArr[currentNum]);
     checkArr.push(this.questionsArr[currentNum].name);
     while (picturesAnswersArr.length < 4) {
-      let number = Math.floor(Math.random() * this.fullData.length);
+      const number = Math.floor(Math.random() * this.fullData.length);
       if (!checkArr.includes(this.fullData[number].name)) {
         picturesAnswersArr.push(this.fullData[number]);
         checkArr.push(this.fullData[number].name);
@@ -179,7 +191,7 @@ export class QuestionPage extends BaseComponent {
       });
     this.createScoreIndicators(
       this.getQuestionResult(),
-      this.curQuestionNumber
+      this.curQuestionNumber,
     );
     picturesImageContainer.element.append(this.scoreRadiosContainer.element);
     return picturesImageContainer.element;
@@ -222,13 +234,13 @@ export class QuestionPage extends BaseComponent {
 
   getQuestionResult() {
     if (localStorage.getItem('score')) {
-      let score = JSON.parse(localStorage.getItem('score') as string);
+      const score = JSON.parse(localStorage.getItem('score') as string);
       return score[this.type][this.curCategory];
     }
   }
 
   updateScore(isCorrect: boolean) {
-    let score = JSON.parse(localStorage.getItem('score') as string);
+    const score = JSON.parse(localStorage.getItem('score') as string);
     if (!score[this.type][this.curCategory]) {
       score[this.type][this.curCategory] = [];
     }
@@ -238,7 +250,7 @@ export class QuestionPage extends BaseComponent {
 
   getCategoryScore() {
     if (localStorage.getItem('score')) {
-      let score = JSON.parse(localStorage.getItem('score') as string);
+      const score = JSON.parse(localStorage.getItem('score') as string);
       return score[this.type][this.curCategory].filter((el: boolean) => el)
         .length;
     }

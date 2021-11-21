@@ -21,13 +21,13 @@
 
 .artist-card {
   grid-area: artists;
-  background-image: url("../../public/artists-quiz.jpg");
+  background-image: url("../../../public/artists-quiz.jpg");
   justify-self: left;
 }
 
 .picture-card {
   grid-area: pictures;
-  background-image: url("../../public/pictures-quiz.jpg");
+  background-image: url("../../../public/pictures-quiz.jpg");
   justify-self: right;
 }
 

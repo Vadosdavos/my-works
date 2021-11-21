@@ -4,8 +4,8 @@
   "description": "RSschool stage-1 task",
   "private": true,
   "scripts": {
-    "build": "webpack --open --hot",
-    "dev": "webpack serve --env development",
+    "build": "webpack",
+    "dev": "webpack serve --env development --open --hot",
     "lint": "eslint src"
   },
   "devDependencies": {

@@ -3,6 +3,7 @@ import './page-title.scss';
 
 export class PageTitle extends BaseComponent {
   logo: BaseComponent;
+
   titleText?: BaseComponent;
 
   constructor(text?: string) {

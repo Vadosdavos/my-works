@@ -4,7 +4,7 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
   constructor(
     tag: keyof HTMLElementTagNameMap = 'div',
     styles: string[] = [],
-    text?: string
+    text?: string,
   ) {
     this.element = <T>document.createElement(tag);
     this.element.classList.add(...styles);
