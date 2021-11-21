@@ -31,14 +31,14 @@ export class App {
       [],
       [],
       0,
-      0,
+      0
     );
     this.pictureQuestionPage = new QuestionPage(
       CategoriesTypes.pictures,
       [],
       [],
       0,
-      0,
+      0
     );
     this.score = new Score();
     this.rootElement.appendChild(this.mainPage.element);
@@ -69,96 +69,11 @@ export class App {
     });
     this.getImagesData().then(
       (data) => {
-        const artistData = data.slice(0, 120);
-        const picturesData = data.slice(120);
-        this.artistsCategories.categoriesCardsWrapper.element.addEventListener(
-          'click',
-          (event: MouseEvent) => {
-            const target = event.target as HTMLDivElement;
-            if (target.className === 'categories-card') {
-              this.artistsQuestionPage = new QuestionPage(
-                CategoriesTypes.artists,
-                artistData.slice((+target.id - 1) * 10, +target.id * 10),
-                data,
-                0,
-                +target.id,
-              );
-              this.artistsQuestionPage.categoriesButton.element.addEventListener(
-                'click',
-                () => {
-                  this.openCategories(this.artistsCategories);
-                },
-              );
-              this.artistsQuestionPage.homeButton.element.addEventListener(
-                'click',
-                () => {
-                  this.goToMainPage();
-                },
-              );
-              this.artistsQuestionPage.endRound.homeButton.element.addEventListener(
-                'click',
-                () => {
-                  this.goToMainPage();
-                },
-              );
-              this.artistsQuestionPage.endRound.categoriesButton.element.addEventListener(
-                'click',
-                () => {
-                  this.openCategories(this.artistsCategories);
-                },
-              );
-              this.openQuestion(CategoriesTypes.artists);
-            } else if (target.className === 'score-button') {
-              this.openScore();
-            }
-          },
-        );
-        this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
-          'click',
-          (event: MouseEvent) => {
-            const target = event.target as HTMLDivElement;
-            if (target.className === 'categories-card') {
-              this.pictureQuestionPage = new QuestionPage(
-                CategoriesTypes.pictures,
-                picturesData.slice((+target.id - 1) * 10, +target.id * 10),
-                data,
-                0,
-                +target.id,
-              );
-              this.pictureQuestionPage.categoriesButton.element.addEventListener(
-                'click',
-                () => {
-                  this.openCategories(this.picturesCategories);
-                },
-              );
-              this.pictureQuestionPage.homeButton.element.addEventListener(
-                'click',
-                () => {
-                  this.goToMainPage();
-                },
-              );
-              this.pictureQuestionPage.endRound.homeButton.element.addEventListener(
-                'click',
-                () => {
-                  this.goToMainPage();
-                },
-              );
-              this.pictureQuestionPage.endRound.categoriesButton.element.addEventListener(
-                'click',
-                () => {
-                  this.openCategories(this.picturesCategories);
-                },
-              );
-              this.openQuestion(CategoriesTypes.pictures);
-            } else if (target.className === 'score-button') {
-              this.openScore();
-            }
-          },
-        );
+        this.renderCards(data);
       },
       (err) => {
         if (err) throw new Error('Json is not found!');
-      },
+      }
     );
   }
 
@@ -168,7 +83,97 @@ export class App {
 
   openCategories(type: Categories) {
     this.clearPage();
+    // type.render();
     this.rootElement.appendChild(type.element);
+  }
+
+  renderCards(data: any[]) {
+    const artistData = data.slice(0, 120);
+    const picturesData = data.slice(120);
+    this.artistsCategories.categoriesCardsWrapper.element.addEventListener(
+      'click',
+      (event: MouseEvent) => {
+        const target = event.target as HTMLDivElement;
+        if (target.className.includes('categories-card')) {
+          this.artistsQuestionPage = new QuestionPage(
+            CategoriesTypes.artists,
+            artistData.slice((+target.id - 1) * 10, +target.id * 10),
+            data,
+            0,
+            +target.id
+          );
+          this.artistsQuestionPage.categoriesButton.element.addEventListener(
+            'click',
+            () => {
+              this.openCategories(this.artistsCategories);
+            }
+          );
+          this.artistsQuestionPage.homeButton.element.addEventListener(
+            'click',
+            () => {
+              this.goToMainPage();
+            }
+          );
+          this.artistsQuestionPage.endRound.homeButton.element.addEventListener(
+            'click',
+            () => {
+              this.goToMainPage();
+            }
+          );
+          this.artistsQuestionPage.endRound.categoriesButton.element.addEventListener(
+            'click',
+            () => {
+              this.openCategories(this.artistsCategories);
+            }
+          );
+          this.openQuestion(CategoriesTypes.artists);
+        } else if (target.className === 'score-button') {
+          this.openScore();
+        }
+      }
+    );
+    this.picturesCategories.categoriesCardsWrapper.element.addEventListener(
+      'click',
+      (event: MouseEvent) => {
+        const target = event.target as HTMLDivElement;
+        if (target.className.includes('categories-card')) {
+          this.pictureQuestionPage = new QuestionPage(
+            CategoriesTypes.pictures,
+            picturesData.slice((+target.id - 1) * 10, +target.id * 10),
+            data,
+            0,
+            +target.id
+          );
+          this.pictureQuestionPage.categoriesButton.element.addEventListener(
+            'click',
+            () => {
+              this.openCategories(this.picturesCategories);
+            }
+          );
+          this.pictureQuestionPage.homeButton.element.addEventListener(
+            'click',
+            () => {
+              this.goToMainPage();
+            }
+          );
+          this.pictureQuestionPage.endRound.homeButton.element.addEventListener(
+            'click',
+            () => {
+              this.goToMainPage();
+            }
+          );
+          this.pictureQuestionPage.endRound.categoriesButton.element.addEventListener(
+            'click',
+            () => {
+              this.openCategories(this.picturesCategories);
+            }
+          );
+          this.openQuestion(CategoriesTypes.pictures);
+        } else if (target.className === 'score-button') {
+          this.openScore();
+        }
+      }
+    );
   }
 
   goToMainPage() {
@@ -219,7 +224,7 @@ export class App {
         JSON.stringify({
           artists: {},
           pictures: {},
-        }),
+        })
       );
     }
   }

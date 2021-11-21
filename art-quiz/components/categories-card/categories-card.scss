@@ -23,6 +23,10 @@
   transition: all 0.5s;
 }
 
+.colored {
+  filter: grayscale(0);
+}
+
 .score-button {
   width: 50px;
   height: 50px;
@@ -31,7 +35,7 @@
   position: absolute;
   background-position: center;
   right: 0;
-  bottom: 50px;
+  bottom: -50px;
   cursor: help;
   transition: 0.5s;
 }
@@ -39,6 +43,9 @@
   filter: invert(61%) sepia(75%) saturate(1714%) hue-rotate(1deg)
     brightness(104%) contrast(104%);
   transition: 0.5s;
+}
+.colored .score-button {
+  bottom: 20px;
 }
 .title-back {
   background-color: rgba(255, 255, 255, 0.356);

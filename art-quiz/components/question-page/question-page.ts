@@ -208,14 +208,10 @@ export class QuestionPage extends BaseComponent {
           (answerElement as HTMLElement).id ===
           this.questionsArr[currentNum].author
         ) {
-          (answerElement as HTMLElement).style.backgroundColor =
-            'rgba(0, 102, 53, 0.5)';
           this.newPopup.check.element.classList.add('correct');
           this.element.append(this.newPopup.element);
           this.updateScore(true);
         } else {
-          (answerElement as HTMLElement).style.backgroundColor =
-            'rgba(102, 0, 51, 0.5)';
           this.newPopup.check.element.classList.add('wrong');
           this.element.append(this.newPopup.element);
           this.updateScore(false);
