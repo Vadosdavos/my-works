@@ -43,7 +43,9 @@
   border-radius: 15px;
 }
 .artist-image {
-  width: calc(50vw - 90px);
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 15px;
 }
 .pictures-image {
   width: calc((50vw - 100px) / 2);
