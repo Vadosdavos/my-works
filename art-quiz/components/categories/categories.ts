@@ -35,7 +35,7 @@ export class Categories extends BaseComponent {
         ).element;
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el}.webp)`;
-        if (this.getCategoryScore(el)) {
+        if (this.getCategoryScore(el) !== -1) {
           card.classList.add('colored');
         }
         this.categoriesCardsWrapper.element.append(card);
@@ -50,7 +50,7 @@ export class Categories extends BaseComponent {
         ).element;
         card.setAttribute('id', el.toString());
         card.style.backgroundImage = `url(./cat${el + 12}.webp)`;
-        if (this.getCategoryScore(el)) {
+        if (this.getCategoryScore(el) !== -1) {
           card.classList.add('colored');
         }
         this.categoriesCardsWrapper.element.append(card);
@@ -64,7 +64,7 @@ export class Categories extends BaseComponent {
       if (score[this.type][category]) {
         return score[this.type][category].filter((el: boolean) => el).length;
       } else {
-        return 0;
+        return -1;
       }
     }
   }

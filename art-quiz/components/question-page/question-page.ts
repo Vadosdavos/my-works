@@ -131,14 +131,14 @@ export class QuestionPage extends BaseComponent {
       'artist-answers-container',
     ]);
     let artistsAnswersArr: ImagesData[] = [];
-    let checkArr: number[] = [];
+    let checkArr: string[] = [];
     artistsAnswersArr.push(this.questionsArr[currentNum]);
-    checkArr.push(+this.questionsArr[currentNum].imageNum);
+    checkArr.push(this.questionsArr[currentNum].author);
     while (artistsAnswersArr.length < 4) {
       let number = Math.floor(Math.random() * this.fullData.length);
-      if (!checkArr.includes(number)) {
+      if (!checkArr.includes(this.fullData[number].author)) {
         artistsAnswersArr.push(this.fullData[number]);
-        checkArr.push(number);
+        checkArr.push(this.fullData[number].author);
       }
     }
     artistsAnswersArr
@@ -155,14 +155,14 @@ export class QuestionPage extends BaseComponent {
       'pictures-image-container',
     ]);
     let picturesAnswersArr: ImagesData[] = [];
-    let checkArr: number[] = [];
+    let checkArr: string[] = [];
     picturesAnswersArr.push(this.questionsArr[currentNum]);
-    checkArr.push(+this.questionsArr[currentNum].imageNum);
+    checkArr.push(this.questionsArr[currentNum].name);
     while (picturesAnswersArr.length < 4) {
       let number = Math.floor(Math.random() * this.fullData.length);
-      if (!checkArr.includes(number)) {
+      if (!checkArr.includes(this.fullData[number].name)) {
         picturesAnswersArr.push(this.fullData[number]);
-        checkArr.push(number);
+        checkArr.push(this.fullData[number].name);
       }
     }
     picturesAnswersArr

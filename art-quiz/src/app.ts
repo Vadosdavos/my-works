@@ -83,7 +83,7 @@ export class App {
 
   openCategories(type: Categories) {
     this.clearPage();
-    // type.render();
+    type.render();
     this.rootElement.appendChild(type.element);
   }
 
