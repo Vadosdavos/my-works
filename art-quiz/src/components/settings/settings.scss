@@ -1,3 +1,117 @@
 .settings-wrapper {
+  width: 70%;
   transition: all 500ms;
+  display: grid;
+  grid-template-areas:
+    "title title"
+    "sound time"
+    "save save";
+  gap: 100px;
+  justify-items: center;
+}
+
+.set {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 6px 0px #660033;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #660033;
+}
+
+.sound-set {
+  grid-area: sound;
+}
+
+.time-set {
+  grid-area: time;
+}
+
+input[type="range"] {
+  width: 200px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  overflow: hidden;
+  height: 7px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 7px;
+  background-color: rgb(192, 192, 192);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: #ecf0f1;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  margin-top: -4px;
+  box-shadow: -200px 0 0 200px #660033;
+}
+
+.sound-icon,
+.timer-icon {
+  width: 50px;
+  height: 50px;
+  display: block;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.sound-bar:disabled,
+.timer-bar:disabled {
+  filter: grayscale(1);
+}
+
+.sound-icon {
+  background-image: url(../../../public/volume-on.svg);
+}
+
+.sound-off {
+  background-image: url(../../../public/volume-off.svg);
+  transition: 0.5s;
+}
+
+.timer-icon {
+  background-image: url(../../../public/timer.svg);
+}
+
+.timer-off {
+  background-image: url(../../../public/timer-off.svg);
+  transition: 0.5s;
+}
+
+.save-button {
+  background-image: url(../../../public/save-button.svg);
+  grid-area: save;
+}
+
+@media screen and (max-width: 768px) {
+  .settings-wrapper {
+    width: 90%;
+    gap: 50px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .settings-wrapper {
+    grid-template-areas:
+      "title"
+      "sound"
+      "time"
+      "save";
+  }
 }

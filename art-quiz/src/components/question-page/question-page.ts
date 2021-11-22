@@ -1,3 +1,10 @@
+import { settings } from '../../app';
+import {
+  playAudio,
+  playCorrect,
+  playFinish,
+  playWrong,
+} from '../../utils/play-audio';
 import { BaseComponent } from '../base-component';
 import { CategoriesTypes, ImagesData } from '../categories/categories.type';
 import { EndroundPopup } from '../endround-popup/endround-popup';
@@ -37,6 +44,8 @@ export class QuestionPage extends BaseComponent {
 
   scoreRadiosContainer = new BaseComponent('div', ['score-rad-container']);
 
+  timer = new BaseComponent('div', ['question-timer']);
+
   constructor(
     type: CategoriesTypes,
     questionsArr: ImagesData[],
@@ -51,6 +60,7 @@ export class QuestionPage extends BaseComponent {
     this.questionsArr = questionsArr;
     this.fullData = fullData;
     this.endRound = new EndroundPopup();
+    this.timer.element.textContent = '20';
     this.render(this.curQuestionNumber);
   }
 
@@ -77,15 +87,20 @@ export class QuestionPage extends BaseComponent {
           this.createPicturesQuestion(curNumber),
         );
       }
+      if (settings.timer) {
+        this.setTimer();
+      }
       this.newPopup = new Popup(this.questionsArr[curNumber]);
       this.newPopup.nextButton.element.addEventListener('click', () => {
         if (curNumber <= 8) {
+          playAudio();
           this.element.innerHTML = '';
           this.curQuestionNumber++;
           this.render(this.curQuestionNumber);
         } else {
           this.endRound.typeScore(this.getCategoryScore());
           this.element.append(this.endRound.element);
+          playFinish();
         }
       });
     }
@@ -199,16 +214,19 @@ export class QuestionPage extends BaseComponent {
 
   checkAnswer(answerElement: Node | null, currentNum: number) {
     if (this.newPopup) {
+      this.removeTimer();
       if (this.type === 'artists') {
         if (
           answerElement?.textContent === this.questionsArr[currentNum].author
         ) {
+          playCorrect();
           (answerElement as HTMLElement).style.backgroundColor =
             'rgba(0, 102, 53, 0.5)';
           this.newPopup.check.element.classList.add('correct');
           this.element.append(this.newPopup.element);
           this.updateScore(true);
         } else {
+          playWrong();
           (answerElement as HTMLElement).style.backgroundColor =
             'rgba(102, 0, 51, 0.5)';
           this.newPopup.check.element.classList.add('wrong');
@@ -220,10 +238,12 @@ export class QuestionPage extends BaseComponent {
           (answerElement as HTMLElement).id ===
           this.questionsArr[currentNum].author
         ) {
+          playCorrect();
           this.newPopup.check.element.classList.add('correct');
           this.element.append(this.newPopup.element);
           this.updateScore(true);
         } else {
+          playWrong();
           this.newPopup.check.element.classList.add('wrong');
           this.element.append(this.newPopup.element);
           this.updateScore(false);
@@ -254,5 +274,22 @@ export class QuestionPage extends BaseComponent {
       return score[this.type][this.curCategory].filter((el: boolean) => el)
         .length;
     }
+  }
+
+  async setTimer() {
+    this.questionWrapper.element.append(this.timer.element);
+    let twenty = 20;
+    const countdown = setInterval(() => {
+      this.timer.element.textContent = `${twenty}`;
+      twenty--;
+      if (twenty === 0) {
+        clearInterval(countdown);
+        this.timer.element.textContent = '0';
+      }
+    }, 1000);
+  }
+
+  removeTimer() {
+    this.questionWrapper.element.removeChild(this.timer.element);
   }
 }

@@ -7,7 +7,12 @@ import { MainPage } from './components/main-page/main-page';
 import { QuestionPage } from './components/question-page/question-page';
 import { Score } from './components/score/score';
 import { Settings } from './components/settings/settings';
+import { playAudio } from './utils/play-audio';
 
+export const settings = {
+  audio: true,
+  timer: true,
+};
 export class App {
   mainPage: MainPage;
 
@@ -84,6 +89,7 @@ export class App {
     this.clearPage();
     type.render();
     this.rootElement.appendChild(type.element);
+    playAudio();
   }
 
   renderCards(data: ImagesData[]) {
@@ -194,6 +200,7 @@ export class App {
   goToMainPage() {
     this.clearPage();
     this.rootElement.append(this.mainPage.element);
+    playAudio();
   }
 
   openSettings() {
@@ -203,6 +210,7 @@ export class App {
     setTimeout(() => {
       this.settings.element.classList.remove('hidden');
     }, 0);
+    playAudio();
   }
 
   openMain() {
@@ -212,6 +220,7 @@ export class App {
     setTimeout(() => {
       this.mainPage.element.classList.remove('hidden');
     }, 0);
+    playAudio();
   }
 
   openQuestion(type: CategoriesTypes) {
@@ -219,6 +228,7 @@ export class App {
     if (type === CategoriesTypes.artists) {
       this.rootElement.append(this.artistsQuestionPage.element);
     } else this.rootElement.append(this.pictureQuestionPage.element);
+    playAudio();
   }
 
   openScore(
@@ -234,6 +244,7 @@ export class App {
     });
     this.score.render(categoryNum, categoryDataArr, type);
     this.rootElement.append(this.score.element);
+    playAudio();
   }
 
   async getImagesData() {
@@ -254,3 +265,16 @@ export class App {
     }
   }
 }
+
+function getLocalStorage() {
+  if (localStorage.getItem('audio')) {
+    settings.audio = JSON.parse(localStorage.getItem('audio') as string);
+  }
+  if (localStorage.getItem('timer')) {
+    settings.audio = JSON.parse(localStorage.getItem('timer') as string);
+  }
+}
+
+window.addEventListener('load', () => {
+  getLocalStorage();
+});

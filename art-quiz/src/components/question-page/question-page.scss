@@ -20,6 +20,7 @@
   grid-area: quest;
   display: flex;
   width: 100%;
+  position: relative;
 }
 
 .artists-question-wrapper {
@@ -98,6 +99,19 @@
   height: 10px;
   border: 1px solid black;
   border-radius: 50%;
+}
+
+.question-timer {
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  height: 25px;
+  z-index: 90;
+  top: 10px;
+  left: calc(50% - 25px);
+  color: black;
+  font-weight: bolder;
+  background-color: rgba(196, 196, 196, 0.562);
 }
 
 @media screen and (max-width: 1500px) {
