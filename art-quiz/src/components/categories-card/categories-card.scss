@@ -28,21 +28,32 @@
 }
 
 .score-button {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 34px;
+  padding: 10px 0;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.356);
   background-image: url(../../../public/score-star.svg);
   background-repeat: no-repeat;
   position: absolute;
-  background-position: center;
+  background-position: right;
+  vertical-align: middle;
   right: 0;
   bottom: -50px;
   cursor: help;
   transition: 0.5s;
 }
-.score-button:hover {
-  filter: invert(61%) sepia(75%) saturate(1714%) hue-rotate(1deg)
-    brightness(104%) contrast(104%);
-  transition: 0.5s;
+.score-button::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 1px;
+  background-color: #660033;
+  transition: 0.8s;
+}
+.score-button:hover.score-button::after {
+  width: 74px;
+  transition: 0.8s;
 }
 .colored .score-button {
   bottom: 20px;

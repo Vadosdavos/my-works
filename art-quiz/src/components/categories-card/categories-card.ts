@@ -13,14 +13,14 @@ export class CategoriesCard extends BaseComponent {
     this.titleBackground = new BaseComponent(
       'div',
       ['title-back'],
-      `${titleNum} Категория`,
+      `${titleNum} Категория`
     );
     this.categoryResult = new BaseComponent(
       'span',
       ['cat-result'],
-      categoryResNuber >= 0 ? categoryResNuber.toString() : '',
+      categoryResNuber >= 0 ? categoryResNuber.toString() : ''
     );
-    this.scoreButton = new BaseComponent('div', ['score-button']);
+    this.scoreButton = new BaseComponent('div', ['score-button'], 'Результат');
     this.scoreButton.element.setAttribute('id', `${titleNum}-score`);
     this.titleBackground.element.append(this.categoryResult.element);
     this.element.append(this.scoreButton.element, this.titleBackground.element);
