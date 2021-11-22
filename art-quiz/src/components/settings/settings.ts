@@ -16,7 +16,7 @@ export class Settings extends BaseComponent {
 
   timerBar = new BaseComponent('input', ['timer-bar']);
 
-  timerIcon = new BaseComponent('span', ['timer-icon']);
+  timerIcon = new BaseComponent('span', ['timer-icon', 'timer-off']);
 
   saveButton = new BaseComponent(
     'button',
@@ -28,6 +28,7 @@ export class Settings extends BaseComponent {
     super('section', ['settings-wrapper', 'hidden']);
     this.soundBar.element.setAttribute('type', 'range');
     this.timerBar.element.setAttribute('type', 'range');
+    this.timerBar.element.setAttribute('disabled', 'true');
     this.sound.element.append(this.soundIcon.element, this.soundBar.element);
     this.timer.element.append(this.timerIcon.element, this.timerBar.element);
     this.setSound();
@@ -73,6 +74,7 @@ export class Settings extends BaseComponent {
     let isTimer: boolean;
     if (localStorage.getItem('timer')) {
       isTimer = JSON.parse(localStorage.getItem('timer') as string);
+      console.log(isTimer);
       if (isTimer) {
         this.timerIcon.element.classList.remove('timer-off');
         this.timerBar.element.removeAttribute('disabled');

@@ -11,7 +11,7 @@ import { playAudio } from './utils/play-audio';
 
 export const settings = {
   audio: true,
-  timer: true,
+  timer: false,
 };
 export class App {
   mainPage: MainPage;
