@@ -74,7 +74,6 @@ export class Settings extends BaseComponent {
     let isTimer: boolean;
     if (localStorage.getItem('timer')) {
       isTimer = JSON.parse(localStorage.getItem('timer') as string);
-      console.log(isTimer);
       if (isTimer) {
         this.timerIcon.element.classList.remove('timer-off');
         this.timerBar.element.removeAttribute('disabled');
