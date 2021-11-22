@@ -214,7 +214,6 @@ export class QuestionPage extends BaseComponent {
 
   checkAnswer(answerElement: Node | null, currentNum: number) {
     if (this.newPopup) {
-      this.removeTimer();
       if (this.type === 'artists') {
         if (
           answerElement?.textContent === this.questionsArr[currentNum].author
@@ -287,9 +286,5 @@ export class QuestionPage extends BaseComponent {
         this.timer.element.textContent = '0';
       }
     }, 1000);
-  }
-
-  removeTimer() {
-    this.questionWrapper.element.removeChild(this.timer.element);
   }
 }
