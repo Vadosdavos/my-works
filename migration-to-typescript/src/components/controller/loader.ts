@@ -22,6 +22,7 @@ enum RequestMethods {
 
 class Loader {
   private baseLink: string;
+
   private options: IOptions;
 
   constructor(baseLink: string, options: IOptions) {

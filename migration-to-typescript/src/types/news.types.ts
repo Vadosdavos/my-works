@@ -1,4 +1,4 @@
-interface INews {
+export interface INews {
   source: {
     id: string;
     name: string;
@@ -16,4 +16,13 @@ export interface INewsResponse {
   status: string;
   totalResults: number;
   articles: INews[];
+}
+
+export interface IDataSource {
+  [key: string]: string;
+}
+
+export interface IData {
+  status: string;
+  sources: IDataSource[];
 }
