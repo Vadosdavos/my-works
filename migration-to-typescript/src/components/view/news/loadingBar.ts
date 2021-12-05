@@ -1,5 +1,6 @@
 export class LoadingBar {
   element: HTMLElement;
+
   constructor() {
     this.element = document.createElement('div');
     this.element.classList.add('loading');
