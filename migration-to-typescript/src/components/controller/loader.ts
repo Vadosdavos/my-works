@@ -1,4 +1,4 @@
-import { INewsResponse } from '../../types/news.types';
+import { Callback, INewsResponse } from '../../types/news.types';
 
 interface IOptions {
   [apiKey: string]: string;
@@ -60,7 +60,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(method: RequestMethods, endpoint: string, callback: (data: INewsResponse) => void, options = {}) {
+  load(method: RequestMethods, endpoint: string, callback: Callback<INewsResponse>, options = {}) {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res) => res.json())

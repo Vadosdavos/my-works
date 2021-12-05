@@ -26,3 +26,5 @@ export interface IData {
   status: string;
   sources: IDataSource[];
 }
+
+export type Callback<T> = (data?: T) => void;
