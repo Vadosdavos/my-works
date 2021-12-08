@@ -1,0 +1,37 @@
+$bgColor: #192f2d;
+
+.main-footer {
+  background-color: $bgColor;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copyright {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.copyright-item {
+  margin-right: 20px;
+  font-size: 1.5rem;
+}
+.copyright-item a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.5s;
+}
+.copyright-item a:hover {
+  color: rgba(255, 255, 255, 0.432);
+  transition: 0.5s;
+}
+.copyright-item a img {
+  transition: 0.5s;
+  width: 140px;
+}
+.copyright-item a img:hover {
+  filter: brightness(0.5);
+  transition: 0.5s;
+}

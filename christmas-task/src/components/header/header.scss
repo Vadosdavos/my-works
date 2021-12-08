@@ -1,0 +1,21 @@
+$bgColor: #192f2d;
+
+.main-header {
+  background-color: $bgColor;
+  display: flex;
+  align-items: center;
+  padding-left: 20%;
+  height: 8vh;
+  min-height: 70px;
+  max-height: 100px;
+  text-transform: uppercase;
+}
+.logo {
+  display: block;
+  width: 48px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-image: url(../../assets/svg/tree.svg);
+}
