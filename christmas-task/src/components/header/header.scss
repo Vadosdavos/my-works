@@ -1,14 +1,28 @@
 $bgColor: #192f2d;
+$linksHoverColor: #24c6db;
 
 .main-header {
   background-color: $bgColor;
-  display: flex;
-  align-items: center;
   padding-left: 20%;
+  padding-top: 5px;
+  padding-bottom: 5px;
   height: 8vh;
   min-height: 70px;
   max-height: 100px;
   text-transform: uppercase;
+  box-sizing: border-box;
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+}
+.toys-button,
+.tree-button,
+.logo {
+  cursor: pointer;
+  transition: 0.5s;
 }
 .logo {
   display: block;
@@ -16,6 +30,20 @@ $bgColor: #192f2d;
   height: 60px;
   background-size: contain;
   background-repeat: no-repeat;
-  cursor: pointer;
   background-image: url(../../assets/svg/tree.svg);
+}
+.logo:hover {
+  filter: invert(42%) sepia(99%) saturate(1445%) hue-rotate(162deg)
+    brightness(95%) contrast(102%);
+  transition: 0.5s;
+}
+.toys-button:hover,
+.tree-button:hover {
+  transition: 0.5s;
+  color: $linksHoverColor;
+}
+.toys-button:active,
+.tree-button:active,
+.logo:active {
+  transform: translate(2px, 2px);
 }
