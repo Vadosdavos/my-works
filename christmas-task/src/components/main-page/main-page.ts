@@ -11,6 +11,10 @@ export class MainPage extends BaseComponent {
 
   constructor() {
     super('main', ['main-page']);
+    this.render();
+  }
+
+  render() {
     this.element.append(this.title.element, this.startButton.element);
   }
 }
