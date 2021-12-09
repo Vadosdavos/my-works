@@ -27,6 +27,7 @@ export class App {
       this.clearPage();
       this.openToysPage();
     });
+    this.openToysPage(); // Убрать потом
   }
 
   clearPage() {

@@ -3,12 +3,14 @@ import { Filters } from '../filters/filters';
 import { Ranges } from '../ranges/ranges';
 import { Sort } from '../sort/sort';
 import { ToyCard } from '../toy-card/toy-card';
+import { ToyCardType } from './toy-card.type';
+import data from '../../data';
 import './toys-page.scss';
 
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
   controlsContainer = new BaseComponent('div', ['controls-container']);
-  toyCard = new ToyCard();
+  // toyCard: ToyCard;
   filters = new Filters();
   ranges = new Ranges();
   sort = new Sort();
@@ -24,10 +26,17 @@ export class ToysPage extends BaseComponent {
       this.ranges.element,
       this.sort.element
     );
-    this.toysContainer.element.append(this.toyCard.element);
+    this.toysContainer.element.append(...this.renderCards(data));
     this.element.append(
       this.controlsContainer.element,
       this.toysContainer.element
     );
+  }
+
+  renderCards(data: ToyCardType[]) {
+    return data.map((el) => {
+      const toyCard = new ToyCard(el);
+      return toyCard.element;
+    });
   }
 }

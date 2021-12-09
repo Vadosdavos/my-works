@@ -1,0 +1,56 @@
+.toy-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 304px;
+  padding: 0;
+  padding-left: 10px;
+  border-radius: 10px;
+  border: 1px solid #278d9f;
+  background-color: rgba(31, 112, 127, 0.3);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+.card-title {
+  width: 100%;
+  font-size: 20px;
+  padding-left: 10px;
+}
+.card-img {
+  width: 90px;
+  height: 112px;
+  object-fit: contain;
+  pointer-events: none;
+}
+.card-description {
+  width: 195px;
+  margin-top: -20px;
+  padding-left: 10px;
+  user-select: none;
+}
+.ribbon {
+  position: absolute;
+  top: 210px;
+  width: 80px;
+  height: 40px;
+  background: #24c5db;
+  left: -8px;
+}
+.ribbon:before {
+  border-bottom: 8px solid #14455b;
+  border-left: 8px solid transparent;
+  top: -8px;
+}
+.ribbon:after {
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 15px solid #24c5db;
+  right: -15px;
+}
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+}
