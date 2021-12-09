@@ -1,7 +1,12 @@
+.toys-page {
+  max-width: 1600px;
+  width: 85vw;
+}
 .controls-container {
   display: flex;
-  width: 100%;
+  justify-content: space-between;
   height: 150px;
+  width: 100%;
   border: 1px solid white;
 }
 .toys-container {
