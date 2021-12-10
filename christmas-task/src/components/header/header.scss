@@ -20,6 +20,7 @@ $linksHoverColor: #24c6db;
 .logo {
   cursor: pointer;
   transition: 0.5s;
+  position: relative;
 }
 .logo {
   display: block;
@@ -43,4 +44,14 @@ $linksHoverColor: #24c6db;
 .tree-button:active,
 .logo:active {
   transform: translate(2px, 2px);
+}
+.active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  border-bottom: 3px solid $linksHoverColor;
+  transition: 0.5s;
 }

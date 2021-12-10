@@ -12,6 +12,7 @@ export class ToyCard extends BaseComponent {
   constructor(data: ToyCardType) {
     super('div', ['toy-card'], 'toy-card');
     this.data = data;
+    this.element.setAttribute('data-num', data.num);
     this.element.innerHTML = `
       <h2 class="card-title">${data.name}</h2>
       <img class="card-img" src="assets/toys/${data.num}.png" alt="toy">

@@ -18,3 +18,12 @@
   justify-content: space-between;
   gap: 20px;
 }
+.marked {
+  transition: 0.5s;
+  .ribbon {
+    background-color: #cbb77a;
+  }
+  .ribbon::after {
+    border-left-color: #cbb77a;
+  }
+}

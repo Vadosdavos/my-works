@@ -27,6 +27,12 @@ export class ToysPage extends BaseComponent {
       this.sort.element
     );
     this.toysContainer.element.append(...this.renderCards(data));
+    this.toysContainer.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLDivElement;
+      if (target.className.includes('toy-card')) {
+        target.classList.toggle('marked');
+      }
+    });
     this.element.append(
       this.controlsContainer.element,
       this.toysContainer.element

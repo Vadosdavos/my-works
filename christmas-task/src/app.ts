@@ -32,9 +32,11 @@ export class App {
 
   clearPage() {
     this.mainPage.element.innerHTML = '';
+    this.header.toysButton.element.classList.remove('active');
   }
 
   openToysPage() {
     this.mainPage.element.append(this.toysPage.element);
+    this.header.toysButton.element.classList.add('active');
   }
 }

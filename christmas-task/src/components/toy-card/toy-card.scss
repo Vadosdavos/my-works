@@ -15,6 +15,7 @@
   width: 100%;
   font-size: 20px;
   padding-left: 10px;
+  pointer-events: none;
 }
 .card-img {
   width: 90px;
@@ -27,6 +28,7 @@
   margin-top: -20px;
   padding-left: 10px;
   user-select: none;
+  pointer-events: none;
 }
 .ribbon {
   position: absolute;
@@ -35,6 +37,8 @@
   height: 40px;
   background: #24c5db;
   left: -8px;
+  pointer-events: none;
+  transition: 0.5s;
 }
 .ribbon:before {
   border-bottom: 8px solid #14455b;
@@ -46,6 +50,7 @@
   border-bottom: 20px solid transparent;
   border-left: 15px solid #24c5db;
   right: -15px;
+  transition: 0.5s;
 }
 .ribbon::before,
 .ribbon::after {
