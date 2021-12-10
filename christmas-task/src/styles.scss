@@ -5,6 +5,7 @@
   background-image: url(./assets/bg.jpg);
   background-position: center;
   background-size: cover;
+  background-attachment: fixed;
   color: white;
   font-family: "Neucha", cursive;
   margin: 0;
@@ -17,7 +18,8 @@
 .filters,
 .ranges,
 .sort {
-  width: 200px;
+  width: calc(80vw / 3);
+  max-width: 520px;
   padding: 10px 20px;
   border-radius: 10px;
   background-color: rgba(31, 112, 127, 0.3);
