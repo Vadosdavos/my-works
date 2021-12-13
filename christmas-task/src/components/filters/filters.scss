@@ -1,0 +1,92 @@
+.filters-title {
+  text-transform: uppercase;
+}
+.shape-filter,
+.color-filter,
+.size-filter {
+  display: flex;
+  align-items: center;
+}
+.shape-filter {
+  button {
+    width: 40px;
+    height: 40px;
+    margin: 10px 7px;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+}
+.ball {
+  background-image: url(../../assets/svg/ball.svg);
+}
+.bell {
+  background-image: url(../../assets/svg/bell.svg);
+}
+.cone {
+  background-image: url(../../assets/svg/cone.svg);
+}
+.snowflake {
+  background-image: url(../../assets/svg/snowflake.svg);
+}
+.figure {
+  background-image: url(../../assets/svg/toy.svg);
+}
+.color-filter {
+  button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin: 15px 10px;
+    border: 1px solid #278d9f;
+    border-radius: 5px;
+    outline: 0;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+}
+.filter-color-white {
+  background-color: white;
+}
+.filter-color-yellow {
+  background-color: yellow;
+}
+.filter-color-red {
+  background-color: red;
+}
+.filter-color-blue {
+  background-color: blue;
+}
+.filter-color-green {
+  background-color: green;
+}
+
+.size-filter {
+  button {
+    width: 50px;
+    height: 50px;
+    margin: 10px 7px;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../assets/svg/ball.svg);
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  button:nth-child(2) {
+    width: 40px;
+    height: 40px;
+  }
+  button:nth-child(3) {
+    width: 30px;
+    height: 30px;
+  }
+}
