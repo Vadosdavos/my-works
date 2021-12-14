@@ -14,7 +14,7 @@ export class Ranges extends BaseComponent {
   }
   render() {
     this.setSlider(this.amount, 'Количество экземпляров:', 'amount', 1, 12);
-    this.setSlider(this.year, 'Год приобретения:', 'year', 1960, 2020);
+    this.setSlider(this.year, 'Год приобретения:', 'year', 1940, 2020);
     this.element.append(
       this.title.element,
       this.amount.element,
@@ -31,8 +31,16 @@ export class Ranges extends BaseComponent {
     parent.element.append(
       new BaseComponent('h4', ['slider-title'], title).element
     );
-    const leftOutput = new BaseComponent('output', ['slider-output'], '1');
-    const rightOutput = new BaseComponent('output', ['slider-output'], '12');
+    const leftOutput = new BaseComponent(
+      'output',
+      ['slider-output'],
+      `${start}`
+    );
+    const rightOutput = new BaseComponent(
+      'output',
+      ['slider-output'],
+      `${end}`
+    );
     const slider: noUiSlider.target = document.createElement('div');
     slider.classList.add(`${className}-slider`);
     noUiSlider.create(slider, {

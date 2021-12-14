@@ -3,6 +3,7 @@ export enum InputTypes {
   checkbox = 'checkbox',
   range = 'range',
   radio = 'radio',
+  search = 'search',
 }
 
 export class InputComponent {
