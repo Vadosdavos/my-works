@@ -9,10 +9,14 @@ import './toys-page.scss';
 
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
+
   controlsContainer = new BaseComponent('div', ['controls-container']);
+
   // toyCard: ToyCard;
   filters = new Filters();
+
   ranges = new Ranges();
+
   sort = new Sort();
 
   constructor() {
@@ -24,7 +28,7 @@ export class ToysPage extends BaseComponent {
     this.controlsContainer.element.append(
       this.filters.element,
       this.ranges.element,
-      this.sort.element
+      this.sort.element,
     );
     this.toysContainer.element.append(...this.renderCards(data));
     this.toysContainer.element.addEventListener('click', (event) => {
@@ -35,12 +39,12 @@ export class ToysPage extends BaseComponent {
     });
     this.element.append(
       this.controlsContainer.element,
-      this.toysContainer.element
+      this.toysContainer.element,
     );
   }
 
-  renderCards(data: ToyCardType[]) {
-    return data.map((el) => {
+  renderCards(cards: ToyCardType[]) {
+    return cards.map((el) => {
       const toyCard = new ToyCard(el);
       return toyCard.element;
     });

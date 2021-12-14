@@ -4,13 +4,17 @@ import './filters.scss';
 
 export class Filters extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Фильтры по назначению');
+
   shapeFilter = new BaseComponent('div', ['shape-filter']);
+
   colorFilter = new BaseComponent('div', ['color-filter']);
+
   sizeFilter = new BaseComponent('div', ['size-filter'], 'Размер:');
+
   favoriteFilter = new InputComponent(
     InputTypes.checkbox,
     ['favorite-filter'],
-    'Только любимые:'
+    'Только любимые:',
   );
 
   constructor() {
@@ -40,7 +44,7 @@ export class Filters extends BaseComponent {
       this.shapeFilter.element,
       this.colorFilter.element,
       this.sizeFilter.element,
-      this.favoriteFilter.element
+      this.favoriteFilter.element,
     );
   }
 }

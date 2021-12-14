@@ -4,6 +4,7 @@ import './toy-card.scss';
 
 export class ToyCard extends BaseComponent {
   data: ToyCardType;
+
   favoritesTranscript: FavoritesTranscript = {
     true: 'да',
     false: 'нет',
@@ -23,8 +24,8 @@ export class ToyCard extends BaseComponent {
         <p class="color">Цвет:<span> ${data.color}</span></p>
         <p class="size">Размер:<span> ${data.size}</span></p>
         <p class="favorite">Любимая:<span> ${
-          this.favoritesTranscript[data.favorite.toString()]
-        }</span></p>
+  this.favoritesTranscript[data.favorite.toString()]
+}</span></p>
       </div>
       <div class="ribbon"></div>`;
   }
