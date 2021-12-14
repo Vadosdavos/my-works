@@ -11,7 +11,7 @@
   border-radius: 20px;
   border: 1px solid #278d9f;
   color: #fff;
-  font-size: 1.2rem;
+  font: inherit;
   background-color: rgba(31, 112, 127, 0.3);
   background-image: url(../../assets/svg/search.svg);
   background-size: 20px;
@@ -27,7 +27,7 @@
   width: 48px;
   height: 60px;
   background-size: contain;
-  background-position: left -8px;
+  background-position: center -8px;
   background-repeat: no-repeat;
   transition: 0.5s;
 }
