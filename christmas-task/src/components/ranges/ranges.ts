@@ -5,52 +5,51 @@ import 'nouislider/dist/nouislider.css';
 
 export class Ranges extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Фильтры по диапазону');
-  amount = new BaseComponent('div', ['amount-container']);
-  year = new BaseComponent('div', ['year-container'], 'year');
+  amount = new BaseComponent('div', ['range-container']);
+  year = new BaseComponent('div', ['range-container']);
 
   constructor() {
     super('div', ['ranges']);
-    this.setAmoutSlider();
     this.render();
   }
   render() {
+    this.setSlider(this.amount, 'Количество экземпляров:', 'amount', 1, 12);
+    this.setSlider(this.year, 'Год приобретения:', 'year', 1960, 2020);
     this.element.append(
       this.title.element,
       this.amount.element,
       this.year.element
     );
   }
-  setAmoutSlider() {
-    this.amount.element.append(
-      new BaseComponent('h4', ['amount-title'], 'Количество экземпляров:')
-        .element
+  setSlider(
+    parent: BaseComponent,
+    title: string,
+    className: string,
+    start: number,
+    end: number
+  ) {
+    parent.element.append(
+      new BaseComponent('h4', ['slider-title'], title).element
     );
-    const leftOutput = new BaseComponent(
-      'output',
-      ['slider-output', 'left-output'],
-      '1'
-    );
-    const rigthOutput = new BaseComponent(
-      'output',
-      ['slider-output', 'rigth-ouput'],
-      '12'
-    );
+    const leftOutput = new BaseComponent('output', ['slider-output'], '1');
+    const rightOutput = new BaseComponent('output', ['slider-output'], '12');
     const slider: noUiSlider.target = document.createElement('div');
-    slider.classList.add('main-slider');
+    slider.classList.add(`${className}-slider`);
     noUiSlider.create(slider, {
-      start: [1, 12],
+      start: [start, end],
       connect: true,
       range: {
-        min: 1,
-        max: 12,
+        min: start,
+        max: end,
       },
       step: 1,
     });
-    this.amount.element.append(leftOutput.element, slider, rigthOutput.element);
+    parent.element.append(leftOutput.element, slider, rightOutput.element);
     slider.noUiSlider?.on('update', () => {
-      let output = slider.noUiSlider?.get();
-      if (output) {
-        leftOutput.element.textContent = output.toString();
+      let outputValue = slider.noUiSlider?.get() as string[];
+      if (outputValue) {
+        leftOutput.element.textContent = parseInt(outputValue[0]).toString();
+        rightOutput.element.textContent = parseInt(outputValue[1]).toString();
       }
     });
   }

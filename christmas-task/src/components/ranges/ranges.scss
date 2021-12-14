@@ -1,15 +1,25 @@
-.amount-container {
+.range-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
-.amount-title {
+.slider-title {
   width: 100%;
+  margin-top: 0;
 }
-.main-slider {
-  width: 70%;
+.amount-slider,
+.year-slider {
+  width: 60%;
 }
-// .left-output {
-// }
-// .right-output {
-// }
+.slider-output {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 50px;
+  height: 40px;
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  border: 1px solid #278d9f;
+}
