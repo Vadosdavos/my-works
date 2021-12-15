@@ -54,22 +54,30 @@ export class Sort extends BaseComponent {
   doSort(value: string, curToysData: IDataType[]): IDataType[] {
     switch (value) {
       case 'name-increase':
-        function nameIncrease(field: keyof IDataType) {
-          return (a: IDataType, b: IDataType) => (a[field] > b[field] ? 1 : -1);
-        }
-        return curToysData.sort(nameIncrease('name'));
+        return curToysData.sort(this.increaseSort('name'));
       case 'name-decrease':
-        function nameDecrease(field: keyof IDataType) {
-          return (a: IDataType, b: IDataType) => (a[field] > b[field] ? -1 : 1);
-        }
-        return curToysData.sort(nameDecrease('name'));
-      // case 'amount-increase':
-      //   console.log(value);
-      //   break;
-      // case 'amount-decrease':
-      //   console.log(value);
-      //   break;
+        return curToysData.sort(this.decreaseSort('name'));
+      case 'amount-increase':
+        return curToysData.sort(this.increaseNumSort('count'));
+      case 'amount-decrease':
+        return curToysData.sort(this.decreaseNumSort('count'));
     }
     return curToysData;
+  }
+
+  increaseSort(field: keyof IDataType) {
+    return (a: IDataType, b: IDataType) => (a[field] > b[field] ? 1 : -1);
+  }
+
+  decreaseSort(field: keyof IDataType) {
+    return (a: IDataType, b: IDataType) => (a[field] > b[field] ? -1 : 1);
+  }
+
+  increaseNumSort(field: keyof IDataType) {
+    return (a: IDataType, b: IDataType) => +a[field] - +b[field];
+  }
+
+  decreaseNumSort(field: keyof IDataType) {
+    return (a: IDataType, b: IDataType) => +b[field] - +a[field];
   }
 }
