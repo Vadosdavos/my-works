@@ -13,7 +13,8 @@ export class ToysPage extends BaseComponent {
 
   controlsContainer = new BaseComponent('div', ['controls-container']);
 
-  // toyCard: ToyCard;
+  toysData = data;
+
   filters = new Filters();
 
   ranges = new Ranges();
@@ -23,6 +24,13 @@ export class ToysPage extends BaseComponent {
   constructor() {
     super('section', ['toys-page']);
     this.render();
+    this.sort.sortInput.element.addEventListener('change', (event) => {
+      const target = event.target as HTMLSelectElement;
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.sort.doSort(target.value, this.toysData))
+      );
+    });
   }
 
   render() {
@@ -31,7 +39,8 @@ export class ToysPage extends BaseComponent {
       this.ranges.element,
       this.sort.element
     );
-    this.toysContainer.element.append(...this.renderCards(data));
+    this.toysContainer.element.append(...this.renderCards(this.toysData));
+    console.log(this.toysData);
     this.toysContainer.element.addEventListener('click', (event) => {
       this.setBookmarks(event);
     });
