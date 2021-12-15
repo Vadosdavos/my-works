@@ -4,8 +4,10 @@ import { Ranges } from '../ranges/ranges';
 import { Sort } from '../sort/sort';
 import { ToyCard } from '../toy-card/toy-card';
 import { ToyCardType } from './toy-card.type';
-import data from '../../data';
+import data, { IDataType } from '../../data';
 import './toys-page.scss';
+import * as noUiSlider from 'nouislider';
+import 'nouislider/dist/nouislider.css';
 
 export let bookmarksToys: number[] = [];
 export class ToysPage extends BaseComponent {
@@ -31,6 +33,29 @@ export class ToysPage extends BaseComponent {
         ...this.renderCards(this.sort.doSort(target.value, this.toysData))
       );
     });
+
+    this.rangeFilter(
+      this.ranges.setSlider(
+        this.ranges.amount,
+        'Количество экземпляров:',
+        'count',
+        1,
+        12
+      ),
+      this.toysData,
+      'count'
+    );
+    this.rangeFilter(
+      this.ranges.setSlider(
+        this.ranges.year,
+        'Год приобретения:',
+        'year',
+        1940,
+        2020
+      ),
+      this.toysData,
+      'year'
+    );
   }
 
   render() {
@@ -40,7 +65,6 @@ export class ToysPage extends BaseComponent {
       this.sort.element
     );
     this.toysContainer.element.append(...this.renderCards(this.toysData));
-    console.log(this.toysData);
     this.toysContainer.element.addEventListener('click', (event) => {
       this.setBookmarks(event);
     });
@@ -80,7 +104,6 @@ export class ToysPage extends BaseComponent {
       }
       this.sort.bookmarksIndicator.element.textContent =
         bookmarksToys.length.toString();
-      console.log(bookmarksToys);
     }
   }
 
@@ -106,5 +129,22 @@ export class ToysPage extends BaseComponent {
     setTimeout(() => {
       popup.element.remove();
     }, 2500);
+  }
+
+  rangeFilter(
+    filter: noUiSlider.target,
+    curToysData: IDataType[],
+    type: keyof IDataType
+  ) {
+    let resultArr: IDataType[] = [];
+    filter.noUiSlider?.on('update', (values) => {
+      let leftBorder = parseInt('' + values[0]);
+      let rightBorder = parseInt('' + values[1]);
+      resultArr = curToysData.filter(
+        (el) => +el[type] >= leftBorder && +el[type] <= rightBorder
+      );
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(...this.renderCards(resultArr));
+    });
   }
 }
