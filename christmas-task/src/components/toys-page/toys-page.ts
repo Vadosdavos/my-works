@@ -12,16 +12,20 @@ interface IRangeFilter {
 }
 
 interface ISettings {
+  sortType: string;
   rangeAmount: IRangeFilter;
   rangeYear: IRangeFilter;
   shape: string[];
+  color: string[];
 }
 
 export let bookmarksToys: number[] = [];
 let filtersSettings: ISettings = {
+  sortType: 'name-increase',
   rangeAmount: { left: 1, right: 12 },
   rangeYear: { left: 1940, right: 2020 },
   shape: [],
+  color: [],
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
@@ -43,6 +47,7 @@ export class ToysPage extends BaseComponent {
     this.render();
     this.sort.sortInput.element.addEventListener('change', (event) => {
       const target = event.target as HTMLSelectElement;
+      filtersSettings.sortType = target.value;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
         ...this.renderCards(this.sort.doSort(target.value, this.curToysData))
@@ -60,6 +65,25 @@ export class ToysPage extends BaseComponent {
           );
         } else {
           filtersSettings.shape.push(shapeValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+      );
+    });
+
+    this.filters.colorFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('color-active');
+      let colorValue = target.dataset.filter;
+      if (colorValue) {
+        if (filtersSettings.color.includes(colorValue)) {
+          filtersSettings.color = filtersSettings.color.filter(
+            (el) => el !== colorValue
+          );
+        } else {
+          filtersSettings.color.push(colorValue);
         }
       }
       this.toysContainer.element.innerHTML = '';
@@ -196,8 +220,10 @@ export class ToysPage extends BaseComponent {
 
     resultArr = this.purposeFilter(resultArr, 'shape', settings.shape);
 
+    resultArr = this.purposeFilter(resultArr, 'color', settings.color);
+
     this.curToysData = resultArr;
-    return resultArr;
+    return this.sort.doSort(filtersSettings.sortType, resultArr);
   }
 
   rangeFilter(
