@@ -7,19 +7,21 @@ import data, { IDataType } from '../../data';
 import './toys-page.scss';
 
 interface IRangeFilter {
-  state: boolean;
   left: number;
   right: number;
 }
+
 interface ISettings {
   rangeAmount: IRangeFilter;
   rangeYear: IRangeFilter;
+  shape: string[];
 }
 
 export let bookmarksToys: number[] = [];
 let filtersSettings: ISettings = {
-  rangeAmount: { state: true, left: 1, right: 12 },
-  rangeYear: { state: true, left: 1940, right: 2020 },
+  rangeAmount: { left: 1, right: 12 },
+  rangeYear: { left: 1940, right: 2020 },
+  shape: [],
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
@@ -44,6 +46,25 @@ export class ToysPage extends BaseComponent {
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
         ...this.renderCards(this.sort.doSort(target.value, this.curToysData))
+      );
+    });
+
+    this.filters.shapeFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('shape-active');
+      let shapeValue = target.dataset.filter;
+      if (shapeValue) {
+        if (filtersSettings.shape.includes(shapeValue)) {
+          filtersSettings.shape = filtersSettings.shape.filter(
+            (el) => el !== shapeValue
+          );
+        } else {
+          filtersSettings.shape.push(shapeValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -81,17 +102,6 @@ export class ToysPage extends BaseComponent {
         ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
-    // amountFilterTarget.noUiSlider?.on('update', (values) => {
-    //   let leftBorder = parseInt('' + values[0]);
-    //   let rightBorder = parseInt('' + values[1]);
-    //   this.rangeFilter(this.curToysData, 'count', leftBorder, rightBorder);
-    // });
-    // yearFilterTarget.noUiSlider?.on('update', (values) => {
-    //   let leftBorder = parseInt('' + values[0]);
-    //   let rightBorder = parseInt('' + values[1]);
-    //   this.rangeFilter(this.curToysData, 'year', leftBorder, rightBorder);
-    // });
-    // this.rangeFilter(yearFilterTarget, curToysData, 'year');
   }
 
   render() {
@@ -169,23 +179,23 @@ export class ToysPage extends BaseComponent {
 
   resultFIlter(filteredData: IDataType[], settings: ISettings) {
     let resultArr: IDataType[] = [];
-    if (settings.rangeAmount.state) {
-      resultArr = this.rangeFilter(
-        filteredData,
-        'count',
-        settings.rangeAmount.left,
-        settings.rangeAmount.right
-      );
-    }
-    // console.log(resultArr);
-    if (settings.rangeYear.state) {
-      resultArr = this.rangeFilter(
-        resultArr,
-        'year',
-        settings.rangeYear.left,
-        settings.rangeYear.right
-      );
-    }
+
+    resultArr = this.rangeFilter(
+      filteredData,
+      'count',
+      settings.rangeAmount.left,
+      settings.rangeAmount.right
+    );
+
+    resultArr = this.rangeFilter(
+      resultArr,
+      'year',
+      settings.rangeYear.left,
+      settings.rangeYear.right
+    );
+
+    resultArr = this.purposeFilter(resultArr, 'shape', settings.shape);
+
     this.curToysData = resultArr;
     return resultArr;
   }
@@ -198,19 +208,13 @@ export class ToysPage extends BaseComponent {
   ) {
     return filteredData.filter((el) => +el[type] >= left && +el[type] <= right);
   }
-  // rangeFilter(
-  //   filteredData: IDataType[],
-  //   type: keyof IDataType,
-  //   left: number,
-  //   right: number
-  // ) {
-  //   let resultArr: IDataType[] = [];
-  //   resultArr = filteredData.filter(
-  //     (el) => +el[type] >= left && +el[type] <= right
-  //   );
-  //   this.toysContainer.element.innerHTML = '';
-  //   this.curToysData = resultArr;
-  //   console.log(this.curToysData);
-  //   this.toysContainer.element.append(...this.renderCards(resultArr));
-  // }
+
+  purposeFilter(
+    filteredData: IDataType[],
+    type: keyof IDataType,
+    value: string[]
+  ) {
+    if (value.length === 0) return filteredData;
+    else return filteredData.filter((el) => value.includes(el[type] as string));
+  }
 }
