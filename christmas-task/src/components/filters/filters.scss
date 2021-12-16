@@ -3,7 +3,8 @@
 }
 .shape-filter,
 .color-filter,
-.size-filter {
+.size-filter,
+.favorite-filter-container {
   display: flex;
   align-items: center;
 }
@@ -110,4 +111,33 @@
   filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(292%)
     hue-rotate(3deg) brightness(86%) contrast(87%);
   transition: 0.5s;
+}
+.favorite-filter {
+  display: none;
+}
+.input-label {
+  position: relative;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  backdrop-filter: blur(6px);
+  border: 1px solid #278d9f;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.favorite-filter:checked + .input-label::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 9px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 4px 4px 0;
+  transform: rotate(45deg);
 }

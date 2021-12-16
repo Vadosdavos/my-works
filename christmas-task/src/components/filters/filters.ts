@@ -11,11 +11,7 @@ export class Filters extends BaseComponent {
 
   sizeFilter = new BaseComponent('div', ['size-filter'], 'Размер:');
 
-  favoriteFilter = new InputComponent(
-    InputTypes.checkbox,
-    ['favorite-filter'],
-    'Только любимые:',
-  );
+  favoriteFilter = new InputComponent(InputTypes.checkbox, ['favorite-filter']);
 
   constructor() {
     super('div', ['filters']);
@@ -39,12 +35,24 @@ export class Filters extends BaseComponent {
     <button data-filter="большой"></button>
     <button data-filter="средний"></button>
     <button data-filter="малый"></button>`;
+    const favoriteFilterContainer = new BaseComponent(
+      'div',
+      ['favorite-filter-container'],
+      'Только любимые:'
+    );
+    const label = new BaseComponent('label', ['input-label']);
+    label.element.setAttribute('for', 'fav-checkbox');
+    this.favoriteFilter.element.setAttribute('id', 'fav-checkbox');
+    favoriteFilterContainer.element.append(
+      this.favoriteFilter.element,
+      label.element
+    );
     this.element.append(
       this.title.element,
       this.shapeFilter.element,
       this.colorFilter.element,
       this.sizeFilter.element,
-      this.favoriteFilter.element,
+      favoriteFilterContainer.element
     );
   }
 }

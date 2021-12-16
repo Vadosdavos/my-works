@@ -18,6 +18,7 @@ interface ISettings {
   shape: string[];
   color: string[];
   size: string[];
+  favorite: boolean;
 }
 
 export let bookmarksToys: number[] = [];
@@ -28,6 +29,7 @@ let filtersSettings: ISettings = {
   shape: [],
   color: [],
   size: [],
+  favorite: false,
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
@@ -106,6 +108,20 @@ export class ToysPage extends BaseComponent {
         } else {
           filtersSettings.size.push(sizeValue);
         }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+      );
+    });
+
+    this.filters.favoriteFilter.element.addEventListener('input', (event) => {
+      const target = event.target as HTMLInputElement;
+      let favValue = target.checked;
+      if (favValue) {
+        filtersSettings.favorite = true;
+      } else {
+        filtersSettings.favorite = false;
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
@@ -245,6 +261,8 @@ export class ToysPage extends BaseComponent {
 
     resultArr = this.purposeFilter(resultArr, 'size', settings.size);
 
+    resultArr = this.purposeFilter(resultArr, 'favorite', settings.favorite);
+
     this.curToysData = resultArr;
     return this.sort.doSort(filtersSettings.sortType, resultArr);
   }
@@ -261,9 +279,18 @@ export class ToysPage extends BaseComponent {
   purposeFilter(
     filteredData: IDataType[],
     type: keyof IDataType,
-    value: string[]
+    value: string[] | boolean
   ) {
-    if (value.length === 0) return filteredData;
-    else return filteredData.filter((el) => value.includes(el[type] as string));
+    if (typeof value === 'boolean') {
+      if (value) {
+        return filteredData.filter((el) => el[type]);
+      } else {
+        return filteredData;
+      }
+    } else {
+      if (value.length === 0) return filteredData;
+      else
+        return filteredData.filter((el) => value.includes(el[type] as string));
+    }
   }
 }
