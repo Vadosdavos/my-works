@@ -1,16 +1,17 @@
+import { IDataType } from '../../data';
 import { BaseComponent } from '../base-componet';
-import { FavoritesTranscript, ToyCardType } from '../toys-page/toy-card.type';
+import { FavoritesTranscript } from '../toys-page/toy-card.type';
 import './toy-card.scss';
 
 export class ToyCard extends BaseComponent {
-  data: ToyCardType;
+  data: IDataType;
 
   favoritesTranscript: FavoritesTranscript = {
     true: 'да',
     false: 'нет',
   };
 
-  constructor(data: ToyCardType) {
+  constructor(data: IDataType) {
     super('div', ['toy-card'], 'toy-card');
     this.data = data;
     this.element.setAttribute('data-num', this.data.num);

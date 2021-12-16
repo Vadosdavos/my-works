@@ -3,19 +3,32 @@ import { Filters } from '../filters/filters';
 import { Ranges } from '../ranges/ranges';
 import { Sort } from '../sort/sort';
 import { ToyCard } from '../toy-card/toy-card';
-import { ToyCardType } from './toy-card.type';
 import data, { IDataType } from '../../data';
 import './toys-page.scss';
-import * as noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css';
+
+interface IRangeFilter {
+  state: boolean;
+  left: number;
+  right: number;
+}
+interface ISettings {
+  rangeAmount: IRangeFilter;
+  rangeYear: IRangeFilter;
+}
 
 export let bookmarksToys: number[] = [];
+let filtersSettings: ISettings = {
+  rangeAmount: { state: true, left: 1, right: 12 },
+  rangeYear: { state: true, left: 1940, right: 2020 },
+};
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
 
   controlsContainer = new BaseComponent('div', ['controls-container']);
 
   toysData = data;
+
+  curToysData = data;
 
   filters = new Filters();
 
@@ -30,32 +43,55 @@ export class ToysPage extends BaseComponent {
       const target = event.target as HTMLSelectElement;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.sort.doSort(target.value, this.toysData))
+        ...this.renderCards(this.sort.doSort(target.value, this.curToysData))
       );
     });
 
-    this.rangeFilter(
-      this.ranges.setSlider(
-        this.ranges.amount,
-        'Количество экземпляров:',
-        'count',
-        1,
-        12
-      ),
-      this.toysData,
-      'count'
+    const amountFilterTarget = this.ranges.setSlider(
+      this.ranges.amount,
+      'Количество экземпляров:',
+      'count',
+      1,
+      12
     );
-    this.rangeFilter(
-      this.ranges.setSlider(
-        this.ranges.year,
-        'Год приобретения:',
-        'year',
-        1940,
-        2020
-      ),
-      this.toysData,
-      'year'
+    const yearFilterTarget = this.ranges.setSlider(
+      this.ranges.year,
+      'Год приобретения:',
+      'year',
+      1940,
+      2020
     );
+    amountFilterTarget.noUiSlider?.on('update', (values) => {
+      let leftBorder = parseInt('' + values[0]);
+      let rightBorder = parseInt('' + values[1]);
+      filtersSettings.rangeAmount.left = leftBorder;
+      filtersSettings.rangeAmount.right = rightBorder;
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+      );
+    });
+    yearFilterTarget.noUiSlider?.on('update', (values) => {
+      let leftBorder = parseInt('' + values[0]);
+      let rightBorder = parseInt('' + values[1]);
+      filtersSettings.rangeYear.left = leftBorder;
+      filtersSettings.rangeYear.right = rightBorder;
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+      );
+    });
+    // amountFilterTarget.noUiSlider?.on('update', (values) => {
+    //   let leftBorder = parseInt('' + values[0]);
+    //   let rightBorder = parseInt('' + values[1]);
+    //   this.rangeFilter(this.curToysData, 'count', leftBorder, rightBorder);
+    // });
+    // yearFilterTarget.noUiSlider?.on('update', (values) => {
+    //   let leftBorder = parseInt('' + values[0]);
+    //   let rightBorder = parseInt('' + values[1]);
+    //   this.rangeFilter(this.curToysData, 'year', leftBorder, rightBorder);
+    // });
+    // this.rangeFilter(yearFilterTarget, curToysData, 'year');
   }
 
   render() {
@@ -74,7 +110,7 @@ export class ToysPage extends BaseComponent {
     );
   }
 
-  renderCards(cards: ToyCardType[]) {
+  renderCards(cards: IDataType[]) {
     return cards.map((el) => {
       const toyCard = new ToyCard(el);
       return toyCard.element;
@@ -131,20 +167,50 @@ export class ToysPage extends BaseComponent {
     }, 2500);
   }
 
-  rangeFilter(
-    filter: noUiSlider.target,
-    curToysData: IDataType[],
-    type: keyof IDataType
-  ) {
+  resultFIlter(filteredData: IDataType[], settings: ISettings) {
     let resultArr: IDataType[] = [];
-    filter.noUiSlider?.on('update', (values) => {
-      let leftBorder = parseInt('' + values[0]);
-      let rightBorder = parseInt('' + values[1]);
-      resultArr = curToysData.filter(
-        (el) => +el[type] >= leftBorder && +el[type] <= rightBorder
+    if (settings.rangeAmount.state) {
+      resultArr = this.rangeFilter(
+        filteredData,
+        'count',
+        settings.rangeAmount.left,
+        settings.rangeAmount.right
       );
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(...this.renderCards(resultArr));
-    });
+    }
+    // console.log(resultArr);
+    if (settings.rangeYear.state) {
+      resultArr = this.rangeFilter(
+        resultArr,
+        'year',
+        settings.rangeYear.left,
+        settings.rangeYear.right
+      );
+    }
+    this.curToysData = resultArr;
+    return resultArr;
   }
+
+  rangeFilter(
+    filteredData: IDataType[],
+    type: keyof IDataType,
+    left: number,
+    right: number
+  ) {
+    return filteredData.filter((el) => +el[type] >= left && +el[type] <= right);
+  }
+  // rangeFilter(
+  //   filteredData: IDataType[],
+  //   type: keyof IDataType,
+  //   left: number,
+  //   right: number
+  // ) {
+  //   let resultArr: IDataType[] = [];
+  //   resultArr = filteredData.filter(
+  //     (el) => +el[type] >= left && +el[type] <= right
+  //   );
+  //   this.toysContainer.element.innerHTML = '';
+  //   this.curToysData = resultArr;
+  //   console.log(this.curToysData);
+  //   this.toysContainer.element.append(...this.renderCards(resultArr));
+  // }
 }
