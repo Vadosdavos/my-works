@@ -21,11 +21,6 @@
     cursor: pointer;
     transition: 0.5s;
   }
-  .shape-active {
-    filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(292%)
-      hue-rotate(3deg) brightness(86%) contrast(87%);
-    transition: 0.5s;
-  }
 }
 .ball {
   background-image: url(../../assets/svg/ball.svg);
@@ -110,4 +105,9 @@
     width: 30px;
     height: 30px;
   }
+}
+.shape-size-active {
+  filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(292%)
+    hue-rotate(3deg) brightness(86%) contrast(87%);
+  transition: 0.5s;
 }

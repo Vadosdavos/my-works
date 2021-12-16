@@ -36,9 +36,9 @@ export class Filters extends BaseComponent {
     <button class="filter-color-blue" data-filter="синий"></button>
     <button class="filter-color-green" data-filter="зелёный"></button>`;
     this.sizeFilter.element.innerHTML = `Размер: 
-    <button data-filter="большой" class=""></button>
-    <button data-filter="средний" class=""></button>
-    <button data-filter="малый" class=""></button>`;
+    <button data-filter="большой"></button>
+    <button data-filter="средний"></button>
+    <button data-filter="малый"></button>`;
     this.element.append(
       this.title.element,
       this.shapeFilter.element,

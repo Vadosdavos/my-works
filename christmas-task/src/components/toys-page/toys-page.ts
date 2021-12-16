@@ -17,6 +17,7 @@ interface ISettings {
   rangeYear: IRangeFilter;
   shape: string[];
   color: string[];
+  size: string[];
 }
 
 export let bookmarksToys: number[] = [];
@@ -26,6 +27,7 @@ let filtersSettings: ISettings = {
   rangeYear: { left: 1940, right: 2020 },
   shape: [],
   color: [],
+  size: [],
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
@@ -56,7 +58,7 @@ export class ToysPage extends BaseComponent {
 
     this.filters.shapeFilter.element.addEventListener('click', (event) => {
       const target = event.target as HTMLButtonElement;
-      target.classList.toggle('shape-active');
+      target.classList.toggle('shape-size-active');
       let shapeValue = target.dataset.filter;
       if (shapeValue) {
         if (filtersSettings.shape.includes(shapeValue)) {
@@ -84,6 +86,25 @@ export class ToysPage extends BaseComponent {
           );
         } else {
           filtersSettings.color.push(colorValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+      );
+    });
+
+    this.filters.sizeFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('shape-size-active');
+      let sizeValue = target.dataset.filter;
+      if (sizeValue) {
+        if (filtersSettings.size.includes(sizeValue)) {
+          filtersSettings.size = filtersSettings.size.filter(
+            (el) => el !== sizeValue
+          );
+        } else {
+          filtersSettings.size.push(sizeValue);
         }
       }
       this.toysContainer.element.innerHTML = '';
@@ -221,6 +242,8 @@ export class ToysPage extends BaseComponent {
     resultArr = this.purposeFilter(resultArr, 'shape', settings.shape);
 
     resultArr = this.purposeFilter(resultArr, 'color', settings.color);
+
+    resultArr = this.purposeFilter(resultArr, 'size', settings.size);
 
     this.curToysData = resultArr;
     return this.sort.doSort(filtersSettings.sortType, resultArr);
