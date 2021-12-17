@@ -22,7 +22,7 @@ export class Ranges extends BaseComponent {
     this.element.append(
       this.title.element,
       this.amount.element,
-      this.year.element
+      this.year.element,
     );
   }
 
@@ -31,20 +31,20 @@ export class Ranges extends BaseComponent {
     title: string,
     className: keyof IDataType,
     start: number,
-    end: number
+    end: number,
   ) {
     parent.element.append(
-      new BaseComponent('h4', ['slider-title'], title).element
+      new BaseComponent('h4', ['slider-title'], title).element,
     );
     const leftOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${start}`
+      `${start}`,
     );
     const rightOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${end}`
+      `${end}`,
     );
     const slider: noUiSlider.target = document.createElement('div');
     slider.classList.add(`${className}-slider`);

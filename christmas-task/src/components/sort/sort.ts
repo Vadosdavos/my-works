@@ -28,19 +28,19 @@ export class Sort extends BaseComponent {
       this.title.element,
       this.searchContainer.element,
       this.sortInput.element,
-      this.resetButton.element
+      this.resetButton.element,
     );
   }
 
   renderSearch() {
     this.searchInput.element.setAttribute(
       'placeholder',
-      'Введите название игрушки'
+      'Введите название игрушки',
     );
     this.searchInput.element.setAttribute('autocomplete', 'off');
     this.searchContainer.element.append(
       this.searchInput.element,
-      this.bookmarksIndicator.element
+      this.bookmarksIndicator.element,
     );
   }
 

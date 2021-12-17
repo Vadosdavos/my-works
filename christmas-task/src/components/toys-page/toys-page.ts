@@ -50,6 +50,22 @@ export class ToysPage extends BaseComponent {
   constructor() {
     super('section', ['toys-page']);
     this.render();
+  }
+
+  render() {
+    this.controlsContainer.element.append(
+      this.filters.element,
+      this.ranges.element,
+      this.sort.element
+    );
+    this.toysContainer.element.append(...this.renderCards(this.toysData));
+    this.toysContainer.element.addEventListener('click', (event) => {
+      this.setBookmarks(event);
+    });
+    this.element.append(
+      this.controlsContainer.element,
+      this.toysContainer.element
+    );
     this.sort.sortInput.element.addEventListener('change', (event) => {
       const target = event.target as HTMLSelectElement;
       filtersSettings.sortType = target.value;
@@ -62,7 +78,7 @@ export class ToysPage extends BaseComponent {
     this.filters.shapeFilter.element.addEventListener('click', (event) => {
       const target = event.target as HTMLButtonElement;
       target.classList.toggle('shape-size-active');
-      let shapeValue = target.dataset.filter;
+      const shapeValue = target.dataset.filter;
       if (shapeValue) {
         if (filtersSettings.shape.includes(shapeValue)) {
           filtersSettings.shape = filtersSettings.shape.filter(
@@ -81,7 +97,7 @@ export class ToysPage extends BaseComponent {
     this.filters.colorFilter.element.addEventListener('click', (event) => {
       const target = event.target as HTMLButtonElement;
       target.classList.toggle('color-active');
-      let colorValue = target.dataset.filter;
+      const colorValue = target.dataset.filter;
       if (colorValue) {
         if (filtersSettings.color.includes(colorValue)) {
           filtersSettings.color = filtersSettings.color.filter(
@@ -100,7 +116,7 @@ export class ToysPage extends BaseComponent {
     this.filters.sizeFilter.element.addEventListener('click', (event) => {
       const target = event.target as HTMLButtonElement;
       target.classList.toggle('shape-size-active');
-      let sizeValue = target.dataset.filter;
+      const sizeValue = target.dataset.filter;
       if (sizeValue) {
         if (filtersSettings.size.includes(sizeValue)) {
           filtersSettings.size = filtersSettings.size.filter(
@@ -118,7 +134,7 @@ export class ToysPage extends BaseComponent {
 
     this.filters.favoriteFilter.element.addEventListener('input', (event) => {
       const target = event.target as HTMLInputElement;
-      let favValue = target.checked;
+      const favValue = target.checked;
       if (favValue) {
         filtersSettings.favorite = true;
       } else {
@@ -145,8 +161,8 @@ export class ToysPage extends BaseComponent {
       2020
     );
     amountFilterTarget.noUiSlider?.on('update', (values) => {
-      let leftBorder = parseInt('' + values[0]);
-      let rightBorder = parseInt('' + values[1]);
+      const leftBorder = parseInt('' + values[0]);
+      const rightBorder = parseInt('' + values[1]);
       filtersSettings.rangeAmount.left = leftBorder;
       filtersSettings.rangeAmount.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
@@ -155,8 +171,8 @@ export class ToysPage extends BaseComponent {
       );
     });
     yearFilterTarget.noUiSlider?.on('update', (values) => {
-      let leftBorder = parseInt('' + values[0]);
-      let rightBorder = parseInt('' + values[1]);
+      const leftBorder = parseInt('' + values[0]);
+      const rightBorder = parseInt('' + values[1]);
       filtersSettings.rangeYear.left = leftBorder;
       filtersSettings.rangeYear.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
@@ -170,25 +186,12 @@ export class ToysPage extends BaseComponent {
     });
   }
 
-  render() {
-    this.controlsContainer.element.append(
-      this.filters.element,
-      this.ranges.element,
-      this.sort.element
-    );
-    this.toysContainer.element.append(...this.renderCards(this.toysData));
-    this.toysContainer.element.addEventListener('click', (event) => {
-      this.setBookmarks(event);
-    });
-    this.element.append(
-      this.controlsContainer.element,
-      this.toysContainer.element
-    );
-  }
-
   renderCards(cards: IDataType[]) {
     return cards.map((el) => {
       const toyCard = new ToyCard(el);
+      if (bookmarksToys.includes(+el.num)) {
+        toyCard.element.classList.add('marked');
+      }
       return toyCard.element;
     });
   }
@@ -214,6 +217,7 @@ export class ToysPage extends BaseComponent {
           }
         }
       }
+      console.log(bookmarksToys);
       this.sort.bookmarksIndicator.element.textContent =
         bookmarksToys.length.toString();
     }

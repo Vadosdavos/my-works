@@ -38,21 +38,21 @@ export class Filters extends BaseComponent {
     const favoriteFilterContainer = new BaseComponent(
       'div',
       ['favorite-filter-container'],
-      'Только любимые:'
+      'Только любимые:',
     );
     const label = new BaseComponent('label', ['input-label']);
     label.element.setAttribute('for', 'fav-checkbox');
     this.favoriteFilter.element.setAttribute('id', 'fav-checkbox');
     favoriteFilterContainer.element.append(
       this.favoriteFilter.element,
-      label.element
+      label.element,
     );
     this.element.append(
       this.title.element,
       this.shapeFilter.element,
       this.colorFilter.element,
       this.sizeFilter.element,
-      favoriteFilterContainer.element
+      favoriteFilterContainer.element,
     );
   }
 }

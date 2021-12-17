@@ -28,8 +28,8 @@ export class ToyCard extends BaseComponent {
         <p class="color">Цвет:<span> ${this.data.color}</span></p>
         <p class="size">Размер:<span> ${this.data.size}</span></p>
         <p class="favorite">Любимая:<span> ${
-          this.favoritesTranscript[this.data.favorite.toString()]
-        }</span></p>
+  this.favoritesTranscript[this.data.favorite.toString()]
+}</span></p>
       </div>
       <div class="ribbon"></div>`;
   }
