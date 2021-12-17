@@ -28,19 +28,20 @@ export class Sort extends BaseComponent {
       this.title.element,
       this.searchContainer.element,
       this.sortInput.element,
-      this.resetButton.element,
+      this.resetButton.element
     );
   }
 
   renderSearch() {
     this.searchInput.element.setAttribute(
       'placeholder',
-      'Введите название игрушки',
+      'Введите название игрушки'
     );
     this.searchInput.element.setAttribute('autocomplete', 'off');
+    this.searchInput.element.autofocus = true;
     this.searchContainer.element.append(
       this.searchInput.element,
-      this.bookmarksIndicator.element,
+      this.bookmarksIndicator.element
     );
   }
 
@@ -79,5 +80,10 @@ export class Sort extends BaseComponent {
 
   decreaseNumSort(field: keyof IDataType) {
     return (a: IDataType, b: IDataType) => +b[field] - +a[field];
+  }
+
+  doSearch(value: string, curToysData: IDataType[]): IDataType[] {
+    const reg = new RegExp(value, 'i');
+    return curToysData.filter((el) => reg.test(el.name));
   }
 }

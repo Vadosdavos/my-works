@@ -6,6 +6,7 @@
   width: 80%;
   height: 40px;
   padding: 5px 25px;
+  padding-left: 35px;
   margin: 10px 0;
   margin-right: 30px;
   border-radius: 20px;
@@ -16,8 +17,16 @@
   background-image: url(../../assets/svg/search.svg);
   background-size: 20px;
   background-repeat: no-repeat;
-  background-position: 95% center;
+  background-position: 10px center;
   backdrop-filter: blur(6px);
+}
+.search-field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: url(../../assets/svg/cross.svg);
+  background-size: contain;
+  cursor: pointer;
 }
 .bookmarks-indicator {
   display: flex;

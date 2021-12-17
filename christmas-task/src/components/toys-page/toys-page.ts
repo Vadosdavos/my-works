@@ -184,6 +184,20 @@ export class ToysPage extends BaseComponent {
     this.sort.resetButton.element.addEventListener('click', () => {
       this.resetFilters(amountFilterTarget, yearFilterTarget);
     });
+
+    this.sort.searchInput.element.addEventListener('input', (event) => {
+      const target = event.target as HTMLInputElement;
+      const value = target.value;
+      this.toysContainer.element.innerHTML = '';
+      if (this.sort.doSearch(value, this.curToysData).length === 0) {
+        this.toysContainer.element.textContent =
+          'Извините, совпадений не обнаружено(';
+      } else {
+        this.toysContainer.element.append(
+          ...this.renderCards(this.sort.doSearch(value, this.curToysData))
+        );
+      }
+    });
   }
 
   renderCards(cards: IDataType[]) {
@@ -217,7 +231,6 @@ export class ToysPage extends BaseComponent {
           }
         }
       }
-      console.log(bookmarksToys);
       this.sort.bookmarksIndicator.element.textContent =
         bookmarksToys.length.toString();
     }
