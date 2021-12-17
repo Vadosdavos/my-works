@@ -4,6 +4,7 @@ import { Ranges } from '../ranges/ranges';
 import { Sort } from '../sort/sort';
 import { ToyCard } from '../toy-card/toy-card';
 import data, { IDataType } from '../../data';
+import * as noUiSlider from 'nouislider';
 import './toys-page.scss';
 
 interface IRangeFilter {
@@ -163,6 +164,10 @@ export class ToysPage extends BaseComponent {
         ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
+
+    this.sort.resetButton.element.addEventListener('click', () => {
+      this.resetFilters(amountFilterTarget, yearFilterTarget);
+    });
   }
 
   render() {
@@ -292,5 +297,37 @@ export class ToysPage extends BaseComponent {
       else
         return filteredData.filter((el) => value.includes(el[type] as string));
     }
+  }
+
+  resetFilters(amoutTarget: noUiSlider.target, yearTarget: noUiSlider.target) {
+    this.curToysData = this.toysData;
+    const curSortType = filtersSettings.sortType;
+    filtersSettings = {
+      sortType: curSortType,
+      rangeAmount: { left: 1, right: 12 },
+      rangeYear: { left: 1940, right: 2020 },
+      shape: [],
+      color: [],
+      size: [],
+      favorite: false,
+    };
+    Array.from(this.filters.shapeFilter.element.children).forEach((el) =>
+      el.classList.remove('shape-size-active')
+    );
+    Array.from(this.filters.colorFilter.element.children).forEach((el) =>
+      el.classList.remove('color-active')
+    );
+    Array.from(this.filters.sizeFilter.element.children).forEach((el) =>
+      el.classList.remove('shape-size-active')
+    );
+    (this.filters.favoriteFilter.element as HTMLInputElement).checked = false;
+    amoutTarget.noUiSlider?.set([1, 12]);
+    yearTarget.noUiSlider?.set([1940, 2020]);
+    this.toysContainer.element.innerHTML = '';
+    this.toysContainer.element.append(
+      ...this.renderCards(
+        this.sort.doSort(filtersSettings.sortType, this.curToysData)
+      )
+    );
   }
 }
