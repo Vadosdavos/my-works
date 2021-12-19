@@ -1,6 +1,7 @@
 .toys-page {
   max-width: 1600px;
   width: 85vw;
+  min-height: calc(100vh - 140px);
 }
 .controls-container {
   margin-top: 50px;
@@ -37,4 +38,8 @@
   transition: 0.5s;
   opacity: 0;
   border-radius: 10px;
+}
+.noresult-info {
+  margin: 0 auto;
+  font-size: 2rem;
 }

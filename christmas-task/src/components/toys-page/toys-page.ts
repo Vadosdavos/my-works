@@ -47,6 +47,12 @@ export class ToysPage extends BaseComponent {
 
   sort = new Sort();
 
+  noresultInfo = new BaseComponent(
+    'div',
+    ['noresult-info'],
+    'Извините, совпадений не обнаружено!'
+  );
+
   constructor() {
     super('section', ['toys-page']);
     this.render();
@@ -190,8 +196,7 @@ export class ToysPage extends BaseComponent {
       const value = target.value;
       this.toysContainer.element.innerHTML = '';
       if (this.sort.doSearch(value, this.curToysData).length === 0) {
-        this.toysContainer.element.textContent =
-          'Извините, совпадений не обнаружено(';
+        this.toysContainer.element.append(...this.renderCards([]));
       } else {
         this.toysContainer.element.append(
           ...this.renderCards(this.sort.doSearch(value, this.curToysData))
@@ -201,6 +206,7 @@ export class ToysPage extends BaseComponent {
   }
 
   renderCards(cards: IDataType[]) {
+    if (cards.length === 0) return [this.noresultInfo.element];
     return cards.map((el) => {
       const toyCard = new ToyCard(el);
       if (bookmarksToys.includes(+el.num)) {
