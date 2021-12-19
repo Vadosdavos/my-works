@@ -17,12 +17,10 @@ export class Ranges extends BaseComponent {
   }
 
   render() {
-    // this.setSlider(this.amount, 'Количество экземпляров:', 'amount', 1, 12);
-    // this.setSlider(this.year, 'Год приобретения:', 'year', 1940, 2020);
     this.element.append(
       this.title.element,
       this.amount.element,
-      this.year.element,
+      this.year.element
     );
   }
 
@@ -31,29 +29,31 @@ export class Ranges extends BaseComponent {
     title: string,
     className: keyof IDataType,
     start: number,
-    end: number,
+    end: number
   ) {
     parent.element.append(
-      new BaseComponent('h4', ['slider-title'], title).element,
+      new BaseComponent('h4', ['slider-title'], title).element
     );
     const leftOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${start}`,
+      `${start}`
     );
     const rightOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${end}`,
+      `${end}`
     );
     const slider: noUiSlider.target = document.createElement('div');
+    const minValue = start < 1940 ? 1 : 1940;
+    const maxValue = start < 1940 ? 12 : 2020;
     slider.classList.add(`${className}-slider`);
     noUiSlider.create(slider, {
       start: [start, end],
       connect: true,
       range: {
-        min: start,
-        max: end,
+        min: minValue,
+        max: maxValue,
       },
       step: 1,
     });
@@ -67,20 +67,4 @@ export class Ranges extends BaseComponent {
     });
     return slider;
   }
-
-  // rangeFilter(
-  //   filter: noUiSlider.target,
-  //   curToysData: IDataType[],
-  //   type: keyof IDataType
-  // ) {
-  //   let resultArr: IDataType[] = [];
-  //   filter.noUiSlider?.on('update', (values) => {
-  //     let leftBorder = parseInt('' + values[0]);
-  //     let rightBorder = parseInt('' + values[1]);
-  //     resultArr = curToysData.filter(
-  //       (el) => +el[type] >= leftBorder && +el[type] <= rightBorder
-  //     );
-  //   });
-  //   return resultArr;
-  // }
 }

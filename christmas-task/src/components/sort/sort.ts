@@ -10,25 +10,44 @@ export class Sort extends BaseComponent {
 
   searchInput = new InputComponent(InputTypes.search, ['search-field']);
 
-  bookmarksIndicator = new BaseComponent('span', ['bookmarks-indicator'], '0');
+  bookmarksIndicator: BaseComponent;
 
   sortInput = new BaseComponent('select', ['select-filed']);
 
   resetButton = new BaseComponent('button', ['reset'], 'Сброс фильтров');
 
-  constructor() {
+  clearSettingsButton = new BaseComponent(
+    'button',
+    ['reset'],
+    'Сброс настроек'
+  );
+
+  booksNumber: number;
+
+  constructor(bookmarksLength: number) {
     super('div', ['sort']);
+    this.booksNumber = bookmarksLength;
+    this.bookmarksIndicator = new BaseComponent(
+      'span',
+      ['bookmarks-indicator'],
+      this.booksNumber.toString()
+    );
     this.render();
   }
 
   render() {
     this.renderSearch();
     this.renderSort();
+    this.clearSettingsButton.element.addEventListener('click', () => {
+      console.log('LocalStorage has been cleared!');
+      localStorage.clear();
+    });
     this.element.append(
       this.title.element,
       this.searchContainer.element,
       this.sortInput.element,
-      this.resetButton.element
+      this.resetButton.element,
+      this.clearSettingsButton.element
     );
   }
 

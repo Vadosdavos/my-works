@@ -6,23 +6,10 @@ import { ToyCard } from '../toy-card/toy-card';
 import data, { IDataType } from '../../data';
 import * as noUiSlider from 'nouislider';
 import './toys-page.scss';
+import { ISettings } from './toy-card.type';
 
-interface IRangeFilter {
-  left: number;
-  right: number;
-}
-
-interface ISettings {
-  sortType: string;
-  rangeAmount: IRangeFilter;
-  rangeYear: IRangeFilter;
-  shape: string[];
-  color: string[];
-  size: string[];
-  favorite: boolean;
-}
-
-export let bookmarksToys: number[] = [];
+let bookmarksToys: number[] = [];
+let bookmarksLength: number = bookmarksToys.length;
 let filtersSettings: ISettings = {
   sortType: 'name-increase',
   rangeAmount: { left: 1, right: 12 },
@@ -41,11 +28,11 @@ export class ToysPage extends BaseComponent {
 
   curToysData = data;
 
-  filters = new Filters();
+  filters = new Filters(filtersSettings);
 
   ranges = new Ranges();
 
-  sort = new Sort();
+  sort = new Sort(bookmarksLength);
 
   noresultInfo = new BaseComponent(
     'div',
@@ -156,15 +143,15 @@ export class ToysPage extends BaseComponent {
       this.ranges.amount,
       'Количество экземпляров:',
       'count',
-      1,
-      12
+      filtersSettings.rangeAmount.left,
+      filtersSettings.rangeAmount.right
     );
     const yearFilterTarget = this.ranges.setSlider(
       this.ranges.year,
       'Год приобретения:',
       'year',
-      1940,
-      2020
+      filtersSettings.rangeYear.left,
+      filtersSettings.rangeYear.right
     );
     amountFilterTarget.noUiSlider?.on('update', (values) => {
       const leftBorder = parseInt('' + values[0]);
@@ -206,6 +193,7 @@ export class ToysPage extends BaseComponent {
   }
 
   renderCards(cards: IDataType[]) {
+    this.setLocalStorage();
     if (cards.length === 0) return [this.noresultInfo.element];
     return cards.map((el) => {
       const toyCard = new ToyCard(el);
@@ -239,7 +227,9 @@ export class ToysPage extends BaseComponent {
       }
       this.sort.bookmarksIndicator.element.textContent =
         bookmarksToys.length.toString();
+      bookmarksLength = bookmarksToys.length;
     }
+    this.setLocalStorage();
   }
 
   showBooksmarksPopup(parent: HTMLDivElement) {
@@ -353,4 +343,28 @@ export class ToysPage extends BaseComponent {
       )
     );
   }
+
+  setLocalStorage() {
+    localStorage.setItem('settings', JSON.stringify(filtersSettings));
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarksToys));
+    localStorage.setItem('bookmarksLength', JSON.stringify(bookmarksLength));
+  }
 }
+
+function getLocalStorage() {
+  if (localStorage.getItem('settings')) {
+    filtersSettings = JSON.parse(localStorage.getItem('settings') as string);
+  }
+  if (localStorage.getItem('bookmarks')) {
+    bookmarksToys = JSON.parse(localStorage.getItem('bookmarks') as string);
+  }
+  if (localStorage.getItem('bookmarksLength')) {
+    bookmarksLength = JSON.parse(
+      localStorage.getItem('bookmarksLength') as string
+    );
+  }
+}
+
+window.addEventListener('load', () => {
+  getLocalStorage();
+});

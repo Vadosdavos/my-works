@@ -69,8 +69,8 @@
 }
 
 .reset {
-  display: block;
-  width: 250px;
+  display: inline-block;
+  width: 230px;
   height: 40px;
   border-radius: 20px;
   border: 1px solid #278d9f;
@@ -81,4 +81,7 @@
   font: inherit;
   font-size: 1.2rem;
   font-weight: 400;
+}
+.reset:last-child {
+  margin-left: 12px;
 }
