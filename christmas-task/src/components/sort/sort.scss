@@ -62,12 +62,15 @@
   line-height: 28px;
   color: #fff;
   cursor: pointer;
+  transition: 0.5s;
   option {
     color: inherit;
     background-color: #183e42;
   }
 }
-
+.select-filed:hover {
+  background-color: #278d9f;
+}
 .reset {
   display: inline-block;
   width: 230px;
@@ -81,7 +84,37 @@
   font: inherit;
   font-size: 1.2rem;
   font-weight: 400;
+  outline: 1px solid white;
+  transition: 0.5s;
 }
 .reset:last-child {
   margin-left: 12px;
+}
+.reset:hover {
+  outline-offset: 10px;
+  outline: 1px solid rgba(255, 255, 255, 0);
+  transition: 0.5s;
+}
+.reset:active {
+  box-shadow: inset 0 0 5px 3px black;
+}
+
+@media (max-width: 1919px) {
+  .reset {
+    display: block;
+  }
+  .reset:last-child {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .reset {
+    display: inline-block;
+  }
+  .reset:last-child {
+    margin-top: 0;
+    margin-left: 12px;
+  }
 }

@@ -19,7 +19,7 @@ export class Sort extends BaseComponent {
   clearSettingsButton = new BaseComponent(
     'button',
     ['reset'],
-    'Сброс настроек'
+    'Сброс настроек',
   );
 
   booksNumber: number;
@@ -30,7 +30,7 @@ export class Sort extends BaseComponent {
     this.bookmarksIndicator = new BaseComponent(
       'span',
       ['bookmarks-indicator'],
-      this.booksNumber.toString()
+      this.booksNumber.toString(),
     );
     this.render();
   }
@@ -47,20 +47,20 @@ export class Sort extends BaseComponent {
       this.searchContainer.element,
       this.sortInput.element,
       this.resetButton.element,
-      this.clearSettingsButton.element
+      this.clearSettingsButton.element,
     );
   }
 
   renderSearch() {
     this.searchInput.element.setAttribute(
       'placeholder',
-      'Введите название игрушки'
+      'Введите название игрушки',
     );
     this.searchInput.element.setAttribute('autocomplete', 'off');
     this.searchInput.element.autofocus = true;
     this.searchContainer.element.append(
       this.searchInput.element,
-      this.bookmarksIndicator.element
+      this.bookmarksIndicator.element,
     );
   }
 

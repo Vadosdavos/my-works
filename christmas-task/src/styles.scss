@@ -25,3 +25,11 @@
   background-color: rgba(31, 112, 127, 0.3);
   backdrop-filter: blur(6px);
 }
+
+@media (max-width: 1024px) {
+  .filters,
+  .ranges,
+  .sort {
+    width: 100%;
+  }
+}

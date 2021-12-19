@@ -22,6 +22,9 @@
     cursor: pointer;
     transition: 0.5s;
   }
+  button:hover {
+    filter: brightness(0.6);
+  }
   .shape-size-active {
     filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(292%)
       hue-rotate(3deg) brightness(86%) contrast(87%);
@@ -54,6 +57,9 @@
     outline: 0;
     cursor: pointer;
     transition: 0.5s;
+  }
+  button:hover {
+    border-color: #fff;
   }
   .color-active {
     transition: 0.5s;
@@ -103,6 +109,9 @@
     cursor: pointer;
     transition: 0.5s;
   }
+  button:hover {
+    filter: brightness(0.6);
+  }
   button:nth-child(2) {
     width: 40px;
     height: 40px;
@@ -134,6 +143,9 @@
   cursor: pointer;
   transition: 0.5s;
 }
+.input-label:hover {
+  background-color: #278d9f;
+}
 .favorite-filter:checked + .input-label::before {
   content: "";
   display: block;
@@ -145,4 +157,12 @@
   border: solid #fff;
   border-width: 0 4px 4px 0;
   transform: rotate(45deg);
+}
+
+@media (max-width: 1024px) {
+  .controls-container {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
 }

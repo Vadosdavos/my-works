@@ -20,7 +20,7 @@ export class ToyCard extends BaseComponent {
 
     this.element.innerHTML = `
       <h2 class="card-title">${this.data.name}</h2>
-      <img class="card-img" src="assets/toys/${this.data.num}.png" alt="toy">
+      <img class="card-img" src="${this.data.num}.png" alt="toy">
       <div class="card-description">      
         <p class="count">Количество:<span> ${this.data.count}</span></p>
         <p class="year">Год покупки:<span> ${this.data.year}</span></p>
