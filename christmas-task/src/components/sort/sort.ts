@@ -3,19 +3,26 @@ import { BaseComponent } from '../base-componet';
 import { InputComponent, InputTypes } from '../input-component';
 import './sort.scss';
 
-type sortCallback = (a: IDataType, b: IDataType) => number;
+type SortCallback = (a: IDataType, b: IDataType) => number;
 export class Sort extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Сортировка и поиск');
+
   searchContainer = new BaseComponent('div', ['search-container']);
+
   searchInput = new InputComponent(InputTypes.search, ['search-field']);
+
   bookmarksIndicator: BaseComponent;
+
   sortInput = new BaseComponent('select', ['select-filed']);
+
   resetButton = new BaseComponent('button', ['reset'], 'Сброс фильтров');
+
   clearSettingsButton = new BaseComponent(
     'button',
     ['reset'],
-    'Сброс настроек'
+    'Сброс настроек',
   );
+
   booksNumber: number;
 
   constructor(bookmarksLength: number) {
@@ -24,7 +31,7 @@ export class Sort extends BaseComponent {
     this.bookmarksIndicator = new BaseComponent(
       'span',
       ['bookmarks-indicator'],
-      this.booksNumber.toString()
+      this.booksNumber.toString(),
     );
     this.render();
   }
@@ -41,20 +48,20 @@ export class Sort extends BaseComponent {
       this.searchContainer.element,
       this.sortInput.element,
       this.resetButton.element,
-      this.clearSettingsButton.element
+      this.clearSettingsButton.element,
     );
   }
 
   renderSearch(): void {
     this.searchInput.element.setAttribute(
       'placeholder',
-      'Введите название игрушки'
+      'Введите название игрушки',
     );
     this.searchInput.element.setAttribute('autocomplete', 'off');
     this.searchInput.element.autofocus = true;
     this.searchContainer.element.append(
       this.searchInput.element,
-      this.bookmarksIndicator.element
+      this.bookmarksIndicator.element,
     );
   }
 
@@ -79,19 +86,19 @@ export class Sort extends BaseComponent {
     return curToysData;
   }
 
-  increaseSort(field: keyof IDataType): sortCallback {
+  increaseSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? 1 : -1);
   }
 
-  decreaseSort(field: keyof IDataType): sortCallback {
+  decreaseSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? -1 : 1);
   }
 
-  increaseNumSort(field: keyof IDataType): sortCallback {
+  increaseNumSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => +a[field] - +b[field];
   }
 
-  decreaseNumSort(field: keyof IDataType): sortCallback {
+  decreaseNumSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => +b[field] - +a[field];
   }
 

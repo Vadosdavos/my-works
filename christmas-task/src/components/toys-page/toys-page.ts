@@ -21,16 +21,23 @@ let filtersSettings: ISettings = {
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
+
   controlsContainer = new BaseComponent('div', ['controls-container']);
+
   toysData = data;
+
   curToysData = data;
+
   filters = new Filters(filtersSettings);
+
   ranges = new Ranges();
+
   sort = new Sort(bookmarksLength);
+
   noresultInfo = new BaseComponent(
     'div',
     ['noresult-info'],
-    'Извините, совпадений не обнаружено!'
+    'Извините, совпадений не обнаружено!',
   );
 
   constructor() {
@@ -42,7 +49,7 @@ export class ToysPage extends BaseComponent {
     this.controlsContainer.element.append(
       this.filters.element,
       this.ranges.element,
-      this.sort.element
+      this.sort.element,
     );
     this.toysContainer.element.append(...this.renderCards(this.toysData));
     this.toysContainer.element.addEventListener('click', (event) => {
@@ -50,14 +57,14 @@ export class ToysPage extends BaseComponent {
     });
     this.element.append(
       this.controlsContainer.element,
-      this.toysContainer.element
+      this.toysContainer.element,
     );
     this.sort.sortInput.element.addEventListener('change', (event) => {
       const target = event.target as HTMLSelectElement;
       filtersSettings.sortType = target.value;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.sort.doSort(target.value, this.curToysData))
+        ...this.renderCards(this.sort.doSort(target.value, this.curToysData)),
       );
     });
 
@@ -68,7 +75,7 @@ export class ToysPage extends BaseComponent {
       if (shapeValue) {
         if (filtersSettings.shape.includes(shapeValue)) {
           filtersSettings.shape = filtersSettings.shape.filter(
-            (el) => el !== shapeValue
+            (el) => el !== shapeValue,
           );
         } else {
           filtersSettings.shape.push(shapeValue);
@@ -76,7 +83,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
 
@@ -87,7 +94,7 @@ export class ToysPage extends BaseComponent {
       if (colorValue) {
         if (filtersSettings.color.includes(colorValue)) {
           filtersSettings.color = filtersSettings.color.filter(
-            (el) => el !== colorValue
+            (el) => el !== colorValue,
           );
         } else {
           filtersSettings.color.push(colorValue);
@@ -95,7 +102,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
 
@@ -106,7 +113,7 @@ export class ToysPage extends BaseComponent {
       if (sizeValue) {
         if (filtersSettings.size.includes(sizeValue)) {
           filtersSettings.size = filtersSettings.size.filter(
-            (el) => el !== sizeValue
+            (el) => el !== sizeValue,
           );
         } else {
           filtersSettings.size.push(sizeValue);
@@ -114,7 +121,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
 
@@ -128,7 +135,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
 
@@ -137,14 +144,14 @@ export class ToysPage extends BaseComponent {
       'Количество экземпляров:',
       'count',
       filtersSettings.rangeAmount.left,
-      filtersSettings.rangeAmount.right
+      filtersSettings.rangeAmount.right,
     );
     const yearFilterTarget = this.ranges.setSlider(
       this.ranges.year,
       'Год приобретения:',
       'year',
       filtersSettings.rangeYear.left,
-      filtersSettings.rangeYear.right
+      filtersSettings.rangeYear.right,
     );
     amountFilterTarget.noUiSlider?.on('update', (values) => {
       const leftBorder = parseInt('' + values[0]);
@@ -153,7 +160,7 @@ export class ToysPage extends BaseComponent {
       filtersSettings.rangeAmount.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
     yearFilterTarget.noUiSlider?.on('update', (values) => {
@@ -163,7 +170,7 @@ export class ToysPage extends BaseComponent {
       filtersSettings.rangeYear.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
       );
     });
 
@@ -179,7 +186,7 @@ export class ToysPage extends BaseComponent {
         this.toysContainer.element.append(...this.renderCards([]));
       } else {
         this.toysContainer.element.append(
-          ...this.renderCards(this.sort.doSearch(value, this.curToysData))
+          ...this.renderCards(this.sort.doSearch(value, this.curToysData)),
         );
       }
     });
@@ -229,7 +236,7 @@ export class ToysPage extends BaseComponent {
     const popup = new BaseComponent(
       'div',
       ['book-popup'],
-      'Извините, все слоты в избранном заполнены!'
+      'Извините, все слоты в избранном заполнены!',
     );
     popup.element.style.display = 'block';
     setTimeout(() => {
@@ -256,14 +263,14 @@ export class ToysPage extends BaseComponent {
       filteredData,
       'count',
       settings.rangeAmount.left,
-      settings.rangeAmount.right
+      settings.rangeAmount.right,
     );
 
     resultArr = this.rangeFilter(
       resultArr,
       'year',
       settings.rangeYear.left,
-      settings.rangeYear.right
+      settings.rangeYear.right,
     );
 
     resultArr = this.purposeFilter(resultArr, 'shape', settings.shape);
@@ -282,7 +289,7 @@ export class ToysPage extends BaseComponent {
     filteredData: IDataType[],
     type: keyof IDataType,
     left: number,
-    right: number
+    right: number,
   ): IDataType[] {
     return filteredData.filter((el) => +el[type] >= left && +el[type] <= right);
   }
@@ -290,7 +297,7 @@ export class ToysPage extends BaseComponent {
   purposeFilter(
     filteredData: IDataType[],
     type: keyof IDataType,
-    value: string[] | boolean
+    value: string[] | boolean,
   ): IDataType[] {
     if (typeof value === 'boolean') {
       return value ? filteredData.filter((el) => el[type]) : filteredData;
@@ -303,7 +310,7 @@ export class ToysPage extends BaseComponent {
 
   resetFilters(
     amoutTarget: noUiSlider.target,
-    yearTarget: noUiSlider.target
+    yearTarget: noUiSlider.target,
   ): void {
     this.curToysData = this.toysData;
     const curSortType = filtersSettings.sortType;
@@ -327,8 +334,8 @@ export class ToysPage extends BaseComponent {
     this.toysContainer.element.innerHTML = '';
     this.toysContainer.element.append(
       ...this.renderCards(
-        this.sort.doSort(filtersSettings.sortType, this.curToysData)
-      )
+        this.sort.doSort(filtersSettings.sortType, this.curToysData),
+      ),
     );
   }
 
@@ -340,8 +347,8 @@ export class ToysPage extends BaseComponent {
 
   removeActive(target: HTMLCollection[]): void {
     target.forEach((el) => {
-      Array.from(el).forEach((el) =>
-        el.classList.remove('shape-size-active', 'color-active')
+      Array.from(el).forEach((arrEl) =>
+        arrEl.classList.remove('shape-size-active', 'color-active'),
       );
     });
   }
@@ -356,7 +363,7 @@ function getLocalStorage(): void {
   }
   if (localStorage.getItem('bookmarksLength')) {
     bookmarksLength = JSON.parse(
-      localStorage.getItem('bookmarksLength') as string
+      localStorage.getItem('bookmarksLength') as string,
     );
   }
 }

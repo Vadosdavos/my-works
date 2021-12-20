@@ -5,15 +5,18 @@ import { ToysPage } from './components/toys-page/toys-page';
 
 export class App {
   header = new Header();
+
   mainPage = new MainPage();
+
   footer = new Footer();
+
   toysPage = new ToysPage();
 
   constructor(private readonly rootElement: HTMLElement) {
     this.rootElement.append(
       this.header.element,
       this.mainPage.element,
-      this.footer.element
+      this.footer.element,
     );
     this.header.toysButton.element.addEventListener('click', () => {
       this.clearPage();
