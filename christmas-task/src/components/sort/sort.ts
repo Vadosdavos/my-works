@@ -67,8 +67,8 @@ export class Sort extends BaseComponent {
   renderSort() {
     this.sortInput.element.innerHTML = `<option selected value="name-increase">По названию от «А» до «Я»</option>
     <option value="name-decrease">По названию от «Я» до «А»</option>
-    <option value="amount-increase">По количеству по возрастанию</option>
-    <option value="amount-decrease">По количеству по убыванию</option>`;
+    <option value="year-increase">По году по возрастанию</option>
+    <option value="year-decrease">По году по убыванию</option>`;
   }
 
   doSort(value: string, curToysData: IDataType[]): IDataType[] {
@@ -77,10 +77,10 @@ export class Sort extends BaseComponent {
         return curToysData.sort(this.increaseSort('name'));
       case 'name-decrease':
         return curToysData.sort(this.decreaseSort('name'));
-      case 'amount-increase':
-        return curToysData.sort(this.increaseNumSort('count'));
-      case 'amount-decrease':
-        return curToysData.sort(this.decreaseNumSort('count'));
+      case 'year-increase':
+        return curToysData.sort(this.increaseNumSort('year'));
+      case 'year-decrease':
+        return curToysData.sort(this.decreaseNumSort('year'));
     }
     return curToysData;
   }
