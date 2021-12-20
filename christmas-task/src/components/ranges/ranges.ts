@@ -16,7 +16,7 @@ export class Ranges extends BaseComponent {
     this.render();
   }
 
-  render() {
+  render(): void {
     this.element.append(
       this.title.element,
       this.amount.element,
@@ -30,7 +30,7 @@ export class Ranges extends BaseComponent {
     className: keyof IDataType,
     start: number,
     end: number
-  ) {
+  ): noUiSlider.target {
     parent.element.append(
       new BaseComponent('h4', ['slider-title'], title).element
     );

@@ -3,6 +3,7 @@ import { BaseComponent } from '../base-componet';
 import { InputComponent, InputTypes } from '../input-component';
 import './sort.scss';
 
+type sortCallback = (a: IDataType, b: IDataType) => number;
 export class Sort extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Сортировка и поиск');
   searchContainer = new BaseComponent('div', ['search-container']);
@@ -13,7 +14,7 @@ export class Sort extends BaseComponent {
   clearSettingsButton = new BaseComponent(
     'button',
     ['reset'],
-    'Сброс настроек',
+    'Сброс настроек'
   );
   booksNumber: number;
 
@@ -23,12 +24,12 @@ export class Sort extends BaseComponent {
     this.bookmarksIndicator = new BaseComponent(
       'span',
       ['bookmarks-indicator'],
-      this.booksNumber.toString(),
+      this.booksNumber.toString()
     );
     this.render();
   }
 
-  render() {
+  render(): void {
     this.renderSearch();
     this.renderSort();
     this.clearSettingsButton.element.addEventListener('click', () => {
@@ -40,24 +41,24 @@ export class Sort extends BaseComponent {
       this.searchContainer.element,
       this.sortInput.element,
       this.resetButton.element,
-      this.clearSettingsButton.element,
+      this.clearSettingsButton.element
     );
   }
 
-  renderSearch() {
+  renderSearch(): void {
     this.searchInput.element.setAttribute(
       'placeholder',
-      'Введите название игрушки',
+      'Введите название игрушки'
     );
     this.searchInput.element.setAttribute('autocomplete', 'off');
     this.searchInput.element.autofocus = true;
     this.searchContainer.element.append(
       this.searchInput.element,
-      this.bookmarksIndicator.element,
+      this.bookmarksIndicator.element
     );
   }
 
-  renderSort() {
+  renderSort(): void {
     this.sortInput.element.innerHTML = `<option selected value="name-increase">По названию от «А» до «Я»</option>
     <option value="name-decrease">По названию от «Я» до «А»</option>
     <option value="year-increase">По году по возрастанию</option>
@@ -78,19 +79,19 @@ export class Sort extends BaseComponent {
     return curToysData;
   }
 
-  increaseSort(field: keyof IDataType) {
+  increaseSort(field: keyof IDataType): sortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? 1 : -1);
   }
 
-  decreaseSort(field: keyof IDataType) {
+  decreaseSort(field: keyof IDataType): sortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? -1 : 1);
   }
 
-  increaseNumSort(field: keyof IDataType) {
+  increaseNumSort(field: keyof IDataType): sortCallback {
     return (a: IDataType, b: IDataType) => +a[field] - +b[field];
   }
 
-  decreaseNumSort(field: keyof IDataType) {
+  decreaseNumSort(field: keyof IDataType): sortCallback {
     return (a: IDataType, b: IDataType) => +b[field] - +a[field];
   }
 

@@ -30,7 +30,7 @@ export class ToysPage extends BaseComponent {
   noresultInfo = new BaseComponent(
     'div',
     ['noresult-info'],
-    'Извините, совпадений не обнаружено!',
+    'Извините, совпадений не обнаружено!'
   );
 
   constructor() {
@@ -38,11 +38,11 @@ export class ToysPage extends BaseComponent {
     this.render();
   }
 
-  render() {
+  render(): void {
     this.controlsContainer.element.append(
       this.filters.element,
       this.ranges.element,
-      this.sort.element,
+      this.sort.element
     );
     this.toysContainer.element.append(...this.renderCards(this.toysData));
     this.toysContainer.element.addEventListener('click', (event) => {
@@ -50,14 +50,14 @@ export class ToysPage extends BaseComponent {
     });
     this.element.append(
       this.controlsContainer.element,
-      this.toysContainer.element,
+      this.toysContainer.element
     );
     this.sort.sortInput.element.addEventListener('change', (event) => {
       const target = event.target as HTMLSelectElement;
       filtersSettings.sortType = target.value;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.sort.doSort(target.value, this.curToysData)),
+        ...this.renderCards(this.sort.doSort(target.value, this.curToysData))
       );
     });
 
@@ -68,7 +68,7 @@ export class ToysPage extends BaseComponent {
       if (shapeValue) {
         if (filtersSettings.shape.includes(shapeValue)) {
           filtersSettings.shape = filtersSettings.shape.filter(
-            (el) => el !== shapeValue,
+            (el) => el !== shapeValue
           );
         } else {
           filtersSettings.shape.push(shapeValue);
@@ -76,7 +76,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -87,7 +87,7 @@ export class ToysPage extends BaseComponent {
       if (colorValue) {
         if (filtersSettings.color.includes(colorValue)) {
           filtersSettings.color = filtersSettings.color.filter(
-            (el) => el !== colorValue,
+            (el) => el !== colorValue
           );
         } else {
           filtersSettings.color.push(colorValue);
@@ -95,7 +95,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -106,7 +106,7 @@ export class ToysPage extends BaseComponent {
       if (sizeValue) {
         if (filtersSettings.size.includes(sizeValue)) {
           filtersSettings.size = filtersSettings.size.filter(
-            (el) => el !== sizeValue,
+            (el) => el !== sizeValue
           );
         } else {
           filtersSettings.size.push(sizeValue);
@@ -114,7 +114,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -128,7 +128,7 @@ export class ToysPage extends BaseComponent {
       }
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -137,14 +137,14 @@ export class ToysPage extends BaseComponent {
       'Количество экземпляров:',
       'count',
       filtersSettings.rangeAmount.left,
-      filtersSettings.rangeAmount.right,
+      filtersSettings.rangeAmount.right
     );
     const yearFilterTarget = this.ranges.setSlider(
       this.ranges.year,
       'Год приобретения:',
       'year',
       filtersSettings.rangeYear.left,
-      filtersSettings.rangeYear.right,
+      filtersSettings.rangeYear.right
     );
     amountFilterTarget.noUiSlider?.on('update', (values) => {
       const leftBorder = parseInt('' + values[0]);
@@ -153,7 +153,7 @@ export class ToysPage extends BaseComponent {
       filtersSettings.rangeAmount.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
     yearFilterTarget.noUiSlider?.on('update', (values) => {
@@ -163,7 +163,7 @@ export class ToysPage extends BaseComponent {
       filtersSettings.rangeYear.right = rightBorder;
       this.toysContainer.element.innerHTML = '';
       this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings))
       );
     });
 
@@ -179,13 +179,13 @@ export class ToysPage extends BaseComponent {
         this.toysContainer.element.append(...this.renderCards([]));
       } else {
         this.toysContainer.element.append(
-          ...this.renderCards(this.sort.doSearch(value, this.curToysData)),
+          ...this.renderCards(this.sort.doSearch(value, this.curToysData))
         );
       }
     });
   }
 
-  renderCards(cards: IDataType[]) {
+  renderCards(cards: IDataType[]): HTMLElement[] {
     this.setLocalStorage();
     if (cards.length === 0) return [this.noresultInfo.element];
     return cards.map((el) => {
@@ -197,7 +197,7 @@ export class ToysPage extends BaseComponent {
     });
   }
 
-  setBookmarks(event: Event) {
+  setBookmarks(event: Event): void {
     const target = event.target as HTMLDivElement;
     if (target.className.includes('toy-card')) {
       if (target.dataset.num) {
@@ -225,11 +225,11 @@ export class ToysPage extends BaseComponent {
     this.setLocalStorage();
   }
 
-  showBooksmarksPopup(parent: HTMLDivElement) {
+  showBooksmarksPopup(parent: HTMLDivElement): void {
     const popup = new BaseComponent(
       'div',
       ['book-popup'],
-      'Извините, все слоты в избранном заполнены!',
+      'Извините, все слоты в избранном заполнены!'
     );
     popup.element.style.display = 'block';
     setTimeout(() => {
@@ -249,21 +249,21 @@ export class ToysPage extends BaseComponent {
     }, 2500);
   }
 
-  resultFIlter(filteredData: IDataType[], settings: ISettings) {
+  resultFIlter(filteredData: IDataType[], settings: ISettings): IDataType[] {
     let resultArr: IDataType[] = [];
 
     resultArr = this.rangeFilter(
       filteredData,
       'count',
       settings.rangeAmount.left,
-      settings.rangeAmount.right,
+      settings.rangeAmount.right
     );
 
     resultArr = this.rangeFilter(
       resultArr,
       'year',
       settings.rangeYear.left,
-      settings.rangeYear.right,
+      settings.rangeYear.right
     );
 
     resultArr = this.purposeFilter(resultArr, 'shape', settings.shape);
@@ -282,16 +282,16 @@ export class ToysPage extends BaseComponent {
     filteredData: IDataType[],
     type: keyof IDataType,
     left: number,
-    right: number,
-  ) {
+    right: number
+  ): IDataType[] {
     return filteredData.filter((el) => +el[type] >= left && +el[type] <= right);
   }
 
   purposeFilter(
     filteredData: IDataType[],
     type: keyof IDataType,
-    value: string[] | boolean,
-  ) {
+    value: string[] | boolean
+  ): IDataType[] {
     if (typeof value === 'boolean') {
       if (value) {
         return filteredData.filter((el) => el[type]);
@@ -305,7 +305,10 @@ export class ToysPage extends BaseComponent {
     }
   }
 
-  resetFilters(amoutTarget: noUiSlider.target, yearTarget: noUiSlider.target) {
+  resetFilters(
+    amoutTarget: noUiSlider.target,
+    yearTarget: noUiSlider.target
+  ): void {
     this.curToysData = this.toysData;
     const curSortType = filtersSettings.sortType;
     filtersSettings = {
@@ -318,13 +321,13 @@ export class ToysPage extends BaseComponent {
       favorite: false,
     };
     Array.from(this.filters.shapeFilter.element.children).forEach((el) =>
-      el.classList.remove('shape-size-active'),
+      el.classList.remove('shape-size-active')
     );
     Array.from(this.filters.colorFilter.element.children).forEach((el) =>
-      el.classList.remove('color-active'),
+      el.classList.remove('color-active')
     );
     Array.from(this.filters.sizeFilter.element.children).forEach((el) =>
-      el.classList.remove('shape-size-active'),
+      el.classList.remove('shape-size-active')
     );
     (this.filters.favoriteFilter.element as HTMLInputElement).checked = false;
     amoutTarget.noUiSlider?.set([1, 12]);
@@ -332,19 +335,19 @@ export class ToysPage extends BaseComponent {
     this.toysContainer.element.innerHTML = '';
     this.toysContainer.element.append(
       ...this.renderCards(
-        this.sort.doSort(filtersSettings.sortType, this.curToysData),
-      ),
+        this.sort.doSort(filtersSettings.sortType, this.curToysData)
+      )
     );
   }
 
-  setLocalStorage() {
+  setLocalStorage(): void {
     localStorage.setItem('settings', JSON.stringify(filtersSettings));
     localStorage.setItem('bookmarks', JSON.stringify(bookmarksToys));
     localStorage.setItem('bookmarksLength', JSON.stringify(bookmarksLength));
   }
 }
 
-function getLocalStorage() {
+function getLocalStorage(): void {
   if (localStorage.getItem('settings')) {
     filtersSettings = JSON.parse(localStorage.getItem('settings') as string);
   }
@@ -353,7 +356,7 @@ function getLocalStorage() {
   }
   if (localStorage.getItem('bookmarksLength')) {
     bookmarksLength = JSON.parse(
-      localStorage.getItem('bookmarksLength') as string,
+      localStorage.getItem('bookmarksLength') as string
     );
   }
 }
@@ -361,3 +364,44 @@ function getLocalStorage() {
 window.addEventListener('load', () => {
   getLocalStorage();
 });
+
+// renderCards(cards: IDataType[]) {
+//   this.setLocalStorage();
+//   if (cards.length === 0) return [this.noresultInfo.element];
+//   return cards.map((el) => {
+//     const toyCard = new ToyCard(el);
+//     if (bookmarksToys.includes(+el.num)) {
+//       toyCard.element.classList.add('marked');
+//     }
+//     toyCard.element.addEventListener(
+//       'click',
+//       this.setBookmarks.bind(toyCard)
+//     );
+//     return toyCard.element;
+//   });
+// }
+
+// setBookmarks() {
+//   const target = this.element;
+//   const toyNum = +(target.dataset.num as string);
+//   if (bookmarksToys.length < 20) {
+//     target.classList.toggle('marked');
+//     if (!bookmarksToys.includes(toyNum)) {
+//       bookmarksToys.push(toyNum);
+//     } else {
+//       bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
+//     }
+//   } else {
+//     if (target.classList.contains('marked')) {
+//       bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
+//       target.classList.remove('marked');
+//     } else {
+//       this.showBooksmarksPopup(target);
+//     }
+//   }
+//   this.sort.bookmarksIndicator.element.textContent =
+//     bookmarksToys.length.toString();
+//   bookmarksLength = bookmarksToys.length;
+
+//   this.setLocalStorage();
+// }

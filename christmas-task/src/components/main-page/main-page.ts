@@ -15,7 +15,7 @@ export class MainPage extends BaseComponent {
     // this.render();
   }
 
-  render() {
+  render(): void {
     this.element.append(this.title.element, this.startButton.element);
   }
 }
