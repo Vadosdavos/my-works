@@ -293,15 +293,11 @@ export class ToysPage extends BaseComponent {
     value: string[] | boolean
   ): IDataType[] {
     if (typeof value === 'boolean') {
-      if (value) {
-        return filteredData.filter((el) => el[type]);
-      } else {
-        return filteredData;
-      }
+      return value ? filteredData.filter((el) => el[type]) : filteredData;
     } else {
-      if (value.length === 0) return filteredData;
-      else
-        return filteredData.filter((el) => value.includes(el[type] as string));
+      return value.length
+        ? filteredData.filter((el) => value.includes(el[type] as string))
+        : filteredData;
     }
   }
 
@@ -320,15 +316,11 @@ export class ToysPage extends BaseComponent {
       size: [],
       favorite: false,
     };
-    Array.from(this.filters.shapeFilter.element.children).forEach((el) =>
-      el.classList.remove('shape-size-active')
-    );
-    Array.from(this.filters.colorFilter.element.children).forEach((el) =>
-      el.classList.remove('color-active')
-    );
-    Array.from(this.filters.sizeFilter.element.children).forEach((el) =>
-      el.classList.remove('shape-size-active')
-    );
+    this.removeActive([
+      this.filters.sizeFilter.element.children,
+      this.filters.shapeFilter.element.children,
+      this.filters.colorFilter.element.children,
+    ]);
     (this.filters.favoriteFilter.element as HTMLInputElement).checked = false;
     amoutTarget.noUiSlider?.set([1, 12]);
     yearTarget.noUiSlider?.set([1940, 2020]);
@@ -344,6 +336,14 @@ export class ToysPage extends BaseComponent {
     localStorage.setItem('settings', JSON.stringify(filtersSettings));
     localStorage.setItem('bookmarks', JSON.stringify(bookmarksToys));
     localStorage.setItem('bookmarksLength', JSON.stringify(bookmarksLength));
+  }
+
+  removeActive(target: HTMLCollection[]): void {
+    target.forEach((el) => {
+      Array.from(el).forEach((el) =>
+        el.classList.remove('shape-size-active', 'color-active')
+      );
+    });
   }
 }
 
