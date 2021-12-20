@@ -4,11 +4,11 @@ import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { IDataType } from '../../data';
 
+const MIN_YEAR: number = 1940;
+
 export class Ranges extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Фильтры по диапазону');
-
   amount = new BaseComponent('div', ['range-container']);
-
   year = new BaseComponent('div', ['range-container']);
 
   constructor() {
@@ -20,7 +20,7 @@ export class Ranges extends BaseComponent {
     this.element.append(
       this.title.element,
       this.amount.element,
-      this.year.element,
+      this.year.element
     );
   }
 
@@ -29,24 +29,24 @@ export class Ranges extends BaseComponent {
     title: string,
     className: keyof IDataType,
     start: number,
-    end: number,
+    end: number
   ) {
     parent.element.append(
-      new BaseComponent('h4', ['slider-title'], title).element,
+      new BaseComponent('h4', ['slider-title'], title).element
     );
     const leftOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${start}`,
+      `${start}`
     );
     const rightOutput = new BaseComponent(
       'output',
       ['slider-output'],
-      `${end}`,
+      `${end}`
     );
     const slider: noUiSlider.target = document.createElement('div');
-    const minValue = start < 1940 ? 1 : 1940;
-    const maxValue = start < 1940 ? 12 : 2020;
+    const minValue = start < MIN_YEAR ? 1 : 1940;
+    const maxValue = start < MIN_YEAR ? 12 : 2020;
     slider.classList.add(`${className}-slider`);
     noUiSlider.create(slider, {
       start: [start, end],

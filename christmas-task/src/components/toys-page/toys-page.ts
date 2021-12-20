@@ -21,19 +21,12 @@ let filtersSettings: ISettings = {
 };
 export class ToysPage extends BaseComponent {
   toysContainer = new BaseComponent('div', ['toys-container']);
-
   controlsContainer = new BaseComponent('div', ['controls-container']);
-
   toysData = data;
-
   curToysData = data;
-
   filters = new Filters(filtersSettings);
-
   ranges = new Ranges();
-
   sort = new Sort(bookmarksLength);
-
   noresultInfo = new BaseComponent(
     'div',
     ['noresult-info'],

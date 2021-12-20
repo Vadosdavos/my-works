@@ -5,23 +5,16 @@ import './sort.scss';
 
 export class Sort extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Сортировка и поиск');
-
   searchContainer = new BaseComponent('div', ['search-container']);
-
   searchInput = new InputComponent(InputTypes.search, ['search-field']);
-
   bookmarksIndicator: BaseComponent;
-
   sortInput = new BaseComponent('select', ['select-filed']);
-
   resetButton = new BaseComponent('button', ['reset'], 'Сброс фильтров');
-
   clearSettingsButton = new BaseComponent(
     'button',
     ['reset'],
     'Сброс настроек',
   );
-
   booksNumber: number;
 
   constructor(bookmarksLength: number) {
