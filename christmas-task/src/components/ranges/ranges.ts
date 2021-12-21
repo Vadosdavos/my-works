@@ -21,7 +21,7 @@ export class Ranges extends BaseComponent {
     this.render();
   }
 
-  render(): void {
+  private render(): void {
     this.element.append(
       this.title.element,
       this.amount.element,
@@ -29,7 +29,7 @@ export class Ranges extends BaseComponent {
     );
   }
 
-  setSlider(
+  public setSlider(
     parent: BaseComponent,
     title: string,
     className: keyof IDataType,

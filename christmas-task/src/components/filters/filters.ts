@@ -41,7 +41,7 @@ export class Filters extends BaseComponent {
     this.render();
   }
 
-  render(): void {
+  private render(): void {
     this.makeFilters();
     const favoriteFilterContainer = new BaseComponent(
       'div',
@@ -64,7 +64,7 @@ export class Filters extends BaseComponent {
     );
   }
 
-  makeFilters(): void {
+  private makeFilters(): void {
     for (const key in dataStructure) {
       const prop = <keyof IDataStructure>key;
       dataStructure[prop].forEach((el) => {

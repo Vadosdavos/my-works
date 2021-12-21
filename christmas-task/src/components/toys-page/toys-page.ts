@@ -45,7 +45,7 @@ export class ToysPage extends BaseComponent {
     this.render();
   }
 
-  render(): void {
+  private render(): void {
     this.controlsContainer.element.append(
       this.filters.element,
       this.ranges.element,
@@ -192,7 +192,7 @@ export class ToysPage extends BaseComponent {
     });
   }
 
-  renderCards(cards: IDataType[]): HTMLElement[] {
+  private renderCards(cards: IDataType[]): HTMLElement[] {
     this.setLocalStorage();
     if (cards.length === 0) return [this.noresultInfo.element];
     return cards.map((el) => {
@@ -204,7 +204,7 @@ export class ToysPage extends BaseComponent {
     });
   }
 
-  setBookmarks(event: Event): void {
+  private setBookmarks(event: Event): void {
     const target = event.target as HTMLDivElement;
     if (target.className.includes('toy-card')) {
       if (target.dataset.num) {
@@ -232,7 +232,7 @@ export class ToysPage extends BaseComponent {
     this.setLocalStorage();
   }
 
-  showBooksmarksPopup(parent: HTMLDivElement): void {
+  private showBooksmarksPopup(parent: HTMLDivElement): void {
     const showTime = 2000;
     const removeTime = 2500;
     const popup = new BaseComponent(
@@ -258,7 +258,7 @@ export class ToysPage extends BaseComponent {
     }, removeTime);
   }
 
-  resultFIlter(filteredData: IDataType[], settings: ISettings): IDataType[] {
+  private resultFIlter(filteredData: IDataType[], settings: ISettings): IDataType[] {
     let resultArr: IDataType[] = [];
 
     resultArr = this.rangeFilter(
@@ -287,7 +287,7 @@ export class ToysPage extends BaseComponent {
     return this.sort.doSort(filtersSettings.sortType, resultArr);
   }
 
-  rangeFilter(
+  private rangeFilter(
     filteredData: IDataType[],
     type: keyof IDataType,
     left: number,
@@ -296,7 +296,7 @@ export class ToysPage extends BaseComponent {
     return filteredData.filter((el) => +el[type] >= left && +el[type] <= right);
   }
 
-  purposeFilter(
+  private purposeFilter(
     filteredData: IDataType[],
     type: keyof IDataType,
     value: string[] | boolean,
@@ -310,7 +310,7 @@ export class ToysPage extends BaseComponent {
     }
   }
 
-  resetFilters(
+  private resetFilters(
     amoutTarget: noUiSlider.target,
     yearTarget: noUiSlider.target,
   ): void {
@@ -341,13 +341,13 @@ export class ToysPage extends BaseComponent {
     );
   }
 
-  setLocalStorage(): void {
+  private setLocalStorage(): void {
     localStorage.setItem('settings', JSON.stringify(filtersSettings));
     localStorage.setItem('bookmarks', JSON.stringify(bookmarksToys));
     localStorage.setItem('bookmarksLength', JSON.stringify(bookmarksLength));
   }
 
-  removeActive(target: HTMLCollection[]): void {
+  private removeActive(target: HTMLCollection[]): void {
     target.forEach((el) => {
       Array.from(el).forEach((arrEl) =>
         arrEl.classList.remove('shape-size-active', 'color-active'),

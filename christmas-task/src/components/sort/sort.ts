@@ -36,7 +36,7 @@ export class Sort extends BaseComponent {
     this.render();
   }
 
-  render(): void {
+  private render(): void {
     this.renderSearch();
     this.renderSort();
     this.clearSettingsButton.element.addEventListener('click', () => {
@@ -52,7 +52,7 @@ export class Sort extends BaseComponent {
     );
   }
 
-  renderSearch(): void {
+  private renderSearch(): void {
     this.searchInput.element.setAttribute(
       'placeholder',
       'Введите название игрушки',
@@ -65,14 +65,14 @@ export class Sort extends BaseComponent {
     );
   }
 
-  renderSort(): void {
+  private renderSort(): void {
     this.sortInput.element.innerHTML = `<option selected value="name-increase">По названию от «А» до «Я»</option>
     <option value="name-decrease">По названию от «Я» до «А»</option>
     <option value="year-increase">По году по возрастанию</option>
     <option value="year-decrease">По году по убыванию</option>`;
   }
 
-  doSort(value: string, curToysData: IDataType[]): IDataType[] {
+  public doSort(value: string, curToysData: IDataType[]): IDataType[] {
     switch (value) {
       case 'name-increase':
         return curToysData.sort(this.increaseSort('name'));
@@ -86,23 +86,23 @@ export class Sort extends BaseComponent {
     return curToysData;
   }
 
-  increaseSort(field: keyof IDataType): SortCallback {
+  private increaseSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? 1 : -1);
   }
 
-  decreaseSort(field: keyof IDataType): SortCallback {
+  private decreaseSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => (a[field] > b[field] ? -1 : 1);
   }
 
-  increaseNumSort(field: keyof IDataType): SortCallback {
+  private increaseNumSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => +a[field] - +b[field];
   }
 
-  decreaseNumSort(field: keyof IDataType): SortCallback {
+  private decreaseNumSort(field: keyof IDataType): SortCallback {
     return (a: IDataType, b: IDataType) => +b[field] - +a[field];
   }
 
-  doSearch(value: string, curToysData: IDataType[]): IDataType[] {
+  public doSearch(value: string, curToysData: IDataType[]): IDataType[] {
     const reg = new RegExp(value, 'i');
     return curToysData.filter((el) => reg.test(el.name));
   }

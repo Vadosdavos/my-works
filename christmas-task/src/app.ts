@@ -33,12 +33,12 @@ export class App {
     this.openToysPage(); // Убрать потом
   }
 
-  clearPage(): void {
+  private clearPage(): void {
     this.mainPage.element.innerHTML = '';
     this.header.toysButton.element.classList.remove('active');
   }
 
-  openToysPage(): void {
+  private openToysPage(): void {
     this.mainPage.element.append(this.toysPage.element);
     this.header.toysButton.element.classList.add('active');
   }
