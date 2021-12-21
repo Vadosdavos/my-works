@@ -5,7 +5,7 @@ import './tree-page.scss';
 export class TreePage extends BaseComponent {
   treeSettings = new Settings();
 
-  treeContainer = new BaseComponent('div', ['tree-container'], 'tree');
+  treeContainer = new BaseComponent('div', ['tree-container']);
 
   bookmarksContainer = new BaseComponent(
     'div',
@@ -16,20 +16,27 @@ export class TreePage extends BaseComponent {
   constructor() {
     super('div', ['tree-page']);
     this.render();
-    Array.from(this.treeSettings.treeTypeContainer.element.children).forEach(
-      (el) => {
-        el.addEventListener('click', () => {
-          console.log(el.getAttribute('style'));
-        });
-      },
-    );
   }
 
-  public render(): void {
+  private render(): void {
     this.element.append(
       this.treeSettings.element,
       this.treeContainer.element,
       this.bookmarksContainer.element,
+    );
+    this.choseBackground();
+  }
+
+  private choseBackground(): void {
+    Array.from(this.treeSettings.bgTypeContainer.element.children).forEach(
+      (el) => {
+        el.addEventListener('click', () => {
+          this.treeContainer.element.setAttribute(
+            'style',
+            el.getAttribute('style') as string,
+          );
+        });
+      },
     );
   }
 }

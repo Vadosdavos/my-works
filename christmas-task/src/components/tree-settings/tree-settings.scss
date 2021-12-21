@@ -1,6 +1,5 @@
-.tree-settings,
-.tree-container {
-  width: calc(85vw / 3);
+.tree-settings {
+  width: calc(85vw / 4);
   min-height: calc(100vh - 140px);
 }
 .tree-settings {
@@ -8,12 +7,14 @@
   flex-direction: column;
   width: calc(85vw / 3);
 }
-.tree-type-container {
+.tree-type-container,
+.background-type-container {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
 }
-.tree-type {
+.tree-type,
+.bg-type {
   width: 70px;
   height: 70px;
   background-position: center;
@@ -21,4 +22,10 @@
   background-repeat: no-repeat;
   background-color: rgba(175, 224, 220, 0.342);
   border-radius: 10%;
+}
+.tree-container {
+  background-image: url(../../assets/bg/1.jpg);
+  background-color: rgba(0, 0, 0, 0.3);
+  background-position: center;
+  background-size: cover;
 }

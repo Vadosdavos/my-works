@@ -1,6 +1,14 @@
 .tree-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   max-width: 1600px;
   width: 85vw;
+}
+.tree-container {
+  width: calc(85vw / 2);
+  min-height: calc(100vh - 140px);
+}
+.bookmarks-container {
+  width: calc(85vw / 4);
+  min-height: calc(100vh - 140px);
 }

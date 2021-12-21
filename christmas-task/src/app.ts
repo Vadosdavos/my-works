@@ -37,6 +37,7 @@ export class App {
       this.clearPage();
       this.openToysPage();
     });
+    this.openTreePage();
   }
 
   private clearPage(): void {
