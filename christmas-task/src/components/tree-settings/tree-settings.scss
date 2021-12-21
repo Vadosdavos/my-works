@@ -1,0 +1,24 @@
+.tree-settings,
+.tree-container {
+  width: calc(85vw / 3);
+  min-height: calc(100vh - 140px);
+}
+.tree-settings {
+  display: flex;
+  flex-direction: column;
+  width: calc(85vw / 3);
+}
+.tree-type-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.tree-type {
+  width: 70px;
+  height: 70px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: rgba(175, 224, 220, 0.342);
+  border-radius: 10%;
+}
