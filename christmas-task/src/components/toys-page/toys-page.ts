@@ -56,85 +56,12 @@ export class ToysPage extends BaseComponent {
       this.controlsContainer.element,
       this.toysContainer.element,
     );
-    this.sort.sortInput.element.addEventListener('change', (event) => {
-      const target = event.target as HTMLSelectElement;
-      filtersSettings.sortType = target.value;
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(
-        ...this.renderCards(this.sort.doSort(target.value, this.curToysData)),
-      );
-    });
-
-    this.filters.shapeFilter.element.addEventListener('click', (event) => {
-      const target = event.target as HTMLButtonElement;
-      target.classList.toggle('shape-size-active');
-      const shapeValue = target.dataset.filter;
-      if (shapeValue) {
-        if (filtersSettings.shape.includes(shapeValue)) {
-          filtersSettings.shape = filtersSettings.shape.filter(
-            (el) => el !== shapeValue,
-          );
-        } else {
-          filtersSettings.shape.push(shapeValue);
-        }
-      }
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
-      );
-    });
-
-    this.filters.colorFilter.element.addEventListener('click', (event) => {
-      const target = event.target as HTMLButtonElement;
-      target.classList.toggle('color-active');
-      const colorValue = target.dataset.filter;
-      if (colorValue) {
-        if (filtersSettings.color.includes(colorValue)) {
-          filtersSettings.color = filtersSettings.color.filter(
-            (el) => el !== colorValue,
-          );
-        } else {
-          filtersSettings.color.push(colorValue);
-        }
-      }
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
-      );
-    });
-
-    this.filters.sizeFilter.element.addEventListener('click', (event) => {
-      const target = event.target as HTMLButtonElement;
-      target.classList.toggle('shape-size-active');
-      const sizeValue = target.dataset.filter;
-      if (sizeValue) {
-        if (filtersSettings.size.includes(sizeValue)) {
-          filtersSettings.size = filtersSettings.size.filter(
-            (el) => el !== sizeValue,
-          );
-        } else {
-          filtersSettings.size.push(sizeValue);
-        }
-      }
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
-      );
-    });
-
-    this.filters.favoriteFilter.element.addEventListener('input', (event) => {
-      const target = event.target as HTMLInputElement;
-      const favValue = target.checked;
-      if (favValue) {
-        filtersSettings.favorite = true;
-      } else {
-        filtersSettings.favorite = false;
-      }
-      this.toysContainer.element.innerHTML = '';
-      this.toysContainer.element.append(
-        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
-      );
-    });
+    this.setSortListener();
+    this.setShapeListener();
+    this.setColorListener();
+    this.setSizeListener();
+    this.setFavoriteListener();
+    this.setSearchListener();
 
     const amountFilterTarget = this.ranges.setSlider(
       this.ranges.amount,
@@ -174,7 +101,99 @@ export class ToysPage extends BaseComponent {
     this.sort.resetButton.element.addEventListener('click', () => {
       this.resetFilters(amountFilterTarget, yearFilterTarget);
     });
+  }
 
+  private setSortListener(): void {
+    this.sort.sortInput.element.addEventListener('change', (event) => {
+      const target = event.target as HTMLSelectElement;
+      filtersSettings.sortType = target.value;
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.sort.doSort(target.value, this.curToysData)),
+      );
+    });
+  }
+
+  private setShapeListener(): void {
+    this.filters.shapeFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('shape-size-active');
+      const shapeValue = target.dataset.filter;
+      if (shapeValue) {
+        if (filtersSettings.shape.includes(shapeValue)) {
+          filtersSettings.shape = filtersSettings.shape.filter(
+            (el) => el !== shapeValue,
+          );
+        } else {
+          filtersSettings.shape.push(shapeValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+      );
+    });
+  }
+
+  private setColorListener(): void {
+    this.filters.colorFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('color-active');
+      const colorValue = target.dataset.filter;
+      if (colorValue) {
+        if (filtersSettings.color.includes(colorValue)) {
+          filtersSettings.color = filtersSettings.color.filter(
+            (el) => el !== colorValue,
+          );
+        } else {
+          filtersSettings.color.push(colorValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+      );
+    });
+  }
+
+  private setSizeListener(): void {
+    this.filters.sizeFilter.element.addEventListener('click', (event) => {
+      const target = event.target as HTMLButtonElement;
+      target.classList.toggle('shape-size-active');
+      const sizeValue = target.dataset.filter;
+      if (sizeValue) {
+        if (filtersSettings.size.includes(sizeValue)) {
+          filtersSettings.size = filtersSettings.size.filter(
+            (el) => el !== sizeValue,
+          );
+        } else {
+          filtersSettings.size.push(sizeValue);
+        }
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+      );
+    });
+  }
+
+  private setFavoriteListener(): void {
+    this.filters.favoriteFilter.element.addEventListener('input', (event) => {
+      const target = event.target as HTMLInputElement;
+      const favValue = target.checked;
+      if (favValue) {
+        filtersSettings.favorite = true;
+      } else {
+        filtersSettings.favorite = false;
+      }
+      this.toysContainer.element.innerHTML = '';
+      this.toysContainer.element.append(
+        ...this.renderCards(this.resultFIlter(this.toysData, filtersSettings)),
+      );
+    });
+  }
+
+  private setSearchListener(): void {
     this.sort.searchInput.element.addEventListener('input', (event) => {
       const target = event.target as HTMLInputElement;
       const value = target.value;
