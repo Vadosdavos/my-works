@@ -28,9 +28,35 @@ export class ToyCard extends BaseComponent {
         <p class="color">Цвет:<span> ${this.data.color}</span></p>
         <p class="size">Размер:<span> ${this.data.size}</span></p>
         <p class="favorite">Любимая:<span> ${
-  this.favoritesTranscript[this.data.favorite.toString()]
-}</span></p>
+          this.favoritesTranscript[this.data.favorite.toString()]
+        }</span></p>
       </div>
       <div class="ribbon"></div>`;
+  }
+
+  public showBooksmarksPopup(parent: HTMLElement): void {
+    const showTime = 2000;
+    const removeTime = 2500;
+    const popup = new BaseComponent(
+      'div',
+      ['book-popup'],
+      'Извините, все слоты в избранном заполнены!',
+    );
+    popup.element.style.display = 'block';
+    setTimeout(() => {
+      popup.element.style.opacity = '1';
+    }, 0);
+    popup.element.style.left =
+      parent.clientLeft - popup.element.offsetWidth + 'px';
+    popup.element.style.top = parent.clientTop + 'px';
+    parent.style.pointerEvents = 'none';
+    parent.append(popup.element);
+    setTimeout(() => {
+      popup.element.style.opacity = '0';
+      parent.style.pointerEvents = 'auto';
+    }, showTime);
+    setTimeout(() => {
+      popup.element.remove();
+    }, removeTime);
   }
 }

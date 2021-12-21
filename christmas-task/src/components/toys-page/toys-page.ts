@@ -52,9 +52,6 @@ export class ToysPage extends BaseComponent {
       this.sort.element,
     );
     this.toysContainer.element.append(...this.renderCards(this.toysData));
-    this.toysContainer.element.addEventListener('click', (event) => {
-      this.setBookmarks(event);
-    });
     this.element.append(
       this.controlsContainer.element,
       this.toysContainer.element,
@@ -200,65 +197,43 @@ export class ToysPage extends BaseComponent {
       if (bookmarksToys.includes(+el.num)) {
         toyCard.element.classList.add('marked');
       }
+      toyCard.element.addEventListener('click', () => {
+        this.setBookmarks(toyCard);
+        this.drawBooksNum();
+        this.setLocalStorage();
+      });
       return toyCard.element;
     });
   }
 
-  private setBookmarks(event: Event): void {
-    const target = event.target as HTMLDivElement;
-    if (target.className.includes('toy-card')) {
-      if (target.dataset.num) {
-        const toyNum = +target.dataset.num;
-        if (bookmarksToys.length < 20) {
-          target.classList.toggle('marked');
-          if (!bookmarksToys.includes(toyNum)) {
-            bookmarksToys.push(+target.dataset.num);
-          } else {
-            bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
-          }
-        } else {
-          if (target.classList.contains('marked')) {
-            bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
-            target.classList.remove('marked');
-          } else {
-            this.showBooksmarksPopup(target);
-          }
-        }
+  private drawBooksNum(): void {
+    this.sort.bookmarksIndicator.element.textContent =
+      bookmarksToys.length.toString();
+    bookmarksLength = bookmarksToys.length;
+  }
+
+  public setBookmarks(card: ToyCard): void {
+    const target = card;
+    const toyNum = +(target.element.dataset.num as string);
+    if (bookmarksToys.length < 20) {
+      target.element.classList.toggle('marked');
+      !bookmarksToys.includes(toyNum)
+        ? bookmarksToys.push(toyNum)
+        : (bookmarksToys = bookmarksToys.filter((el) => el !== toyNum));
+    } else {
+      if (target.element.classList.contains('marked')) {
+        bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
+        target.element.classList.remove('marked');
+      } else {
+        target.showBooksmarksPopup(target.element);
       }
-      this.sort.bookmarksIndicator.element.textContent =
-        bookmarksToys.length.toString();
-      bookmarksLength = bookmarksToys.length;
     }
-    this.setLocalStorage();
   }
 
-  private showBooksmarksPopup(parent: HTMLDivElement): void {
-    const showTime = 2000;
-    const removeTime = 2500;
-    const popup = new BaseComponent(
-      'div',
-      ['book-popup'],
-      'Извините, все слоты в избранном заполнены!',
-    );
-    popup.element.style.display = 'block';
-    setTimeout(() => {
-      popup.element.style.opacity = '1';
-    }, 0);
-    popup.element.style.left =
-      parent.clientLeft - popup.element.offsetWidth + 'px';
-    popup.element.style.top = parent.clientTop + 'px';
-    parent.style.pointerEvents = 'none';
-    parent.append(popup.element);
-    setTimeout(() => {
-      popup.element.style.opacity = '0';
-      parent.style.pointerEvents = 'auto';
-    }, showTime);
-    setTimeout(() => {
-      popup.element.remove();
-    }, removeTime);
-  }
-
-  private resultFIlter(filteredData: IDataType[], settings: ISettings): IDataType[] {
+  private resultFIlter(
+    filteredData: IDataType[],
+    settings: ISettings,
+  ): IDataType[] {
     let resultArr: IDataType[] = [];
 
     resultArr = this.rangeFilter(
@@ -373,44 +348,3 @@ function getLocalStorage(): void {
 window.addEventListener('load', () => {
   getLocalStorage();
 });
-
-// renderCards(cards: IDataType[]) {
-//   this.setLocalStorage();
-//   if (cards.length === 0) return [this.noresultInfo.element];
-//   return cards.map((el) => {
-//     const toyCard = new ToyCard(el);
-//     if (bookmarksToys.includes(+el.num)) {
-//       toyCard.element.classList.add('marked');
-//     }
-//     toyCard.element.addEventListener(
-//       'click',
-//       this.setBookmarks.bind(toyCard)
-//     );
-//     return toyCard.element;
-//   });
-// }
-
-// setBookmarks() {
-//   const target = this.element;
-//   const toyNum = +(target.dataset.num as string);
-//   if (bookmarksToys.length < 20) {
-//     target.classList.toggle('marked');
-//     if (!bookmarksToys.includes(toyNum)) {
-//       bookmarksToys.push(toyNum);
-//     } else {
-//       bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
-//     }
-//   } else {
-//     if (target.classList.contains('marked')) {
-//       bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
-//       target.classList.remove('marked');
-//     } else {
-//       this.showBooksmarksPopup(target);
-//     }
-//   }
-//   this.sort.bookmarksIndicator.element.textContent =
-//     bookmarksToys.length.toString();
-//   bookmarksLength = bookmarksToys.length;
-
-//   this.setLocalStorage();
-// }
