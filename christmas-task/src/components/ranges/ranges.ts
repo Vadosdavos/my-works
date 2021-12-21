@@ -5,6 +5,9 @@ import 'nouislider/dist/nouislider.css';
 import { IDataType } from '../../data';
 
 const MIN_YEAR = 1940;
+const MAX_YEAR = 2020;
+const MIN_AMOUNT = 1;
+const MAX_AMOUNT = 12;
 
 export class Ranges extends BaseComponent {
   title = new BaseComponent('h3', ['filters-title'], 'Фильтры по диапазону');
@@ -47,8 +50,8 @@ export class Ranges extends BaseComponent {
       `${end}`,
     );
     const slider: noUiSlider.target = document.createElement('div');
-    const minValue = start < MIN_YEAR ? 1 : 1940;
-    const maxValue = start < MIN_YEAR ? 12 : 2020;
+    const minValue = start < MIN_YEAR ? MIN_AMOUNT : MIN_YEAR;
+    const maxValue = start < MIN_YEAR ? MAX_AMOUNT : MAX_YEAR;
     slider.classList.add(`${className}-slider`);
     noUiSlider.create(slider, {
       start: [start, end],

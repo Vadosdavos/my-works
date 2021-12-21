@@ -233,6 +233,8 @@ export class ToysPage extends BaseComponent {
   }
 
   showBooksmarksPopup(parent: HTMLDivElement): void {
+    const showTime = 2000;
+    const removeTime = 2500;
     const popup = new BaseComponent(
       'div',
       ['book-popup'],
@@ -250,10 +252,10 @@ export class ToysPage extends BaseComponent {
     setTimeout(() => {
       popup.element.style.opacity = '0';
       parent.style.pointerEvents = 'auto';
-    }, 2000);
+    }, showTime);
     setTimeout(() => {
       popup.element.remove();
-    }, 2500);
+    }, removeTime);
   }
 
   resultFIlter(filteredData: IDataType[], settings: ISettings): IDataType[] {
