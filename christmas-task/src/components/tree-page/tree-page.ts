@@ -16,7 +16,7 @@ export class TreePage extends BaseComponent {
 
   treeMap = new BaseComponent('map');
 
-  treeMapArea = new BaseComponent('area');
+  treeMapArea = new BaseComponent('area', ['droppable']);
 
   constructor() {
     super('div', ['tree-page']);
@@ -61,8 +61,8 @@ export class TreePage extends BaseComponent {
       }
       card.element.append(cardImg.element, cardAmount.element);
       this.bookmarksContainer.element.append(card.element);
-      cardImg.element.addEventListener('mousedown', () => {
-        console.log('sss');
+      cardImg.element.addEventListener('mousedown', (event) => {
+        this.dragDrop(event);
       });
     });
   }
@@ -84,5 +84,44 @@ export class TreePage extends BaseComponent {
     );
   }
 
-  private dragDrop(): void {}
+  private dragDrop(event: MouseEvent): void {
+    const target = <HTMLImageElement>event.target;
+    let shiftX = event.clientX - target.getBoundingClientRect().left;
+    let shiftY = event.clientY - target.getBoundingClientRect().top;
+    target.style.position = 'absolute';
+    target.style.zIndex = '1000';
+    document.body.append(target);
+    function moveAt(pageX: number, pageY: number): void {
+      target.style.left = pageX - shiftX + 'px';
+      target.style.top = pageY - shiftY + 'px';
+    }
+    moveAt(event.pageX, event.pageY);
+    let currentDroppable: Element | null = null;
+    function onMouseMove(event: MouseEvent): void {
+      moveAt(event.pageX, event.pageY);
+      target.hidden = true;
+      let elemBelow = document.elementFromPoint(event.clientX, event.clientY); // не работает
+      target.hidden = false;
+      console.log(elemBelow);
+      if (!elemBelow) return;
+      let droppableBelow = elemBelow.closest('.droppable');
+      if (currentDroppable != droppableBelow) {
+        if (currentDroppable) {
+          console.log('out');
+        }
+        currentDroppable = droppableBelow as HTMLElement;
+        if (currentDroppable) {
+          console.log('drop');
+        }
+      }
+    }
+    document.addEventListener('mousemove', onMouseMove);
+    target.onmouseup = function (): void {
+      document.removeEventListener('mousemove', onMouseMove);
+      target.onmouseup = null;
+    };
+    target.ondragstart = function (): boolean {
+      return false;
+    };
+  }
 }
