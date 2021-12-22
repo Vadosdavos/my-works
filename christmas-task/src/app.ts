@@ -52,6 +52,7 @@ export class App {
   }
 
   private openTreePage(): void {
+    this.treePage.render();
     this.mainPage.element.append(this.treePage.element);
     this.header.treeButton.element.classList.add('active');
   }
