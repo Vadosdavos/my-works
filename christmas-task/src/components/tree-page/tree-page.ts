@@ -12,12 +12,19 @@ export class TreePage extends BaseComponent {
 
   bookmarksContainer = new BaseComponent('div', ['bookmarks-container']);
 
+  treeImg = new BaseComponent('img', ['main-tree']);
+
+  treeMap = new BaseComponent('map');
+
+  treeMapArea = new BaseComponent('area');
+
   constructor() {
     super('div', ['tree-page']);
     // this.render();
   }
 
   public render(): void {
+    this.renderTree();
     this.element.append(
       this.treeSettings.element,
       this.treeContainer.element,
@@ -54,6 +61,28 @@ export class TreePage extends BaseComponent {
       }
       card.element.append(cardImg.element, cardAmount.element);
       this.bookmarksContainer.element.append(card.element);
+      cardImg.element.addEventListener('mousedown', () => {
+        console.log('sss');
+      });
     });
   }
+
+  private renderTree(): void {
+    this.treeImg.element.setAttribute('src', 'url(../../assets/tree/1.png');
+    this.treeImg.element.setAttribute('usemap', '#tree-map');
+    this.treeImg.element.setAttribute('alt', 'Christmas tree');
+    this.treeMap.element.setAttribute('name', 'tree-map');
+    this.treeMapArea.element.setAttribute('shape', 'poly');
+    this.treeMapArea.element.setAttribute(
+      'coords',
+      '241,7,269,8,285,44,316,85,310,119,340,142,368,154,360,223,394,219,410,242,382,271,406,288,398,312,386,341,433,353,440,374,412,410,422,441,463,452,461,479,433,515,454,530,497,539,496,581,453,671,427,682,383,669,382,702,367,707,182,713,166,673,142,704,105,693,3,571,6,540,84,519,14,466,29,426,105,427,108,392,71,370,83,338,110,331,118,252,102,213,162,210,173,169,154,136,198,119,184,83',
+    );
+    this.treeMap.element.append(this.treeMapArea.element);
+    this.treeContainer.element.append(
+      this.treeMap.element,
+      this.treeImg.element,
+    );
+  }
+
+  private dragDrop(): void {}
 }

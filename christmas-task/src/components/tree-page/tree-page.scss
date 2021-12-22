@@ -7,6 +7,18 @@
 .tree-container {
   width: calc(85vw / 2);
   min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-image: url(../../assets/bg/1.jpg);
+  background-color: rgba(0, 0, 0, 0.3);
+  background-position: center;
+  background-size: cover;
+}
+.main-tree {
+  display: block;
+  width: 500px;
+  height: 714px;
 }
 .bookmarks-container {
   width: calc(85vw / 4);
