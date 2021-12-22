@@ -1,6 +1,6 @@
 import { BaseComponent } from '../base-componet';
 import { Settings } from '../tree-settings/tree-settings';
-import data, { IDataType } from '../../data';
+import data from '../../data';
 import './tree-page.scss';
 
 export class TreePage extends BaseComponent {

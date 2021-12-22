@@ -236,9 +236,11 @@ export class ToysPage extends BaseComponent {
     const toyNum = +(target.element.dataset.num as string);
     if (bookmarksToys.length < 20) {
       target.element.classList.toggle('marked');
-      !bookmarksToys.includes(toyNum)
-        ? bookmarksToys.push(toyNum)
-        : (bookmarksToys = bookmarksToys.filter((el) => el !== toyNum));
+      if (!bookmarksToys.includes(toyNum)) {
+        bookmarksToys.push(toyNum);
+      } else {
+        bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
+      }
     } else {
       if (target.element.classList.contains('marked')) {
         bookmarksToys = bookmarksToys.filter((el) => el !== toyNum);
