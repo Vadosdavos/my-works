@@ -1,0 +1,47 @@
+.tree-page {
+  display: flex;
+  justify-content: center;
+  max-width: 1600px;
+  width: 85vw;
+}
+.tree-container {
+  width: calc(85vw / 2);
+  min-height: calc(100vh - 140px);
+}
+.bookmarks-container {
+  width: calc(85vw / 4);
+  min-height: calc(100vh - 140px);
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 10px;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+.booked-toy-card {
+  width: 87px;
+  height: 87px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(175, 224, 220, 0.3);
+  border-radius: 10%;
+  position: relative;
+}
+.toy-image {
+  display: block;
+  width: 65px;
+  height: 65px;
+}
+.toy-amount {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 12px;
+  background-color: rgb(0, 107, 207);
+}

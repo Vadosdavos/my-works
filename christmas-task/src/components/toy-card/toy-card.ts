@@ -15,9 +15,6 @@ export class ToyCard extends BaseComponent {
     super('div', ['toy-card'], 'toy-card');
     this.data = data;
     this.element.setAttribute('data-num', this.data.num);
-
-    // КАК ЛУЧШЕ ДОБАВИТЬ КАРТИКИ В КАРТОЧКИ ??
-
     this.element.innerHTML = `
       <h2 class="card-title">${this.data.name}</h2>
       <img class="card-img" src="${this.data.num}.png" alt="toy">
@@ -28,8 +25,8 @@ export class ToyCard extends BaseComponent {
         <p class="color">Цвет:<span> ${this.data.color}</span></p>
         <p class="size">Размер:<span> ${this.data.size}</span></p>
         <p class="favorite">Любимая:<span> ${
-          this.favoritesTranscript[this.data.favorite.toString()]
-        }</span></p>
+  this.favoritesTranscript[this.data.favorite.toString()]
+}</span></p>
       </div>
       <div class="ribbon"></div>`;
   }

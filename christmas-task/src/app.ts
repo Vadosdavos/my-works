@@ -2,6 +2,7 @@ import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { MainPage } from './components/main-page/main-page';
 import { ToysPage } from './components/toys-page/toys-page';
+import { TreePage } from './components/tree-page/tree-page';
 
 export class App {
   header = new Header();
@@ -11,6 +12,8 @@ export class App {
   footer = new Footer();
 
   toysPage = new ToysPage();
+
+  treePage = new TreePage();
 
   constructor(private readonly rootElement: HTMLElement) {
     this.rootElement.append(
@@ -26,20 +29,31 @@ export class App {
       this.clearPage();
       this.mainPage.render();
     });
+    this.header.treeButton.element.addEventListener('click', () => {
+      this.clearPage();
+      this.openTreePage();
+    });
     this.mainPage.startButton.element.addEventListener('click', () => {
       this.clearPage();
       this.openToysPage();
     });
-    this.openToysPage(); // Убрать потом
+    this.openTreePage();
   }
 
   private clearPage(): void {
     this.mainPage.element.innerHTML = '';
     this.header.toysButton.element.classList.remove('active');
+    this.header.treeButton.element.classList.remove('active');
   }
 
   private openToysPage(): void {
     this.mainPage.element.append(this.toysPage.element);
     this.header.toysButton.element.classList.add('active');
+  }
+
+  private openTreePage(): void {
+    this.treePage.render();
+    this.mainPage.element.append(this.treePage.element);
+    this.header.treeButton.element.classList.add('active');
   }
 }
