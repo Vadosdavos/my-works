@@ -58,13 +58,15 @@ export class TreePage extends BaseComponent {
       const cardImg = new BaseComponent('img', ['toy-image']);
       const cardAmount = new BaseComponent('div', ['toy-amount']);
       cardImg.element.setAttribute('src', `${el}.png`);
+      cardImg.element.id = el.toString();
+      cardImg.element.draggable = true;
       if (this.toyData[el - 1]) {
         cardAmount.element.textContent = `${this.toyData[el - 1].count}`;
       }
       card.element.append(cardImg.element, cardAmount.element);
       this.bookmarksContainer.element.append(card.element);
-      cardImg.element.addEventListener('mousedown', (event) => {
-        this.dragDrop(event);
+      cardImg.element.addEventListener('dragstart', (event) => {
+        this.dragDrop(event, this.treeMapArea.element);
       });
     });
   }
@@ -86,44 +88,82 @@ export class TreePage extends BaseComponent {
     );
   }
 
-  private dragDrop(event: MouseEvent): void {
+  // private dragDrop(event: MouseEvent): void {
+  //   const target = <HTMLImageElement>event.target;
+  //   const startX = target.getBoundingClientRect().left;
+  //   const startY = target.getBoundingClientRect().top;
+  //   let shiftX = event.clientX - target.getBoundingClientRect().left;
+  //   let shiftY = event.clientY - target.getBoundingClientRect().top;
+  //   target.style.position = 'absolute';
+  //   target.style.zIndex = '1000';
+  //   document.body.append(target);
+  //   function moveAt(pageX: number, pageY: number): void {
+  //     target.style.left = pageX - shiftX + 'px';
+  //     target.style.top = pageY - shiftY + 'px';
+  //   }
+  //   moveAt(event.pageX, event.pageY);
+  //   let currentDroppable: Element | null = null;
+  //   function onMouseMove(event: MouseEvent): void {
+  //     moveAt(event.pageX, event.pageY);
+  //     target.style.visibility = 'hidden';
+  //     let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+  //     target.style.visibility = 'visible';
+
+  //     if (!elemBelow) return;
+  //     let droppableBelow = elemBelow.closest('.droppable');
+  //     if (currentDroppable != droppableBelow) {
+  //       if (currentDroppable) {
+  //         console.log('out');
+  //       }
+  //       currentDroppable = droppableBelow as HTMLElement;
+  //       if (currentDroppable) {
+  //         console.log('drop');
+  //       }
+  //     }
+  //   }
+  //   document.addEventListener('mousemove', onMouseMove);
+  //   target.onmouseup = function (): void {
+  //     if (currentDroppable) {
+  //       document.removeEventListener('mousemove', onMouseMove);
+  //       target.onmouseup = null;
+  //     } else {
+  //       target.style.left = startX + 'px';
+  //       target.style.top = startY + 'px';
+  //       document.removeEventListener('mousemove', onMouseMove);
+  //       target.onmouseup = null;
+  //     }
+  //   };
+  //   target.ondragstart = function (): boolean {
+  //     return false;
+  //   };
+  // }
+
+  private dragDrop(event: DragEvent, dropZone: HTMLElement): void {
     const target = <HTMLImageElement>event.target;
+    target.style.position = 'absolute';
+    event.dataTransfer?.setData('id', target.id);
     let shiftX = event.clientX - target.getBoundingClientRect().left;
     let shiftY = event.clientY - target.getBoundingClientRect().top;
-    target.style.position = 'absolute';
-    target.style.zIndex = '1000';
-    document.body.append(target);
-    function moveAt(pageX: number, pageY: number): void {
-      target.style.left = pageX - shiftX + 'px';
-      target.style.top = pageY - shiftY + 'px';
-    }
-    moveAt(event.pageX, event.pageY);
-    let currentDroppable: Element | null = null;
-    function onMouseMove(event: MouseEvent): void {
-      moveAt(event.pageX, event.pageY);
-      target.hidden = true;
-      let elemBelow = document.elementFromPoint(event.clientX, event.clientY); // не работает
-      target.hidden = false;
-      console.log(elemBelow);
-      if (!elemBelow) return;
-      let droppableBelow = elemBelow.closest('.droppable');
-      if (currentDroppable != droppableBelow) {
-        if (currentDroppable) {
-          console.log('out');
-        }
-        currentDroppable = droppableBelow as HTMLElement;
-        if (currentDroppable) {
-          console.log('drop');
-        }
+
+    function handleOverDrop(event: DragEvent): void {
+      event.preventDefault();
+      if (event.type !== 'drop') {
+        return;
       }
+      console.log(event.pageX, event.pageY);
+      let draggedId = <string>event.dataTransfer?.getData('id');
+      let draggedEl = target;
+      // if (draggedEl?.parentNode == dropZone) {
+      //   console.log('zone');
+      //   return;
+      // }
+
+      draggedEl?.parentNode?.removeChild(draggedEl);
+      draggedEl.style.left = event.pageX - shiftX + 'px';
+      draggedEl.style.top = event.pageY - shiftY + 'px';
+      dropZone.appendChild(draggedEl);
     }
-    document.addEventListener('mousemove', onMouseMove);
-    target.onmouseup = function (): void {
-      document.removeEventListener('mousemove', onMouseMove);
-      target.onmouseup = null;
-    };
-    target.ondragstart = function (): boolean {
-      return false;
-    };
+    dropZone.addEventListener('dragover', handleOverDrop);
+    dropZone.addEventListener('drop', handleOverDrop);
   }
 }
