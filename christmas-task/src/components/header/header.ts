@@ -2,13 +2,13 @@ import './header.scss';
 import { BaseComponent } from '../base-componet';
 
 export class Header extends BaseComponent {
-  logo = new BaseComponent('span', ['logo']);
+  public logo = new BaseComponent('span', ['logo']);
 
-  toysButton = new BaseComponent('span', ['toys-button'], 'Игрушки');
+  public toysButton = new BaseComponent('span', ['toys-button'], 'Игрушки');
 
-  treeButton = new BaseComponent('span', ['tree-button'], 'Ёлка');
+  public treeButton = new BaseComponent('span', ['tree-button'], 'Ёлка');
 
-  headerNav = new BaseComponent('nav', ['header-nav']);
+  private headerNav = new BaseComponent('nav', ['header-nav']);
 
   constructor() {
     super('header', ['main-header']);

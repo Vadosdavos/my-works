@@ -5,25 +5,33 @@ import './sort.scss';
 
 type SortCallback = (a: IDataType, b: IDataType) => number;
 export class Sort extends BaseComponent {
-  title = new BaseComponent('h3', ['filters-title'], 'Сортировка и поиск');
+  private title = new BaseComponent(
+    'h3',
+    ['filters-title'],
+    'Сортировка и поиск',
+  );
 
-  searchContainer = new BaseComponent('div', ['search-container']);
+  private searchContainer = new BaseComponent('div', ['search-container']);
 
-  searchInput = new InputComponent(InputTypes.search, ['search-field']);
+  public searchInput = new InputComponent(InputTypes.search, ['search-field']);
 
-  bookmarksIndicator: BaseComponent;
+  public bookmarksIndicator: BaseComponent;
 
-  sortInput = new BaseComponent('select', ['select-filed']);
+  public sortInput = new BaseComponent('select', ['select-filed']);
 
-  resetButton = new BaseComponent('button', ['reset'], 'Сброс фильтров');
+  public resetButton = new BaseComponent(
+    'button',
+    ['reset'],
+    'Сброс фильтров',
+  );
 
-  clearSettingsButton = new BaseComponent(
+  private clearSettingsButton = new BaseComponent(
     'button',
     ['reset'],
     'Сброс настроек',
   );
 
-  booksNumber: number;
+  private booksNumber: number;
 
   constructor(bookmarksLength: number) {
     super('div', ['sort']);

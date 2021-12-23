@@ -2,13 +2,13 @@ import './main-page.scss';
 import { BaseComponent } from '../base-componet';
 
 export class MainPage extends BaseComponent {
-  title = new BaseComponent(
+  private title = new BaseComponent(
     'div',
     ['main-title'],
     'Новогодняя игра «Наряди ёлку»',
   );
 
-  startButton = new BaseComponent('button', ['start-button'], 'Начать');
+  public startButton = new BaseComponent('button', ['start-button'], 'Начать');
 
   constructor() {
     super('main', ['main-page']);

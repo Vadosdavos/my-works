@@ -7,7 +7,7 @@ export enum InputTypes {
 }
 
 export class InputComponent {
-  readonly element: HTMLInputElement | HTMLLabelElement;
+  public readonly element: HTMLInputElement | HTMLLabelElement;
 
   constructor(type: InputTypes, styles: string[] = [], label?: string) {
     if (label) {

@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .tree-page {
   display: flex;
   justify-content: center;
@@ -11,7 +13,7 @@
   align-items: flex-end;
   justify-content: center;
   background-image: url(../../assets/bg/1.jpg);
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: $blackTransparent;
   background-position: center;
   background-size: cover;
 }
@@ -37,7 +39,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(175, 224, 220, 0.3);
+  background-color: $cardBgColor;
   border-radius: 10%;
   position: relative;
 }
@@ -56,5 +58,5 @@
   border-radius: 50%;
   text-align: center;
   font-size: 12px;
-  background-color: rgb(0, 107, 207);
+  background-color: $cardAmountBgColor;
 }

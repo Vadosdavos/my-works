@@ -4,19 +4,21 @@ import data from '../../data';
 import './tree-page.scss';
 
 export class TreePage extends BaseComponent {
-  toyData = data;
+  private toyData = data;
 
-  treeSettings = new Settings();
+  private treeSettings = new Settings();
 
-  treeContainer = new BaseComponent('div', ['tree-container']);
+  private treeContainer = new BaseComponent('div', ['tree-container']);
 
-  bookmarksContainer = new BaseComponent('div', ['bookmarks-container']);
+  private bookmarksContainer = new BaseComponent('div', [
+    'bookmarks-container',
+  ]);
 
-  treeImg = new BaseComponent('img', ['main-tree']);
+  private treeImg = new BaseComponent('img', ['main-tree']);
 
-  treeMap = new BaseComponent('map');
+  private treeMap = new BaseComponent('map');
 
-  treeMapArea = new BaseComponent('area', ['droppable']);
+  private treeMapArea = new BaseComponent('area', ['droppable']);
 
   constructor() {
     super('div', ['tree-page']);

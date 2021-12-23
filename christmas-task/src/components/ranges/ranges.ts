@@ -10,11 +10,15 @@ const MIN_AMOUNT = 1;
 const MAX_AMOUNT = 12;
 
 export class Ranges extends BaseComponent {
-  title = new BaseComponent('h3', ['filters-title'], 'Фильтры по диапазону');
+  private title = new BaseComponent(
+    'h3',
+    ['filters-title'],
+    'Фильтры по диапазону',
+  );
 
-  amount = new BaseComponent('div', ['range-container']);
+  public amount = new BaseComponent('div', ['range-container']);
 
-  year = new BaseComponent('div', ['range-container']);
+  public year = new BaseComponent('div', ['range-container']);
 
   constructor() {
     super('div', ['ranges']);
