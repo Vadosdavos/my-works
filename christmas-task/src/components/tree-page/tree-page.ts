@@ -5,6 +5,7 @@ import './tree-page.scss';
 
 const HOME_X = '11px';
 const HOME_Y = '11px';
+const DEFAULT_TOY_NUM = 20;
 
 export class TreePage extends BaseComponent {
   private toyData = data;
@@ -36,7 +37,7 @@ export class TreePage extends BaseComponent {
       this.bookmarksContainer.element,
     );
     this.choseBackground();
-    this.renderBookedCards();
+    this.renderFavourites();
   }
 
   private choseBackground(): void {
@@ -51,26 +52,48 @@ export class TreePage extends BaseComponent {
     });
   }
 
-  private renderBookedCards(): void {
-    this.bookmarksContainer.element.innerHTML = '';
+  private renderFavourites(): void {
     const bookedCards: number[] = JSON.parse(
       localStorage.getItem('bookmarks') as string,
     );
-    bookedCards.forEach((el) => {
+    const dataFirstCards = this.toyData.slice(0, DEFAULT_TOY_NUM);
+    const dataFirstCardsArr: number[] = [];
+    dataFirstCards.forEach((el) => dataFirstCardsArr.push(+el.num));
+    if (bookedCards.length > 0) {
+      this.renderBookedCards(bookedCards);
+    } else {
+      this.renderBookedCards(dataFirstCardsArr);
+    }
+  }
+
+  private renderBookedCards(bookedData: number[]): void {
+    this.bookmarksContainer.element.innerHTML = '';
+    bookedData.forEach((el) => {
       const card = new BaseComponent('div', ['booked-toy-card']);
-      const cardImg = new BaseComponent('img', ['toy-image']);
       const cardAmount = new BaseComponent('div', ['toy-amount']);
-      cardImg.element.setAttribute('src', `${el}.png`);
-      cardImg.element.id = el.toString();
-      cardImg.element.draggable = true;
       if (this.toyData[el - 1]) {
         cardAmount.element.textContent = `${this.toyData[el - 1].count}`;
       }
-      card.element.append(cardImg.element, cardAmount.element);
+      card.element.append(cardAmount.element);
+      for (let i = 0; i < +this.toyData[el - 1].count; i++) {
+        this.renderToyImages(i, el, card.element);
+      }
       this.bookmarksContainer.element.append(card.element);
-      cardImg.element.addEventListener('dragstart', (event) => {
-        this.dragDrop(event, this.treeMapArea.element, card.element);
-      });
+    });
+  }
+
+  private renderToyImages(
+    index: number,
+    toyNum: number,
+    parent: HTMLElement,
+  ): void {
+    const cardImg = new BaseComponent('img', ['toy-image']);
+    cardImg.element.setAttribute('src', `${toyNum}.png`);
+    cardImg.element.id = `${toyNum}-${index}`;
+    cardImg.element.draggable = true;
+    parent.append(cardImg.element);
+    cardImg.element.addEventListener('dragstart', (event) => {
+      this.dragDrop(event, this.treeMapArea.element, parent);
     });
   }
 
@@ -91,67 +114,16 @@ export class TreePage extends BaseComponent {
     );
   }
 
-  // private dragDrop(event: MouseEvent): void {
-  //   const target = <HTMLImageElement>event.target;
-  //   const startX = target.getBoundingClientRect().left;
-  //   const startY = target.getBoundingClientRect().top;
-  //   let shiftX = event.clientX - target.getBoundingClientRect().left;
-  //   let shiftY = event.clientY - target.getBoundingClientRect().top;
-  //   target.style.position = 'absolute';
-  //   target.style.zIndex = '1000';
-  //   document.body.append(target);
-  //   function moveAt(pageX: number, pageY: number): void {
-  //     target.style.left = pageX - shiftX + 'px';
-  //     target.style.top = pageY - shiftY + 'px';
-  //   }
-  //   moveAt(event.pageX, event.pageY);
-  //   let currentDroppable: Element | null = null;
-  //   function onMouseMove(event: MouseEvent): void {
-  //     moveAt(event.pageX, event.pageY);
-  //     target.style.visibility = 'hidden';
-  //     let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-  //     target.style.visibility = 'visible';
-
-  //     if (!elemBelow) return;
-  //     let droppableBelow = elemBelow.closest('.droppable');
-  //     if (currentDroppable != droppableBelow) {
-  //       if (currentDroppable) {
-  //         console.log('out');
-  //       }
-  //       currentDroppable = droppableBelow as HTMLElement;
-  //       if (currentDroppable) {
-  //         console.log('drop');
-  //       }
-  //     }
-  //   }
-  //   document.addEventListener('mousemove', onMouseMove);
-  //   target.onmouseup = function (): void {
-  //     if (currentDroppable) {
-  //       document.removeEventListener('mousemove', onMouseMove);
-  //       target.onmouseup = null;
-  //     } else {
-  //       target.style.left = startX + 'px';
-  //       target.style.top = startY + 'px';
-  //       document.removeEventListener('mousemove', onMouseMove);
-  //       target.onmouseup = null;
-  //     }
-  //   };
-  //   target.ondragstart = function (): boolean {
-  //     return false;
-  //   };
-  // }
-
   private dragDrop(
     event: DragEvent,
     dropZone: HTMLElement,
     homeElement: HTMLElement,
   ): void {
     const target = <HTMLImageElement>event.target;
-    target.style.position = 'absolute';
+    const toyAmountContainer = homeElement.children[0];
     event.dataTransfer?.setData('id', target.id);
     let shiftX = event.clientX - target.getBoundingClientRect().left;
     let shiftY = event.clientY - target.getBoundingClientRect().top;
-
     function handleOverDrop(event: DragEvent): void {
       event.preventDefault();
       if (event.type !== 'drop') {
@@ -173,9 +145,16 @@ export class TreePage extends BaseComponent {
           draggedEl.style.left = HOME_X;
           draggedEl.style.top = HOME_Y;
           homeElement.appendChild(draggedEl);
+          let toysContainers = <HTMLCollection>(
+            homeElement.parentElement?.children
+          );
+          for (let i = 0; i < toysContainers.length; i++) {
+            let num = toysContainers[i].childElementCount - 1;
+            toysContainers[i].children[0].textContent = num + '';
+          }
         }
+        toyAmountContainer.textContent = `${homeElement.children.length - 1}`;
       }
-      
       draggedEl.addEventListener('dragend', handleLeaveZone);
     }
     dropZone.addEventListener('dragover', handleOverDrop);
