@@ -3,6 +3,9 @@ import { Settings } from '../tree-settings/tree-settings';
 import data from '../../data';
 import './tree-page.scss';
 
+const HOME_X = '11px';
+const HOME_Y = '11px';
+
 export class TreePage extends BaseComponent {
   private toyData = data;
 
@@ -66,7 +69,7 @@ export class TreePage extends BaseComponent {
       card.element.append(cardImg.element, cardAmount.element);
       this.bookmarksContainer.element.append(card.element);
       cardImg.element.addEventListener('dragstart', (event) => {
-        this.dragDrop(event, this.treeMapArea.element);
+        this.dragDrop(event, this.treeMapArea.element, card.element);
       });
     });
   }
@@ -79,7 +82,7 @@ export class TreePage extends BaseComponent {
     this.treeMapArea.element.setAttribute('shape', 'poly');
     this.treeMapArea.element.setAttribute(
       'coords',
-      '241,7,269,8,285,44,316,85,310,119,340,142,368,154,360,223,394,219,410,242,382,271,406,288,398,312,386,341,433,353,440,374,412,410,422,441,463,452,461,479,433,515,454,530,497,539,496,581,453,671,427,682,383,669,382,702,367,707,182,713,166,673,142,704,105,693,3,571,6,540,84,519,14,466,29,426,105,427,108,392,71,370,83,338,110,331,118,252,102,213,162,210,173,169,154,136,198,119,184,83',
+      '264,3,400,221,499,529,441,709,110,711,0,562,17,422,100,218,234,0',
     );
     this.treeMap.element.append(this.treeMapArea.element);
     this.treeContainer.element.append(
@@ -138,7 +141,11 @@ export class TreePage extends BaseComponent {
   //   };
   // }
 
-  private dragDrop(event: DragEvent, dropZone: HTMLElement): void {
+  private dragDrop(
+    event: DragEvent,
+    dropZone: HTMLElement,
+    homeElement: HTMLElement,
+  ): void {
     const target = <HTMLImageElement>event.target;
     target.style.position = 'absolute';
     event.dataTransfer?.setData('id', target.id);
@@ -150,18 +157,26 @@ export class TreePage extends BaseComponent {
       if (event.type !== 'drop') {
         return;
       }
-      console.log(event.pageX, event.pageY);
       let draggedId = <string>event.dataTransfer?.getData('id');
-      let draggedEl = target;
-      // if (draggedEl?.parentNode == dropZone) {
-      //   console.log('zone');
-      //   return;
-      // }
-
+      let draggedEl = <HTMLImageElement>document.getElementById(draggedId);
       draggedEl?.parentNode?.removeChild(draggedEl);
       draggedEl.style.left = event.pageX - shiftX + 'px';
       draggedEl.style.top = event.pageY - shiftY + 'px';
       dropZone.appendChild(draggedEl);
+
+      function handleLeaveZone(ev: DragEvent): void {
+        draggedEl.style.visibility = 'hidden';
+        const dropTarget = document.elementFromPoint(ev.clientX, ev.clientY);
+        draggedEl.style.visibility = 'visible';
+        if (dropTarget !== dropZone) {
+          draggedEl?.parentNode?.removeChild(draggedEl);
+          draggedEl.style.left = HOME_X;
+          draggedEl.style.top = HOME_Y;
+          homeElement.appendChild(draggedEl);
+        }
+      }
+      
+      draggedEl.addEventListener('dragend', handleLeaveZone);
     }
     dropZone.addEventListener('dragover', handleOverDrop);
     dropZone.addEventListener('drop', handleOverDrop);
