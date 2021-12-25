@@ -6,32 +6,42 @@ const TREE_TYPE_NUM = 7;
 const BG_TYPE_NUM = 11;
 const LIGHTS_COLORS = ['multi', 'red', 'yellow', 'blue', 'deeppink'];
 export class Settings extends BaseComponent {
-  soundButton = new BaseComponent('button', ['sound-button']);
+  private soundButton = new BaseComponent('button', ['sound-button']);
 
-  snowButton = new BaseComponent('button', ['snow-button']);
+  private snowButton = new BaseComponent('button', ['snow-button']);
 
-  buttonsContainer = new BaseComponent('div', ['buttons-container']);
+  private buttonsContainer = new BaseComponent('div', ['buttons-container']);
 
-  treeTypeContainer = new BaseComponent('div', ['tree-type-container']);
+  private treeTypeContainer = new BaseComponent('div', ['tree-type-container']);
 
-  bgTypeContainer = new BaseComponent('div', ['background-type-container']);
+  public bgTypeContainer = new BaseComponent('div', [
+    'background-type-container',
+  ]);
 
-  lightsContainer = new BaseComponent('div', ['lights-container']);
+  private lightsContainer = new BaseComponent('div', ['lights-container']);
 
-  lightsTypeContainer = new BaseComponent('div', ['lights-type-container']);
+  private lightsTypeContainer = new BaseComponent('div', [
+    'lights-type-container',
+  ]);
+
+  private lightsOffContainer = new BaseComponent('div', [
+    'lights-off-container',
+  ]);
+
+  private lightsOffButton = new InputComponent(InputTypes.checkbox, [
+    'lights-off-button',
+  ]);
+
+  private lightsOffLabel = new BaseComponent(
+    'label',
+    ['lights-off-label'],
+    'on off',
+  );
 
   constructor() {
     super('div', ['tree-settings']);
     this.render();
   }
-
-  lightsOffContainer = new BaseComponent('div', ['lights-off-container']);
-
-  lightsOffButton = new InputComponent(InputTypes.checkbox, [
-    'lights-off-button',
-  ]);
-
-  lightsOffLabel = new BaseComponent('label', ['lights-off-label'], 'on off');
 
   private render(): void {
     this.buttonsContainer.element.append(

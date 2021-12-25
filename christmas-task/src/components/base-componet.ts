@@ -1,5 +1,5 @@
 export class BaseComponent<T extends HTMLElement = HTMLElement> {
-  readonly element: T;
+  public readonly element: T;
 
   constructor(
     tag: keyof HTMLElementTagNameMap = 'div',

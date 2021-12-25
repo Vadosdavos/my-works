@@ -23,17 +23,17 @@ const dataStructure: IDataStructure = {
   size: ['большой', 'средний', 'малый'],
 };
 export class Filters extends BaseComponent {
-  title = new BaseComponent('h3', ['filters-title'], 'Фильтры по назначению');
+  private title = new BaseComponent('h3', ['filters-title'], 'Фильтры по назначению');
 
-  shapeFilter = new BaseComponent('div', ['shape-filter'], 'Форма:');
+  public shapeFilter = new BaseComponent('div', ['shape-filter'], 'Форма:');
 
-  colorFilter = new BaseComponent('div', ['color-filter'], 'Цвет:');
+  public colorFilter = new BaseComponent('div', ['color-filter'], 'Цвет:');
 
-  sizeFilter = new BaseComponent('div', ['size-filter'], 'Размер:');
+  public sizeFilter = new BaseComponent('div', ['size-filter'], 'Размер:');
 
-  favoriteFilter = new InputComponent(InputTypes.checkbox, ['favorite-filter']);
+  public favoriteFilter = new InputComponent(InputTypes.checkbox, ['favorite-filter']);
 
-  filtersSettings: ISettings;
+  private filtersSettings: ISettings;
 
   constructor(settings: ISettings) {
     super('div', ['filters']);

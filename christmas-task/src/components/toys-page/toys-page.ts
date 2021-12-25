@@ -20,21 +20,21 @@ let filtersSettings: ISettings = {
   favorite: false,
 };
 export class ToysPage extends BaseComponent {
-  toysContainer = new BaseComponent('div', ['toys-container']);
+  private toysContainer = new BaseComponent('div', ['toys-container']);
 
-  controlsContainer = new BaseComponent('div', ['controls-container']);
+  private controlsContainer = new BaseComponent('div', ['controls-container']);
 
-  toysData = data;
+  private toysData = data;
 
-  curToysData = data;
+  private curToysData = data;
 
-  filters = new Filters(filtersSettings);
+  private filters = new Filters(filtersSettings);
 
-  ranges = new Ranges();
+  private ranges = new Ranges();
 
-  sort = new Sort(bookmarksLength);
+  private sort = new Sort(bookmarksLength);
 
-  noresultInfo = new BaseComponent(
+  private noresultInfo = new BaseComponent(
     'div',
     ['noresult-info'],
     'Извините, совпадений не обнаружено!',

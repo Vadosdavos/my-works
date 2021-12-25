@@ -4,9 +4,9 @@ import { FavoritesTranscript } from '../toys-page/toy-card.type';
 import './toy-card.scss';
 
 export class ToyCard extends BaseComponent {
-  data: IDataType;
+  private data: IDataType;
 
-  favoritesTranscript: FavoritesTranscript = {
+  private favoritesTranscript: FavoritesTranscript = {
     true: 'да',
     false: 'нет',
   };
