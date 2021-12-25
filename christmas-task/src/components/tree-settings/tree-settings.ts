@@ -20,7 +20,7 @@ export class Settings extends BaseComponent {
 
   private lightsContainer = new BaseComponent('div', ['lights-container']);
 
-  private lightsTypeContainer = new BaseComponent('div', [
+  public lightsTypeContainer = new BaseComponent('div', [
     'lights-type-container',
   ]);
 
@@ -28,7 +28,7 @@ export class Settings extends BaseComponent {
     'lights-off-container',
   ]);
 
-  private lightsOffButton = new InputComponent(InputTypes.checkbox, [
+  public lightsOffButton = new InputComponent(InputTypes.checkbox, [
     'lights-off-button',
   ]);
 
@@ -77,6 +77,7 @@ export class Settings extends BaseComponent {
   private renderLightsTypes(): void {
     LIGHTS_COLORS.forEach((el) => {
       const item = new BaseComponent('button', ['light-button', `light-${el}`]);
+      item.element.dataset.color = el;
       this.lightsTypeContainer.element.append(item.element);
     });
   }

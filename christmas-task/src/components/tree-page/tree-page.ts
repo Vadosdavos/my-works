@@ -2,6 +2,7 @@ import { BaseComponent } from '../base-componet';
 import { Settings } from '../tree-settings/tree-settings';
 import data from '../../data';
 import './tree-page.scss';
+import { LightsRope } from '../lights-rope/lights-rope';
 
 const HOME_X = '11px';
 const HOME_Y = '11px';
@@ -24,9 +25,35 @@ export class TreePage extends BaseComponent {
 
   private treeMapArea = new BaseComponent('area', ['droppable']);
 
+  private treeLightsContainer = new BaseComponent('div', [
+    'tree-lights-container',
+  ]);
+
   constructor() {
     super('div', ['tree-page']);
     // this.render();
+    this.treeSettings.lightsOffButton.element.addEventListener(
+      'change',
+      (event) => {
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+        if (target.checked) {
+          this.setLightsOnTree('multi');
+        } else {
+          this.treeLightsContainer.element.innerHTML = '';
+        }
+      },
+    );
+    Array.from(this.treeSettings.lightsTypeContainer.element.children).forEach(
+      (el) =>
+        el.addEventListener('click', (event) => {
+          const target = <HTMLButtonElement>event.target;
+          this.treeLightsContainer.element.innerHTML = '';
+          this.setLightsOnTree(`${target.dataset.color}`);
+          (
+            this.treeSettings.lightsOffButton.element as HTMLInputElement
+          ).checked = true;
+        }),
+    );
   }
 
   public render(): void {
@@ -159,5 +186,16 @@ export class TreePage extends BaseComponent {
     }
     dropZone.addEventListener('dragover', handleOverDrop);
     dropZone.addEventListener('drop', handleOverDrop);
+  }
+
+  public setLightsOnTree(color: string): void {
+    const baseWidth = 120;
+    const additionalWidth = 75;
+    const ropesNumber = 8;
+    for (let i = 0; i < ropesNumber; i++) {
+      const rope = new LightsRope(baseWidth + additionalWidth * i, color);
+      this.treeLightsContainer.element.append(rope.element);
+    }
+    this.treeContainer.element.prepend(this.treeLightsContainer.element);
   }
 }
