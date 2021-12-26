@@ -39,6 +39,12 @@ export class Settings extends BaseComponent {
     'on off',
   );
 
+  private clearTreeSettingsButton = new BaseComponent(
+    'button',
+    ['reset'],
+    'Сброс сохранения',
+  );
+
   constructor() {
     super('div', ['tree-settings']);
     this.render();
@@ -48,7 +54,14 @@ export class Settings extends BaseComponent {
     this.buttonsContainer.element.append(
       this.soundButton.element,
       this.snowButton.element,
+      this.clearTreeSettingsButton.element,
     );
+    this.clearTreeSettingsButton.element.addEventListener('click', () => {
+      localStorage.removeItem('vad-tree');
+      localStorage.removeItem('vad-settings');
+      localStorage.removeItem('vad-snow');
+      localStorage.removeItem('vad-bg');
+    });
     this.renderSettingsCards('tree', TREE_TYPE_NUM, this.treeTypeContainer);
     this.renderSettingsCards('bg', BG_TYPE_NUM, this.bgTypeContainer);
     this.renderLightsTypes();

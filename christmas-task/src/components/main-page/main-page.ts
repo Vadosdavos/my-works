@@ -12,7 +12,7 @@ export class MainPage extends BaseComponent {
 
   constructor() {
     super('main', ['main-page']);
-    // this.render();
+    this.render();
   }
 
   public render(): void {

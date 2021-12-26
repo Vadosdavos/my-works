@@ -11,7 +11,7 @@ const filterClassNames: IFilterClassNamesTypes = {
   снежинка: 'snowflake',
   фигурка: 'figure',
   белый: 'filter-color-white',
-  жёлтый: 'filter-color-yellow',
+  желтый: 'filter-color-yellow',
   красный: 'filter-color-red',
   синий: 'filter-color-blue',
   зелёный: 'filter-color-green',
@@ -19,11 +19,15 @@ const filterClassNames: IFilterClassNamesTypes = {
 
 const dataStructure: IDataStructure = {
   shape: ['шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка'],
-  color: ['белый', 'жёлтый', 'красный', 'синий', 'зелёный'],
+  color: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
   size: ['большой', 'средний', 'малый'],
 };
 export class Filters extends BaseComponent {
-  private title = new BaseComponent('h3', ['filters-title'], 'Фильтры по назначению');
+  private title = new BaseComponent(
+    'h3',
+    ['filters-title'],
+    'Фильтры по назначению',
+  );
 
   public shapeFilter = new BaseComponent('div', ['shape-filter'], 'Форма:');
 
@@ -31,7 +35,9 @@ export class Filters extends BaseComponent {
 
   public sizeFilter = new BaseComponent('div', ['size-filter'], 'Размер:');
 
-  public favoriteFilter = new InputComponent(InputTypes.checkbox, ['favorite-filter']);
+  public favoriteFilter = new InputComponent(InputTypes.checkbox, [
+    'favorite-filter',
+  ]);
 
   private filtersSettings: ISettings;
 

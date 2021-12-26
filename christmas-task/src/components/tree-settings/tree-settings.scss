@@ -2,6 +2,7 @@
 
 .buttons-container {
   padding-top: 20px;
+  display: flex;
   button {
     width: 40px;
     height: 40px;
@@ -16,13 +17,36 @@
   }
   .sound-button {
     background-image: url(../../assets/svg/mute.svg);
-    margin-right: 50px;
+    margin-right: 40px;
   }
   .sound-active {
     background-image: url(../../assets/svg/audio.svg);
   }
   .snow-button {
     background-image: url(../../assets/svg/snow.svg);
+    margin-right: 40px;
+  }
+  button.reset {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid $buttonBorder;
+    background-color: $resetButton;
+    backdrop-filter: blur(6px);
+    color: white;
+    font: inherit;
+    font-size: 1.2rem;
+    font-weight: 400;
+    outline: 1px solid white;
+    margin: 0;
+  }
+  button.reset:hover {
+    outline-offset: 10px;
+    outline: 1px solid $transparent;
+    transition: 0.5s;
+  }
+  button.reset:active {
+    box-shadow: inset 0 0 5px 3px black;
   }
 }
 

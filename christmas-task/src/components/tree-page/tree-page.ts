@@ -19,6 +19,8 @@ const COORDS = [
 let CUR_COLOR = 'multi';
 const SNOW_TIME = 50;
 let IS_SNOW = false;
+let VAD_BG = '0';
+let VAD_TREE = '0';
 
 export class TreePage extends BaseComponent {
   private toyData = data;
@@ -49,7 +51,38 @@ export class TreePage extends BaseComponent {
 
   constructor() {
     super('div', ['tree-page']);
-    // this.render();
+    clearInterval(this.snowInterval);
+    this.setSnow();
+  }
+
+  public render(): void {
+    this.preset();
+    this.renderTree();
+    this.element.append(
+      this.treeSettings.element,
+      this.treeContainer.element,
+      this.bookmarksContainer.element,
+    );
+    this.chooseBackground();
+    this.chooseTree();
+    this.chooseLights();
+    this.renderFavourites();
+    this.setLightsoffListener();
+  }
+
+  private preset(): void {
+    if (localStorage.getItem('vad-bg')) {
+      VAD_BG = localStorage.getItem('vad-bg') as string;
+    }
+    if (localStorage.getItem('vad-tree')) {
+      VAD_TREE = localStorage.getItem('vad-tree') as string;
+    }
+    this.treeContainer.element.style.backgroundImage = `url(../../assets/bg/${
+      +VAD_BG + 1
+    }.jpg`;
+  }
+
+  private setLightsoffListener(): void {
     this.treeSettings.lightsOffButton.element.addEventListener(
       'change',
       (event) => {
@@ -61,31 +94,18 @@ export class TreePage extends BaseComponent {
         }
       },
     );
-    clearInterval(this.snowInterval);
-  }
-
-  public render(): void {
-    this.renderTree();
-    this.element.append(
-      this.treeSettings.element,
-      this.treeContainer.element,
-      this.bookmarksContainer.element,
-    );
-    this.chooseBackground();
-    this.chooseTree();
-    this.chooseLights();
-    this.renderFavourites();
-    this.setSnow();
   }
 
   private chooseBackground(): void {
     const bgsArray = Array.from(
       this.treeSettings.bgTypeContainer.element.children,
     );
-    bgsArray.forEach((el) => {
+    this.setActive(bgsArray, bgsArray[+VAD_BG]);
+    bgsArray.forEach((el, i) => {
       el.addEventListener('click', () => {
         this.setActive(bgsArray, el);
         const bgStyle = <string>el.getAttribute('style');
+        localStorage.setItem('vad-bg', i + '');
         this.treeContainer.element.setAttribute('style', bgStyle);
       });
     });
@@ -137,7 +157,10 @@ export class TreePage extends BaseComponent {
   }
 
   private renderTree(): void {
-    this.treeImg.element.setAttribute('src', 'url(../../assets/tree/1.png');
+    this.treeImg.element.setAttribute(
+      'src',
+      `url(../../assets/tree/${+VAD_TREE + 1}.png`,
+    );
     this.treeImg.element.setAttribute('usemap', '#tree-map');
     this.treeImg.element.setAttribute('alt', 'Christmas tree');
     this.treeMap.element.setAttribute('name', 'tree-map');
@@ -213,6 +236,7 @@ export class TreePage extends BaseComponent {
     const treesArray = Array.from(
       this.treeSettings.treeTypeContainer.element.children,
     );
+    this.setActive(treesArray, treesArray[+VAD_TREE]);
     treesArray.forEach((el, i) => {
       el.addEventListener('click', () => {
         this.setActive(treesArray, el);
@@ -220,6 +244,7 @@ export class TreePage extends BaseComponent {
           'src',
           `url(../../assets/tree/${i + 1}.png`,
         );
+        localStorage.setItem('vad-tree', i + '');
         this.treeMapArea.element.setAttribute('coords', COORDS[i]);
       });
     });
