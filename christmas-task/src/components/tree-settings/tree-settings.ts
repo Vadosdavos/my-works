@@ -12,7 +12,7 @@ export class Settings extends BaseComponent {
 
   private buttonsContainer = new BaseComponent('div', ['buttons-container']);
 
-  private treeTypeContainer = new BaseComponent('div', ['tree-type-container']);
+  public treeTypeContainer = new BaseComponent('div', ['tree-type-container']);
 
   public bgTypeContainer = new BaseComponent('div', [
     'background-type-container',
@@ -70,6 +70,9 @@ export class Settings extends BaseComponent {
       item.element.style.backgroundImage = `url(../../assets/${name}/${i}.${
         name === 'tree' ? 'png' : 'jpg'
       })`;
+      if (i === 1) {
+        item.element.classList.add('type-active');
+      }
       target.element.append(item.element);
     }
   }
@@ -77,6 +80,9 @@ export class Settings extends BaseComponent {
   private renderLightsTypes(): void {
     LIGHTS_COLORS.forEach((el) => {
       const item = new BaseComponent('button', ['light-button', `light-${el}`]);
+      if (el === 'multi') {
+        item.element.classList.add('type-active');
+      }
       item.element.dataset.color = el;
       this.lightsTypeContainer.element.append(item.element);
     });

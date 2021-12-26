@@ -7,6 +7,16 @@ import { LightsRope } from '../lights-rope/lights-rope';
 const HOME_X = '11px';
 const HOME_Y = '11px';
 const DEFAULT_TOY_NUM = 20;
+const COORDS = [
+  '266,5,314,83,317,128,323,148,358,136,369,159,353,189,364,224,398,217,411,236,373,273,407,293,388,348,431,353,437,377,410,402,422,431,457,447,459,469,459,483,429,483,440,529,499,534,495,580,478,586,445,680,388,670,382,705,182,712,105,685,11,586,6,538,69,529,20,466,16,433,98,423,104,391,67,374,71,341,111,338,119,247,100,229,116,204,159,212,167,164,147,141,170,115,195,55,227,37,231,4',
+  '250,2,373,244,423,404,457,509,482,523,468,569,496,578,483,652,430,679,385,669,392,698,321,704,242,682,208,681,147,711,103,694,103,662,57,642,2,646,5,619,14,553,44,473,82,423,74,381,99,299,176,118',
+  '327,116,389,300,478,537,496,603,477,665,385,670,322,711,257,686,231,707,182,696,151,711,21,646,8,609,161,174,228,6,248,4,294,55',
+  '241,0,321,145,342,204,366,233,365,294,396,312,406,350,394,388,420,411,421,445,446,460,417,490,450,522,421,542,495,614,461,646,423,648,443,703,365,687,270,711,141,677,82,711,77,677,50,660,9,667,3,601,40,549,68,492,34,494,63,442,94,413,62,410,80,312,139,252,146,216,119,211,153,188,165,161,148,156,174,138',
+  '246,3,356,286,345,308,364,315,386,352,387,394,423,421,393,456,419,476,423,500,457,525,450,556,480,582,470,609,497,617,494,641,432,640,437,694,380,676,370,711,177,684,152,707,78,701,10,621',
+  '267,53,287,29,299,79,365,192,355,231,384,237,423,365,447,379,425,435,453,453,474,561,497,577,459,591,459,607,481,612,483,649,438,649,300,709,227,694,168,699,154,682,106,686,0,619,36,593,21,568,19,513,48,481,46,441,76,413,54,371,79,349,91,322,110,321,93,287,108,254,145,238,124,207,134,188,156,205,147,148,159,142,173,151,181,115,198,73,206,65,225,79,220,49,228,38,242,55,245,3,263,3',
+];
+
+let CUR_COLOR = 'multi';
 
 export class TreePage extends BaseComponent {
   private toyData = data;
@@ -37,22 +47,11 @@ export class TreePage extends BaseComponent {
       (event) => {
         const target: HTMLInputElement = <HTMLInputElement>event.target;
         if (target.checked) {
-          this.setLightsOnTree('multi');
+          this.setLightsOnTree(CUR_COLOR);
         } else {
           this.treeLightsContainer.element.innerHTML = '';
         }
       },
-    );
-    Array.from(this.treeSettings.lightsTypeContainer.element.children).forEach(
-      (el) =>
-        el.addEventListener('click', (event) => {
-          const target = <HTMLButtonElement>event.target;
-          this.treeLightsContainer.element.innerHTML = '';
-          this.setLightsOnTree(`${target.dataset.color}`);
-          (
-            this.treeSettings.lightsOffButton.element as HTMLInputElement
-          ).checked = true;
-        }),
     );
   }
 
@@ -63,16 +62,19 @@ export class TreePage extends BaseComponent {
       this.treeContainer.element,
       this.bookmarksContainer.element,
     );
-    this.choseBackground();
+    this.chooseBackground();
+    this.chooseTree();
+    this.chooseLights();
     this.renderFavourites();
   }
 
-  private choseBackground(): void {
+  private chooseBackground(): void {
     const bgsArray = Array.from(
       this.treeSettings.bgTypeContainer.element.children,
     );
     bgsArray.forEach((el) => {
       el.addEventListener('click', () => {
+        this.setActive(bgsArray, el);
         const bgStyle = <string>el.getAttribute('style');
         this.treeContainer.element.setAttribute('style', bgStyle);
       });
@@ -130,10 +132,7 @@ export class TreePage extends BaseComponent {
     this.treeImg.element.setAttribute('alt', 'Christmas tree');
     this.treeMap.element.setAttribute('name', 'tree-map');
     this.treeMapArea.element.setAttribute('shape', 'poly');
-    this.treeMapArea.element.setAttribute(
-      'coords',
-      '264,3,400,221,499,529,441,709,110,711,0,562,17,422,100,218,234,0',
-    );
+    this.treeMapArea.element.setAttribute('coords', COORDS[0]);
     this.treeMap.element.append(this.treeMapArea.element);
     this.treeContainer.element.append(
       this.treeMap.element,
@@ -197,5 +196,46 @@ export class TreePage extends BaseComponent {
       this.treeLightsContainer.element.append(rope.element);
     }
     this.treeContainer.element.prepend(this.treeLightsContainer.element);
+  }
+
+  private chooseTree(): void {
+    const treesArray = Array.from(
+      this.treeSettings.treeTypeContainer.element.children,
+    );
+    treesArray.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        this.setActive(treesArray, el);
+        this.treeImg.element.setAttribute(
+          'src',
+          `url(../../assets/tree/${i + 1}.png`,
+        );
+        this.treeMapArea.element.setAttribute('coords', COORDS[i]);
+      });
+    });
+  }
+
+  private chooseLights(): void {
+    const lighsArray = Array.from(
+      this.treeSettings.lightsTypeContainer.element.children,
+    );
+    lighsArray.forEach((el) =>
+      el.addEventListener('click', (event) => {
+        const target = <HTMLButtonElement>event.target;
+        this.setActive(lighsArray, target);
+        this.treeLightsContainer.element.innerHTML = '';
+        this.setLightsOnTree(`${target.dataset.color}`);
+        CUR_COLOR = `${target.dataset.color}`;
+        const onButton = this.treeSettings.lightsOffButton
+          .element as HTMLInputElement;
+        onButton.checked = true;
+      }),
+    );
+  }
+
+  private setActive(items: Element[], curItem: Element): void {
+    items.forEach((item) => {
+      item.classList.remove('type-active');
+    });
+    curItem.classList.add('type-active');
   }
 }
