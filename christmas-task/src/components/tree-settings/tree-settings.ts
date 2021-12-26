@@ -82,7 +82,7 @@ export class Settings extends BaseComponent {
   ): void {
     for (let i = 1; i < amount; i++) {
       const item = new BaseComponent('div', [`${name}-type`]);
-      item.element.style.backgroundImage = `url(../../assets/${name}/${i}.${
+      item.element.style.backgroundImage = `url(${name}-${i}.${
         name === 'tree' ? 'png' : 'jpg'
       })`;
       if (i === 1) {
@@ -117,7 +117,7 @@ export class Settings extends BaseComponent {
   }
 
   private playAudio(): void {
-    const url: string = './song.mp3';
+    const url = './song.mp3';
     const audio = new Audio(url);
     audio.volume = 0.2;
     audio.loop = true;

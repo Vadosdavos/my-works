@@ -77,9 +77,9 @@ export class TreePage extends BaseComponent {
     if (localStorage.getItem('vad-tree')) {
       VAD_TREE = localStorage.getItem('vad-tree') as string;
     }
-    this.treeContainer.element.style.backgroundImage = `url(../../assets/bg/${
+    this.treeContainer.element.style.backgroundImage = `url(bg-${
       +VAD_BG + 1
-    }.jpg`;
+    }.jpg)`;
   }
 
   private setLightsoffListener(): void {
@@ -157,10 +157,7 @@ export class TreePage extends BaseComponent {
   }
 
   private renderTree(): void {
-    this.treeImg.element.setAttribute(
-      'src',
-      `url(../../assets/tree/${+VAD_TREE + 1}.png`,
-    );
+    this.treeImg.element.setAttribute('src', `tree-${+VAD_TREE + 1}.png`);
     this.treeImg.element.setAttribute('usemap', '#tree-map');
     this.treeImg.element.setAttribute('alt', 'Christmas tree');
     this.treeMap.element.setAttribute('name', 'tree-map');
@@ -182,18 +179,18 @@ export class TreePage extends BaseComponent {
     const target = <HTMLImageElement>event.target;
     const toyAmountContainer = homeElement.children[0];
     event.dataTransfer?.setData('id', target.id);
-    let shiftX = event.clientX - target.getBoundingClientRect().left;
-    let shiftY = event.clientY - target.getBoundingClientRect().top;
-    function handleOverDrop(event: DragEvent): void {
-      event.preventDefault();
-      if (event.type !== 'drop') {
+    const shiftX = event.clientX - target.getBoundingClientRect().left;
+    const shiftY = event.clientY - target.getBoundingClientRect().top;
+    function handleOverDrop(eventOver: DragEvent): void {
+      eventOver.preventDefault();
+      if (eventOver.type !== 'drop') {
         return;
       }
-      let draggedId = <string>event.dataTransfer?.getData('id');
-      let draggedEl = <HTMLImageElement>document.getElementById(draggedId);
+      const draggedId = <string>eventOver.dataTransfer?.getData('id');
+      const draggedEl = <HTMLImageElement>document.getElementById(draggedId);
       draggedEl?.parentNode?.removeChild(draggedEl);
-      draggedEl.style.left = event.pageX - shiftX + 'px';
-      draggedEl.style.top = event.pageY - shiftY + 'px';
+      draggedEl.style.left = eventOver.pageX - shiftX + 'px';
+      draggedEl.style.top = eventOver.pageY - shiftY + 'px';
       dropZone.appendChild(draggedEl);
 
       function handleLeaveZone(ev: DragEvent): void {
@@ -205,11 +202,11 @@ export class TreePage extends BaseComponent {
           draggedEl.style.left = HOME_X;
           draggedEl.style.top = HOME_Y;
           homeElement.appendChild(draggedEl);
-          let toysContainers = <HTMLCollection>(
+          const toysContainers = <HTMLCollection>(
             homeElement.parentElement?.children
           );
           for (let i = 0; i < toysContainers.length; i++) {
-            let num = toysContainers[i].childElementCount - 1;
+            const num = toysContainers[i].childElementCount - 1;
             toysContainers[i].children[0].textContent = num + '';
           }
         }
@@ -240,10 +237,7 @@ export class TreePage extends BaseComponent {
     treesArray.forEach((el, i) => {
       el.addEventListener('click', () => {
         this.setActive(treesArray, el);
-        this.treeImg.element.setAttribute(
-          'src',
-          `url(../../assets/tree/${i + 1}.png`,
-        );
+        this.treeImg.element.setAttribute('src', `tree-${i + 1}.png`);
         localStorage.setItem('vad-tree', i + '');
         this.treeMapArea.element.setAttribute('coords', COORDS[i]);
       });

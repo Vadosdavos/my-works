@@ -3,6 +3,7 @@ import './lights-rope.scss';
 
 export class LightsRope extends BaseComponent {
   private renderConst = 29;
+
   private plusHeight = 40;
 
   constructor(private width: number, private color: string) {
