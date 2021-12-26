@@ -83,7 +83,7 @@ export class TreePage extends BaseComponent {
 
   private renderFavourites(): void {
     const bookedCards: number[] = JSON.parse(
-      localStorage.getItem('bookmarks') as string,
+      localStorage.getItem('vad-bookmarks') as string,
     );
     const dataFirstCards = this.toyData.slice(0, DEFAULT_TOY_NUM);
     const dataFirstCardsArr: number[] = [];

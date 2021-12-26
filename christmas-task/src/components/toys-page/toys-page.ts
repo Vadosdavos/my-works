@@ -338,9 +338,9 @@ export class ToysPage extends BaseComponent {
   }
 
   private setLocalStorage(): void {
-    localStorage.setItem('settings', JSON.stringify(filtersSettings));
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarksToys));
-    localStorage.setItem('bookmarksLength', JSON.stringify(bookmarksLength));
+    localStorage.setItem('vad-settings', JSON.stringify(filtersSettings));
+    localStorage.setItem('vad-bookmarks', JSON.stringify(bookmarksToys));
+    localStorage.setItem('vad-bookmarksLength', JSON.stringify(bookmarksLength));
   }
 
   private removeActive(target: HTMLCollection[]): void {
@@ -353,15 +353,15 @@ export class ToysPage extends BaseComponent {
 }
 
 function getLocalStorage(): void {
-  if (localStorage.getItem('settings')) {
-    filtersSettings = JSON.parse(localStorage.getItem('settings') as string);
+  if (localStorage.getItem('vad-settings')) {
+    filtersSettings = JSON.parse(localStorage.getItem('vad-settings') as string);
   }
-  if (localStorage.getItem('bookmarks')) {
-    bookmarksToys = JSON.parse(localStorage.getItem('bookmarks') as string);
+  if (localStorage.getItem('vad-bookmarks')) {
+    bookmarksToys = JSON.parse(localStorage.getItem('vad-bookmarks') as string);
   }
-  if (localStorage.getItem('bookmarksLength')) {
+  if (localStorage.getItem('vad-bookmarksLength')) {
     bookmarksLength = JSON.parse(
-      localStorage.getItem('bookmarksLength') as string,
+      localStorage.getItem('vad-bookmarksLength') as string,
     );
   }
 }

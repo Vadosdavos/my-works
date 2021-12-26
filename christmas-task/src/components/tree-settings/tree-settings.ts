@@ -5,6 +5,7 @@ import './tree-settings.scss';
 const TREE_TYPE_NUM = 7;
 const BG_TYPE_NUM = 11;
 const LIGHTS_COLORS = ['multi', 'red', 'yellow', 'blue', 'deeppink'];
+let VAD_AUDIO = false;
 export class Settings extends BaseComponent {
   private soundButton = new BaseComponent('button', ['sound-button']);
 
@@ -58,6 +59,7 @@ export class Settings extends BaseComponent {
       this.bgTypeContainer.element,
       this.lightsContainer.element,
     );
+    this.playAudio();
   }
 
   private renderSettingsCards(
@@ -99,5 +101,42 @@ export class Settings extends BaseComponent {
       this.lightsTypeContainer.element,
       this.lightsOffContainer.element,
     );
+  }
+
+  private playAudio(): void {
+    const url: string = './song.mp3';
+    const audio = new Audio(url);
+    audio.volume = 0.2;
+    audio.loop = true;
+    if (localStorage.getItem('vad-audio')) {
+      VAD_AUDIO = JSON.parse(localStorage.getItem('vad-audio') as string);
+    }
+    if (VAD_AUDIO) {
+      document.addEventListener(
+        'click',
+        () => {
+          audio.play();
+        },
+        { once: true },
+      );
+      this.soundButton.element.classList.add('sound-active');
+    } else {
+      audio.pause();
+      this.soundButton.element.classList.remove('sound-active');
+    }
+    this.setSoundListener(audio);
+  }
+
+  private setSoundListener(song: HTMLAudioElement): void {
+    this.soundButton.element.addEventListener('click', () => {
+      this.soundButton.element.classList.toggle('sound-active');
+      VAD_AUDIO = !VAD_AUDIO;
+      localStorage.setItem('vad-audio', VAD_AUDIO + '');
+      if (VAD_AUDIO) {
+        song.play();
+      } else {
+        song.pause();
+      }
+    });
   }
 }

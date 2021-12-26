@@ -15,8 +15,11 @@
     transition: 0.5s;
   }
   .sound-button {
-    background-image: url(../../assets/svg/audio.svg);
+    background-image: url(../../assets/svg/mute.svg);
     margin-right: 50px;
+  }
+  .sound-active {
+    background-image: url(../../assets/svg/audio.svg);
   }
   .snow-button {
     background-image: url(../../assets/svg/snow.svg);
