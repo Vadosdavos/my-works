@@ -49,6 +49,7 @@
   height: 65px;
   cursor: grab;
   position: absolute;
+  z-index: 50;
 }
 .toy-amount {
   position: absolute;
@@ -61,7 +62,6 @@
   font-size: 12px;
   background-color: $cardAmountBgColor;
 }
-
 .tree-lights-container {
   display: flex;
   justify-content: center;
@@ -72,4 +72,24 @@
   pointer-events: none;
   z-index: 2;
   overflow: hidden;
+}
+.snow-container {
+  min-height: calc(100vh - 140px);
+  width: calc(85vw / 2 - 16px);
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+.fa-snowflake {
+  color: #fff;
+  position: absolute;
+  top: -20px;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(105vh);
+  }
 }

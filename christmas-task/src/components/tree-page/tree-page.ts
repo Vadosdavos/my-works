@@ -17,6 +17,8 @@ const COORDS = [
 ];
 
 let CUR_COLOR = 'multi';
+const SNOW_TIME = 50;
+let IS_SNOW = false;
 
 export class TreePage extends BaseComponent {
   private toyData = data;
@@ -39,6 +41,12 @@ export class TreePage extends BaseComponent {
     'tree-lights-container',
   ]);
 
+  private snowContainer = new BaseComponent('div', ['snow-container']);
+
+  private snowInterval = setInterval(() => {
+    this.treeSettings.createSnowfall(this.snowContainer.element);
+  }, SNOW_TIME);
+
   constructor() {
     super('div', ['tree-page']);
     // this.render();
@@ -53,6 +61,7 @@ export class TreePage extends BaseComponent {
         }
       },
     );
+    clearInterval(this.snowInterval);
   }
 
   public render(): void {
@@ -66,6 +75,7 @@ export class TreePage extends BaseComponent {
     this.chooseTree();
     this.chooseLights();
     this.renderFavourites();
+    this.setSnow();
   }
 
   private chooseBackground(): void {
@@ -135,6 +145,7 @@ export class TreePage extends BaseComponent {
     this.treeMapArea.element.setAttribute('coords', COORDS[0]);
     this.treeMap.element.append(this.treeMapArea.element);
     this.treeContainer.element.append(
+      this.snowContainer.element,
       this.treeMap.element,
       this.treeImg.element,
     );
@@ -237,5 +248,35 @@ export class TreePage extends BaseComponent {
       item.classList.remove('type-active');
     });
     curItem.classList.add('type-active');
+  }
+
+  private setSnow(): void {
+    if (localStorage.getItem('vad-snow')) {
+      IS_SNOW = JSON.parse(localStorage.getItem('vad-snow') as string);
+    }
+    if (IS_SNOW) {
+      this.setSnowInterval();
+      this.treeSettings.snowButton.element.classList.add('snow-active');
+    }
+    this.setSnowListener();
+  }
+
+  private setSnowListener(): void {
+    this.treeSettings.snowButton.element.addEventListener('click', () => {
+      this.treeSettings.snowButton.element.classList.toggle('snow-active');
+      IS_SNOW = !IS_SNOW;
+      localStorage.setItem('vad-snow', IS_SNOW + '');
+      if (IS_SNOW) {
+        this.setSnowInterval();
+      } else {
+        clearInterval(this.snowInterval);
+      }
+    });
+  }
+
+  private setSnowInterval(): void {
+    this.snowInterval = setInterval(() => {
+      this.treeSettings.createSnowfall(this.snowContainer.element);
+    }, SNOW_TIME);
   }
 }

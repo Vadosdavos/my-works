@@ -161,3 +161,7 @@
   transform: translateX(22px);
   background-color: $lightsOnButton;
 }
+.snow-active {
+  filter: brightness(0) saturate(100%) invert(77%) sepia(18%) saturate(6956%)
+    hue-rotate(81deg) brightness(96%) contrast(118%);
+}

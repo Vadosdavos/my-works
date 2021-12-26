@@ -9,7 +9,7 @@ let VAD_AUDIO = false;
 export class Settings extends BaseComponent {
   private soundButton = new BaseComponent('button', ['sound-button']);
 
-  private snowButton = new BaseComponent('button', ['snow-button']);
+  public snowButton = new BaseComponent('button', ['snow-button']);
 
   private buttonsContainer = new BaseComponent('div', ['buttons-container']);
 
@@ -138,5 +138,22 @@ export class Settings extends BaseComponent {
         song.pause();
       }
     });
+  }
+
+  public createSnowfall(target: HTMLElement): void {
+    const removeTime = 5000;
+    const animationConst = 3;
+    const animationDur = 2;
+    const fontConst = 10;
+    const flake = new BaseComponent('i', ['fas', 'fa-snowflake']);
+    flake.element.style.left = Math.random() * target.clientWidth + 'px';
+    flake.element.style.animationDuration =
+      Math.random() * animationConst + animationDur + 's';
+    flake.element.style.opacity = Math.random() + '';
+    flake.element.style.fontSize = Math.random() * fontConst + fontConst + 'px';
+    target.appendChild(flake.element);
+    setTimeout(() => {
+      flake.element.remove();
+    }, removeTime);
   }
 }
