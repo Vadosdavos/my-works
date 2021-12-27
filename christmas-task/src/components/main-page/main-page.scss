@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .main-page {
   display: flex;
   flex-direction: column;
@@ -18,12 +20,12 @@
 .start-button {
   background: radial-gradient(
     118.88% 606.86% at 0% 0%,
-    rgba(36, 197, 219, 0.15) 0%,
-    rgba(36, 197, 219, 0) 100%
+    $blockBgColor 0%,
+    $transparent 100%
   );
   backdrop-filter: blur(31px);
   border-radius: 30px;
-  border: 2px solid #24c6db;
+  border: 2px solid $ribbonColor;
 }
 .start-button {
   margin-top: 70px;
@@ -38,7 +40,7 @@
 }
 .start-button:hover {
   outline-offset: 20px;
-  outline: 1px solid rgba(255, 255, 255, 0);
+  outline: 1px solid $transparent;
   transition: 0.5s;
 }
 .start-button:active {

@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .toys-page {
   max-width: 1600px;
   width: 85vw;
@@ -21,16 +23,16 @@
 .marked {
   transition: 0.5s;
   .ribbon {
-    background-color: #cbb77a;
+    background-color: $ribbonMarkedColor;
   }
   .ribbon::after {
-    border-left-color: #cbb77a;
+    border-left-color: $ribbonMarkedColor;
   }
 }
 .book-popup {
   display: none;
   position: fixed;
-  background: rgba(0, 0, 0, 0.8);
+  background: $blackTransparentMore;
   box-shadow: 0 0 5px black;
   padding: 3px 6px;
   color: white;

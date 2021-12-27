@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .range-container {
   display: flex;
   flex-wrap: wrap;
@@ -21,11 +23,11 @@
   height: 40px;
   backdrop-filter: blur(6px);
   border-radius: 20px;
-  border: 1px solid #278d9f;
+  border: 1px solid $buttonBorder;
 }
 .noUi-horizontal .noUi-handle {
   border-radius: 50%;
-  background-color: #24c5db;
+  background-color: $ribbonColor;
   width: 28px;
   cursor: pointer;
 }

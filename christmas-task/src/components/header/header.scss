@@ -1,5 +1,4 @@
-$bgColor: #192f2d;
-$linksHoverColor: #24c6db;
+@import "../../variables.scss";
 
 .main-header {
   background-color: $bgColor;
@@ -38,7 +37,7 @@ $linksHoverColor: #24c6db;
 .toys-button:hover,
 .tree-button:hover {
   transition: 0.5s;
-  color: $linksHoverColor;
+  color: $ribbonColor;
 }
 .toys-button:active,
 .tree-button:active,
@@ -52,6 +51,6 @@ $linksHoverColor: #24c6db;
   bottom: -5px;
   left: 0;
   width: 100%;
-  border-bottom: 3px solid $linksHoverColor;
+  border-bottom: 3px solid $ribbonColor;
   transition: 0.5s;
 }

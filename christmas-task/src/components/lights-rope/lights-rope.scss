@@ -1,8 +1,4 @@
-$globe-width: 6px;
-$globe-height: 6px;
-$globe-spacing: 12px;
-$globe-spread: 2px;
-$light-off-opacity: 0.4;
+@import "../../variables.scss";
 
 .lights-rope {
   white-space: nowrap;
@@ -29,19 +25,19 @@ $light-off-opacity: 0.4;
     border-radius: 50%;
     margin: calc($globe-spacing/2);
     display: inline-block;
-    animation-name: blue;
+    animation-name: blue-anim;
     animation-duration: 2s;
     &.red {
-      animation-name: red;
+      animation-name: red-anim;
     }
     &.yellow {
-      animation-name: yellow;
+      animation-name: yellow-anim;
     }
     &.blue {
-      animation-name: blue;
+      animation-name: blue-anim;
     }
     &.deeppink {
-      animation-name: deeppink;
+      animation-name: deeppink-anim;
     }
     &:nth-child(2n + 1) {
       animation-duration: 0.4s;
@@ -56,60 +52,60 @@ $light-off-opacity: 0.4;
       animation-duration: 1.4s;
     }
     &.multi:nth-child(1n + 1) {
-      animation-name: red;
+      animation-name: red-anim;
     }
     &.multi:nth-child(2n + 1) {
-      animation-name: yellow;
+      animation-name: yellow-anim;
     }
     &.multi:nth-child(3n + 1) {
-      animation-name: blue;
+      animation-name: blue-anim;
     }
     &.multi:nth-child(4n + 1) {
-      animation-name: deeppink;
+      animation-name: deeppink-anim;
     }
   }
 }
-@keyframes red {
+@keyframes red-anim {
   0%,
   100% {
     background: red;
     box-shadow: 0px 2px 12px 2px red;
   }
   50% {
-    background: rgba(247, 0, 118, 0.4);
-    box-shadow: 0px 2px 12px 2px rgba(247, 0, 118, 0.2);
+    background: $redLightAnim;
+    box-shadow: 0px 2px 12px 2px $redLightAnimSmall;
   }
 }
-@keyframes yellow {
+@keyframes yellow-anim {
   0%,
   100% {
     background: yellow;
     box-shadow: 0px 2px 12px 2px yellow;
   }
   50% {
-    background: rgba(255, 255, 0, 0.4);
-    box-shadow: 0px 2px 12px 2px rgba(255, 255, 0, 0.2);
+    background: $yellowLightAnim;
+    box-shadow: 0px 2px 12px 2px $yellowLightAnimSmall;
   }
 }
-@keyframes blue {
+@keyframes blue-anim {
   0%,
   100% {
     background: blue;
     box-shadow: 0px 2px 12px 2px blue;
   }
   50% {
-    background: rgba(1, 1, 88, 0.4);
-    box-shadow: 0px 2px 12px 2px rgba(1, 1, 88, 0.4);
+    background: $blueLightAnim;
+    box-shadow: 0px 2px 12px 2px $blueLightAnimSmall;
   }
 }
-@keyframes deeppink {
+@keyframes deeppink-anim {
   0%,
   100% {
     background: deeppink;
     box-shadow: 0px 2px 12px 2px deeppink;
   }
   50% {
-    background: rgba(114, 5, 63, 0.4);
-    box-shadow: 0px 2px 12px 2px rgba(114, 5, 63, 0.4);
+    background: $deeppinkLightAnim;
+    box-shadow: 0px 2px 12px 2px $deeppinkLightAnimSmall;
   }
 }

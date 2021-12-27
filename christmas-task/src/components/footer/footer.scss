@@ -1,4 +1,4 @@
-$bgColor: #192f2d;
+@import "../../variables.scss";
 
 .main-footer {
   background-color: $bgColor;
@@ -25,7 +25,7 @@ $bgColor: #192f2d;
   transition: 0.5s;
 }
 .copyright-item a:hover {
-  color: rgba(255, 255, 255, 0.432);
+  color: $cardBgColor;
   transition: 0.5s;
 }
 .copyright-item a img {

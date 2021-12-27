@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .filters-title {
   text-transform: uppercase;
 }
@@ -52,14 +54,14 @@
     width: 30px;
     height: 30px;
     margin: 15px 10px;
-    border: 1px solid #278d9f;
+    border: 1px solid $buttonBorder;
     border-radius: 5px;
     outline: 0;
     cursor: pointer;
     transition: 0.5s;
   }
   button:hover {
-    border-color: #fff;
+    border-color: white;
   }
   .color-active {
     transition: 0.5s;
@@ -73,7 +75,7 @@
     left: 9px;
     width: 6px;
     height: 10px;
-    border: solid #000;
+    border: solid black;
     border-width: 0 4px 4px 0;
     transform: rotate(45deg);
   }
@@ -135,7 +137,7 @@
   width: 30px;
   height: 30px;
   backdrop-filter: blur(6px);
-  border: 1px solid #278d9f;
+  border: 1px solid $buttonBorder;
   border-radius: 5px;
   padding: 0;
   margin: 0;
@@ -144,7 +146,7 @@
   transition: 0.5s;
 }
 .input-label:hover {
-  background-color: #278d9f;
+  background-color: $buttonBorder;
 }
 .favorite-filter:checked + .input-label::before {
   content: "";
@@ -154,7 +156,7 @@
   left: 9px;
   width: 6px;
   height: 10px;
-  border: solid #fff;
+  border: solid white;
   border-width: 0 4px 4px 0;
   transform: rotate(45deg);
 }

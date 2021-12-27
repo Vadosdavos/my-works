@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .search-container {
   display: flex;
   align-items: center;
@@ -10,10 +12,10 @@
   margin: 10px 0;
   margin-right: 30px;
   border-radius: 20px;
-  border: 1px solid #278d9f;
-  color: #fff;
+  border: 1px solid $buttonBorder;
+  color: white;
   font: inherit;
-  background-color: rgba(31, 112, 127, 0.3);
+  background-color: $blockBgColor;
   background-image: url(../../assets/svg/search.svg);
   background-size: 20px;
   background-repeat: no-repeat;
@@ -50,37 +52,37 @@
   padding: 5px 25px;
   margin: 10px 0;
   margin-bottom: 60px;
-  background-color: rgba(31, 112, 127, 0.3);
+  background-color: $blockBgColor;
   background-image: url(../../assets/svg/arrow-down.svg);
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: 97% center;
   backdrop-filter: blur(6px);
   border-radius: 20px;
-  border: 1px solid #278d9f;
+  border: 1px solid $buttonBorder;
   font-size: 1.1rem;
   line-height: 28px;
-  color: #fff;
+  color: white;
   cursor: pointer;
   transition: 0.5s;
   option {
     color: inherit;
-    background-color: #183e42;
+    background-color: $optionsColor;
   }
 }
 .select-filed:hover {
-  background-color: #278d9f;
+  background-color: $buttonBorder;
 }
 .reset {
   display: inline-block;
   width: 230px;
   height: 40px;
   border-radius: 20px;
-  border: 1px solid #278d9f;
-  background-color: rgba(31, 112, 127, 0.3);
+  border: 1px solid $buttonBorder;
+  background-color: $blockBgColor;
   backdrop-filter: blur(6px);
   cursor: pointer;
-  color: #fff;
+  color: white;
   font: inherit;
   font-size: 1.2rem;
   font-weight: 400;
@@ -92,7 +94,7 @@
 }
 .reset:hover {
   outline-offset: 10px;
-  outline: 1px solid rgba(255, 255, 255, 0);
+  outline: 1px solid $transparent;
   transition: 0.5s;
 }
 .reset:active {
