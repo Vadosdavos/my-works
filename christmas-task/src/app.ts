@@ -5,15 +5,15 @@ import { ToysPage } from './components/toys-page/toys-page';
 import { TreePage } from './components/tree-page/tree-page';
 
 export class App {
-  header = new Header();
+  private header = new Header();
 
-  mainPage = new MainPage();
+  private mainPage = new MainPage();
 
-  footer = new Footer();
+  private footer = new Footer();
 
-  toysPage = new ToysPage();
+  private toysPage = new ToysPage();
 
-  treePage = new TreePage();
+  private treePage = new TreePage();
 
   constructor(private readonly rootElement: HTMLElement) {
     this.rootElement.append(
