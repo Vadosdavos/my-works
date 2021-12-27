@@ -56,12 +56,10 @@ export class Settings extends BaseComponent {
       this.snowButton.element,
       this.clearTreeSettingsButton.element,
     );
-    this.clearTreeSettingsButton.element.addEventListener('click', () => {
-      localStorage.removeItem('vad-tree');
-      localStorage.removeItem('vad-settings');
-      localStorage.removeItem('vad-snow');
-      localStorage.removeItem('vad-bg');
-    });
+    this.clearTreeSettingsButton.element.addEventListener(
+      'click',
+      this.clearTreeStorage,
+    );
     this.renderSettingsCards('tree', TREE_TYPE_NUM, this.treeTypeContainer);
     this.renderSettingsCards('bg', BG_TYPE_NUM, this.bgTypeContainer);
     this.renderLightsTypes();
@@ -168,5 +166,12 @@ export class Settings extends BaseComponent {
     setTimeout(() => {
       flake.element.remove();
     }, removeTime);
+  }
+
+  private clearTreeStorage(): void {
+    localStorage.removeItem('vad-tree');
+    localStorage.removeItem('vad-snow');
+    localStorage.removeItem('vad-bg');
+    localStorage.removeItem('vad-audio');
   }
 }
