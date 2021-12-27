@@ -4,15 +4,15 @@
   display: flex;
   justify-content: center;
   max-width: 1600px;
-  width: 85vw;
+  width: $basePageWidth;
 }
 .tree-container {
-  width: calc(85vw / 2);
+  width: calc($basePageWidth / 2);
   min-height: calc(100vh - 140px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: 'url(bg-1.jpg)';
+  background-image: "url(bg-1.jpg)";
   background-color: $blackTransparent;
   background-position: center;
   background-size: cover;
@@ -23,7 +23,7 @@
   height: 714px;
 }
 .bookmarks-container {
-  width: calc(85vw / 4);
+  width: calc($basePageWidth / 4);
   min-height: calc(100vh - 140px);
   overflow: hidden;
   display: flex;
@@ -66,7 +66,7 @@
   display: flex;
   justify-content: center;
   height: calc(100vh - 140px);
-  width: calc(85vw / 2);
+  width: calc($basePageWidth / 2);
   position: absolute;
   top: 70px;
   pointer-events: none;
@@ -75,7 +75,7 @@
 }
 .snow-container {
   min-height: calc(100vh - 140px);
-  width: calc(85vw / 2 - 16px);
+  width: calc($basePageWidth / 2 - 16px);
   position: absolute;
   pointer-events: none;
   z-index: 100;
@@ -91,5 +91,58 @@
 @keyframes fall {
   to {
     transform: translateY(105vh);
+  }
+}
+
+@media (max-width: 1600px) {
+  $basePageWidthPlus: calc($basePageWidth + 10vw);
+  .tree-page {
+    width: $basePageWidthPlus;
+  }
+  .tree-container {
+    width: calc($basePageWidthPlus / 2);
+  }
+  .bookmarks-container {
+    width: calc($basePageWidthPlus / 4);
+  }
+  .tree-lights-container {
+    width: calc($basePageWidthPlus / 2);
+  }
+  .snow-container {
+    width: calc($basePageWidthPlus / 2 - 16px);
+    min-height: 714px;
+  }
+}
+@media (max-width: 1350px) {
+  $basePageWidthPlus: calc($basePageWidth + 10vw);
+  .tree-page {
+    flex-wrap: wrap;
+  }
+  .tree-container {
+    order: 2;
+    width: $basePageWidth;
+    margin-bottom: 20px;
+  }
+  .bookmarks-container {
+    width: $basePageWidthPlus;
+    min-height: inherit;
+    justify-content: center;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+  .snow-container {
+    width: $basePageWidth;
+    min-height: 714px;
+  }
+  .tree-lights-container {
+    height: 730px;
+    width: $basePageWidth;
+    top: 65vh;
+  }
+}
+@media (max-width: 1010px) {
+  .tree-lights-container {
+    top: 75vh;
   }
 }

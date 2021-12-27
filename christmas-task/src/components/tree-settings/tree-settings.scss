@@ -189,3 +189,61 @@
   filter: brightness(0) saturate(100%) invert(77%) sepia(18%) saturate(6956%)
     hue-rotate(81deg) brightness(96%) contrast(118%);
 }
+
+@media (max-width: 1600px) {
+  .buttons-container .sound-button {
+    margin-right: 10px;
+  }
+  .buttons-container .snow-button {
+    margin-right: 10px;
+  }
+  .lights-container {
+    padding-bottom: 10px;
+  }
+}
+@media (max-width: 1350px) {
+  $basePageWidthPlus: calc($basePageWidth + 10vw);
+  .tree-settings {
+    width: $basePageWidthPlus;
+    min-height: 100px;
+    flex-direction: row;
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+  .buttons-container {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .tree-type-container,
+  .background-type-container {
+    position: relative;
+    padding-right: 0;
+    align-content: flex-start;
+  }
+  .tree-type-container {
+    min-width: 320px;
+  }
+  .lights-container,
+  .lights-type-container {
+    min-width: 80px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .lights-container::before {
+    top: -25px;
+  }
+  .lights-off-container {
+    margin-left: 0;
+  }
+  .buttons-container button.reset {
+    font-size: 0;
+    width: 40px;
+    border-radius: 50%;
+    background-image: url(../../assets/svg/reset.svg);
+    background-size: 30px 31px;
+    background-position: center;
+  }
+  .bg-type:last-child {
+    display: none;
+  }
+}
