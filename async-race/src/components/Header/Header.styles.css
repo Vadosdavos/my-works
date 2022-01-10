@@ -1,0 +1,12 @@
+.headerButton {
+  text-transform: uppercase;
+  color: blue;
+  background-color: aqua;
+  margin-right: 20px;
+  padding: 5px;
+}
+
+.mainHeader {
+  min-height: 5vh;
+  padding: 10px;
+}

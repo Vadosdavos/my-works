@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: gray;
+  color: white;
+}
+
+main {
+  padding: 40px 5%;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
