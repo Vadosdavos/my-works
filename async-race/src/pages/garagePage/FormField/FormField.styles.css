@@ -1,0 +1,14 @@
+.formField {
+  display: flex;
+  align-content: center;
+  column-gap: 20px;
+}
+.textInput {
+  font-weight: bold;
+}
+.create {
+  background-color: aquamarine;
+}
+.subButton {
+  width: 60px;
+}

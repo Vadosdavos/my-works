@@ -9,5 +9,6 @@ main {
   padding: 40px 5%;
   display: flex;
   gap: 40px;
+  flex-direction: column;
   align-items: flex-start;
 }
