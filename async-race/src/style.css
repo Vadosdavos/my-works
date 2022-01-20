@@ -1,14 +1,21 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: gray;
+  background-color: black;
   color: white;
 }
 
 main {
   padding: 40px 5%;
+  padding-right: 0;
   display: flex;
   gap: 40px;
   flex-direction: column;
   align-items: flex-start;
+}
+
+button {
+  background-color: powderblue;
+  border-radius: 7px;
+  text-transform: uppercase;
 }

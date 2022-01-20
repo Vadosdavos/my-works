@@ -1,5 +1,14 @@
 .controls {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 20px;
+  width: 344px;
+}
+
+.controlsBtn {
+  width: 82px;
+}
+
+.controlsBtn:last-child {
+  width: 140px;
 }

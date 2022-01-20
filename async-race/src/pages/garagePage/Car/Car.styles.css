@@ -1,0 +1,62 @@
+.carContainer {
+  display: grid;
+  grid-template-areas:
+    'select remove name road'
+    'start stop car road';
+  gap: 10px;
+  border-bottom: 3px dashed white;
+}
+
+.selectBtn {
+  grid-area: select;
+}
+
+.removeBtn {
+  grid-area: remove;
+}
+
+.name {
+  grid-area: name;
+}
+.startBtn,
+.stopBtn {
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.startBtn {
+  grid-area: start;
+  color: yellowgreen;
+  border-color: yellowgreen;
+}
+
+.stopBtn {
+  grid-area: stop;
+  color: red;
+  border-color: red;
+}
+
+.inactiveBtn {
+  filter: grayscale(100);
+}
+
+.car {
+  grid-area: car;
+  justify-self: end;
+}
+.car svg {
+  display: block;
+  width: 80px;
+  height: 40px;
+}
+
+.road {
+  grid-area: road;
+  width: 80vw;
+  background-image: url(../../../assets/image/flag.png);
+  background-size: 60px 60px;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
