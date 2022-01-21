@@ -1,50 +1,43 @@
 .carContainer {
-  display: grid;
-  grid-template-areas:
-    'select remove name road'
-    'start stop car road';
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
   border-bottom: 3px dashed white;
 }
 
-.selectBtn {
-  grid-area: select;
+.controls,
+.road {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
 
-.removeBtn {
-  grid-area: remove;
-}
-
-.name {
-  grid-area: name;
-}
 .startBtn,
 .stopBtn {
   background-color: transparent;
   width: 30px;
   height: 30px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .startBtn {
-  grid-area: start;
   color: yellowgreen;
   border-color: yellowgreen;
 }
 
 .stopBtn {
-  grid-area: stop;
   color: red;
   border-color: red;
 }
 
 .inactiveBtn {
   filter: grayscale(100);
+  cursor: not-allowed;
 }
 
 .car {
-  grid-area: car;
-  justify-self: end;
+  margin-left: 5px;
 }
 .car svg {
   display: block;
@@ -53,10 +46,9 @@
 }
 
 .road {
-  grid-area: road;
-  width: 80vw;
+  width: 90vw;
   background-image: url(../../../assets/image/flag.png);
-  background-size: 60px 60px;
+  background-size: 40px 40px;
   background-repeat: no-repeat;
   background-position: right bottom;
 }
