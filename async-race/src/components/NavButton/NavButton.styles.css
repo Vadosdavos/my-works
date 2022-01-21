@@ -3,4 +3,8 @@
   background-color: mediumturquoise;
   margin-right: 20px;
   padding: 5px;
+  border-radius: 7px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
 }

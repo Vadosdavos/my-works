@@ -1,0 +1,6 @@
+.winners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 344px;
+}

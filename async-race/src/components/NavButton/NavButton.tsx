@@ -1,17 +1,15 @@
 import styles from './NavButton.styles.css';
+import { Link } from 'react-router-dom';
 
 type NavButtonProps = {
   title: string;
+  path: string;
 };
 
-export const NavButton = ({ title }: NavButtonProps): JSX.Element => {
-  const handleClick = (e: React.SyntheticEvent): void => {
-    console.log(e.currentTarget.textContent);
-  };
-
+export const NavButton = ({ title, path }: NavButtonProps): JSX.Element => {
   return (
-    <button className={styles.headerButton} onClick={handleClick}>
+    <Link className={styles.headerButton} to={path}>
       {title}
-    </button>
+    </Link>
   );
 };
