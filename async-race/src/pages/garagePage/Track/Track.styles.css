@@ -1,0 +1,45 @@
+.carContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  border-bottom: 3px dashed white;
+}
+
+.controls,
+.road {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.startBtn,
+.stopBtn {
+  background-color: transparent;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.startBtn {
+  color: yellowgreen;
+  border-color: yellowgreen;
+}
+
+.stopBtn {
+  color: red;
+  border-color: red;
+}
+
+.inactiveBtn {
+  filter: grayscale(100);
+  cursor: not-allowed;
+}
+
+.road {
+  width: 90vw;
+  background-image: url(../../../assets/image/flag.png);
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}

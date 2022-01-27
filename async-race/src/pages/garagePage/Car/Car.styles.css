@@ -1,0 +1,8 @@
+.car {
+  margin-left: 5px;
+}
+.car svg {
+  display: block;
+  width: 80px;
+  height: 40px;
+}
